@@ -1,26 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route } from 'react-router-dom';
+import IntroducePage from './pages/IntroducePage';
+import JoinPage from './pages/JoinPage';
+import mainPage from './pages/mainPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+  return(
+    <>
+      <Route component={mainPage} path="/" exact />
+      <Route component={IntroducePage} path="/introduce/:postId" />
+      <Route component={JoinPage} path="/join" />
+    </>
+  )
 }
 
 export default App;
