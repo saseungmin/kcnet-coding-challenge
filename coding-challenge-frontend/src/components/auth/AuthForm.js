@@ -19,9 +19,11 @@ const StyledInput = styled.input`
   padding-bottom: 0.5rem;
   outline: none;
   width: 100%;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   &:focus {
     color: ${palette.gray[6]};
     border-bottom: 1px solid ${palette.Teal[7]};
+    box-shadow: 0 6px 6px rgba(0,0,0,0.23);
   }
   & {
     margin-top: 1rem;
