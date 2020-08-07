@@ -23,7 +23,7 @@ const ButtonBlock = css`
     css`
       padding-top: 0.75rem;
       padding-bottom: 0.75rem;
-      width: 100%;
+      width: 93.5%;
       font-size: 1.125rem;
     `}
 
@@ -38,18 +38,18 @@ const ButtonBlock = css`
 `;
 
 const StyledButton = styled.button`
-    ${ButtonBlock}
-`
+  ${ButtonBlock}
+`;
 const StyledLink = styled(Link)`
   ${ButtonBlock}
 `;
 
 const Button = (props) => {
-    return props.to ? (
-      <StyledLink {...props} cyan={props.cyan ? 1 : 0} />
-    ) : (
-      <StyledButton {...props} />
-    );
-  };
+  return props.to ? (
+    <StyledLink {...props} cyan={props.cyan ? 1 : 0} />
+  ) : (
+    <StyledButton {...props} />
+  );
+};
 
 export default Button;

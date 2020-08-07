@@ -20,6 +20,8 @@ const Wrapper = styled(Responsive)`
     font-size: 1.125rem;
     font-weight: 800;
     letter-spacing: 2px;
+    font-size: 30px;
+    font-family: 'Cute Font', cursive;
   }
   .right {
     display: flex;
@@ -40,7 +42,7 @@ const Header = () => {
             KCNET 코딩 챌린지
           </Link>
           <div className="right">
-            <Button>로그인</Button>
+            <Button to="/login">로그인</Button>
           </div>
         </Wrapper>
       </HeaderBlock>
