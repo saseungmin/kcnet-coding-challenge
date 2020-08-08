@@ -1,0 +1,17 @@
+{
+  "name": "coding-challenge-backend",
+  "version": "0.0.1",
+  "description": "coding-challenge-backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "saseungmin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "json-server": "^0.16.1"
+  }
+}
