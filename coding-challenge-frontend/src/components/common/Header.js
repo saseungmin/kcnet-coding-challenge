@@ -12,7 +12,7 @@ const HeaderBlock = styled.div`
 `;
 
 const Wrapper = styled(Responsive)`
-  height: 4rem;
+  height: 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,10 +30,16 @@ const Wrapper = styled(Responsive)`
 `;
 
 const Spacer = styled.div`
-  height: 4rem;
+  height: 5rem;
 `;
 
-const Header = () => {
+const UserInfo = styled.div`
+  font-weight: 500;
+  margin-right: 1rem;
+  font-family: 'Do Hyeon', sans-serif;
+`;
+
+const Header = ({ user, onLogout }) => {
   return (
     <>
       <HeaderBlock>
@@ -41,9 +47,16 @@ const Header = () => {
           <Link to="/" className="logo">
             KCNET 코딩 챌린지
           </Link>
-          <div className="right">
-            <Button to="/login">로그인</Button>
-          </div>
+          {user ? (
+            <div className="right">
+              <UserInfo>{user.userid}{`(${user.username})`}</UserInfo>
+              <Button onClick={onLogout}>로그아웃</Button>
+            </div>
+          ) : (
+            <div className="right">
+              <Button to="/login">로그인</Button>
+            </div>
+          )}
         </Wrapper>
       </HeaderBlock>
       <Spacer />
