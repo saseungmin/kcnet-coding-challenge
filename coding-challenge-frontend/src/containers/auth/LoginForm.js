@@ -48,7 +48,7 @@ const LoginForm = ({ history }) => {
       setError('비밀번호 혹은 아이디를 확인해주세요.');
     }
     if (auth) {
-      dispatch(tempSetUser(auth[0]));
+      dispatch(tempSetUser(auth));
     }
   }, [authError, auth, dispatch]);
 

@@ -17,7 +17,6 @@ const Wrapper = styled(Responsive)`
   align-items: center;
   justify-content: space-between;
   .logo {
-    font-size: 1.125rem;
     font-weight: 800;
     letter-spacing: 2px;
     font-size: 30px;

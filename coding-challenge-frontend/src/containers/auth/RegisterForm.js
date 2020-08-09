@@ -54,7 +54,8 @@ const RegisterForm = ({ history }) => {
     }
     if (auth) {
       console.log('가입 성공');
-      dispatch(tempSetUser(auth[0]));
+      console.log(auth);
+      dispatch(tempSetUser(auth));
     }
   }, [authError, auth, dispatch]);
 

@@ -13,7 +13,7 @@ router.render = (req, res) => {
       error: "Not Found"
     })
   }else{
-    res.jsonp(res.locals.data);
+    res.jsonp(res.locals.data[0]);
   }
 }
 
