@@ -16,7 +16,7 @@ const ApplyButtonWrapper = styled.div`
 `;
 
 const ApplyItemBlock = styled.div`
-  padding-top: 3rem;
+  padding-top: 2rem;
   &:first-child {
     padding-top: 0;
   }
@@ -125,7 +125,7 @@ const ApplyList = () => {
   return (
     <ApplyListBlock>
       <ApplyButtonWrapper>
-        <Button teal>코딩 챌린지 등록</Button>
+        <Button to="/write">코딩 챌린지 등록</Button>
       </ApplyButtonWrapper>
       <ApplyItem />
       <ApplyItem />

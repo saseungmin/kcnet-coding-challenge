@@ -1,17 +1,19 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import IntroducePage from './pages/IntroducePage';
-import mainPage from './pages/mainPage';
+import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import PostRegister from './pages/PostRegister';
 
 const App = () => {
   return(
     <>
-      <Route component={mainPage} path="/" exact />
+      <Route component={MainPage} path="/" exact />
       <Route component={IntroducePage} path="/introduce/:postId" />
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />
+      <Route component={PostRegister} path="/Write" />
     </>
   )
 }

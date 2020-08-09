@@ -56,7 +56,7 @@ const Button = (props) => {
   return props.to ? (
     <StyledLink {...props} cyan={props.cyan ? 1 : 0} teal={props.Teal ? 1 : 0}/>
   ) : (
-    <StyledButton {...props} />
+    <StyledButton {...props}/>
   );
 };
 
