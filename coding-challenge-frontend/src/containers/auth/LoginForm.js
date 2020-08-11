@@ -3,7 +3,7 @@ import AuthForm from '../../components/auth/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, login } from '../../modules/auth';
 import { withRouter } from 'react-router-dom';
-import { tempSetUser } from 'src/modules/user';
+import { check } from 'src/modules/user';
 
 const LoginForm = ({ history }) => {
   const [error, setError] = useState(null);
@@ -45,10 +45,11 @@ const LoginForm = ({ history }) => {
     if (authError) {
       console.log('error');
       console.log(authError);
-      setError('비밀번호 혹은 아이디를 확인해주세요.');
+      setError('로그인 실패');
+      return;
     }
     if (auth) {
-      dispatch(tempSetUser(auth));
+      dispatch(check());
     }
   }, [authError, auth, dispatch]);
 

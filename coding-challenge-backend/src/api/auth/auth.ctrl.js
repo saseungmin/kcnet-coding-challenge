@@ -10,7 +10,6 @@ export const register = async (ctx) => {
     apikey: Joi.string().required().messages({
       "string.empty": "apikey를 입력해주세요.",
     }),
-    userstatus: Joi.string().required(),
   });
 
   const result = schema.validate(ctx.request.body);

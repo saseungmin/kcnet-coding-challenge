@@ -91,6 +91,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           value={form.password}
         />
         {type === 'register' && (
+          <>
           <StyledInput
             autoComplete="new-password"
             name="passwordConfirm"
@@ -99,6 +100,13 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             onChange={onChange}
             value={form.passwordConfirm}
           />
+          <StyledInput
+          name="apikey"
+          placeholder="API Key 입력"
+          onChange={onChange}
+          value={form.apikey}
+        />
+        </>
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>

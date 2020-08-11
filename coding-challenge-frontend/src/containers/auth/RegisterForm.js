@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import AuthForm from '../../components/auth/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, register } from '../../modules/auth';
-import { tempSetUser } from 'src/modules/user';
 import { withRouter } from 'react-router-dom';
+import { check } from '../../modules/user';
 
 const RegisterForm = ({ history }) => {
   const [error, setError] = useState(null);
@@ -28,18 +28,20 @@ const RegisterForm = ({ history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const { userid, username, password, passwordConfirm, userstatus } = form;
-    if([userid, username, password, passwordConfirm].includes('')){
+    const { userid, username, password, passwordConfirm, apikey } = form;
+    if ([userid, username, password, passwordConfirm, apikey].includes('')) {
       setError('빈 칸을 모두 입력하세요.');
       return;
     }
     if (password !== passwordConfirm) {
       setError('비밀번호가 일치하지 않습니다.');
-      dispatch(changeField({form:'register', key:'password', value:''}));
-      dispatch(changeField({form:'register', key:'passwordConfirm', value:''}));
+      dispatch(changeField({ form: 'register', key: 'password', value: '' }));
+      dispatch(
+        changeField({ form: 'register', key: 'passwordConfirm', value: '' }),
+      );
       return;
     }
-    dispatch(register({ userid, username, password, userstatus }));
+    dispatch(register({ userid, username, password, apikey }));
   };
 
   // 맨 처음 랜러링
@@ -49,16 +51,21 @@ const RegisterForm = ({ history }) => {
 
   useEffect(() => {
     if (authError) {
-      console.log('error');
-      console.log(authError);
+      if(authError.response.status === 409){
+        setError('이미 존재하는 계정명입니다.');
+        return;
+      }
+      setError('회원가입 실패');
+      return;
     }
     if (auth) {
       console.log('가입 성공');
       console.log(auth);
-      dispatch(tempSetUser(auth));
+      dispatch(check());
     }
   }, [authError, auth, dispatch]);
 
+  
   useEffect(() => {
     if (user) {
       console.log('가입 완료');

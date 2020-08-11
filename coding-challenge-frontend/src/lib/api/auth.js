@@ -1,11 +1,16 @@
 import client from './client';
 
 export const login = ({ userid, password }) =>
-  client.get(`/users?userid=${userid}&password=${password}`);
+  client.post('/api/auth/login', {userid, password});
 
-export const register = ({ userid, password, username, userstatus }) =>
-  client.post('/users', { userid, password, username, userstatus });
+export const register = ({ userid, password, username, apikey }) =>
+  client.post('/api/auth/register', {
+    userid,
+    password,
+    username,
+    apikey,
+  });
 
-export const check = () => client.get('/user');
+export const check = () => client.get('/api/auth/check');
 
-export const logout = () => client.post('/logout');
+export const logout = () => client.post('/api/auth/logout');

@@ -22,7 +22,7 @@ const UserSchema = new Schema({
   },
   userstatus: {
     type: String,
-    required: true,
+    default: 'member',
   },
   createdAt: {
     type: Date,

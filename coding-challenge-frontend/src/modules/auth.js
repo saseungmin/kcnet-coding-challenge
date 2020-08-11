@@ -31,11 +31,11 @@ export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
 export const register = createAction(
   REGISTER,
-  ({ userid, username, password, userstatus }) => ({
+  ({ userid, username, password, apikey }) => ({
     userid,
     username,
     password,
-    userstatus,
+    apikey,
   }),
 );
 
@@ -59,6 +59,7 @@ const initialState = {
     username: '',
     password: '',
     passwordConfirm: '',
+    apikey: '',
     userstatus: 'member',
   },
   login: {
