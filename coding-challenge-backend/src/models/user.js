@@ -1,11 +1,33 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
 
 const UserSchema = new Schema({
-  userid: String,
-  username: String,
-  hashedPassword: String,
-  apikey: String,
+  userid: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  hashedPassword: {
+    type: String,
+    required: true,
+  },
+  apikey: {
+    type: String,
+    required: true,
+  },
+  userstatus: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // function 사용
@@ -32,6 +54,21 @@ UserSchema.methods.serialize = function () {
   delete data.hashedPassword;
   return data;
 };
+
+// 토큰 발급
+UserSchema.methods.generateToken = function(){
+  const token = jwt.sign(
+    {
+      _id: this.id,
+      userid: this.userid,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '7d',
+    }
+  )
+  return token;
+}
 
 const User = mongoose.model("User", UserSchema);
 export default User;
