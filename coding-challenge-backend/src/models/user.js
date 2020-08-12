@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const UserSchema = new Schema({
   userid: {
@@ -22,7 +22,7 @@ const UserSchema = new Schema({
   },
   userstatus: {
     type: String,
-    default: 'member',
+    default: "member",
   },
   createdAt: {
     type: Date,
@@ -56,19 +56,21 @@ UserSchema.methods.serialize = function () {
 };
 
 // 토큰 발급
-UserSchema.methods.generateToken = function(){
+UserSchema.methods.generateToken = function () {
   const token = jwt.sign(
     {
       _id: this.id,
       userid: this.userid,
+      username: this.username,
+      userstatus: this.userstatus,
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: '7d',
+      expiresIn: "7d",
     }
-  )
+  );
   return token;
-}
+};
 
 const User = mongoose.model("User", UserSchema);
 export default User;

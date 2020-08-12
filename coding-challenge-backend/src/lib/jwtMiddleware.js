@@ -10,6 +10,8 @@ const jwtMiddleware = async (ctx, next) => {
     ctx.state.user = {
       _id: decoded._id,
       userid: decoded.userid,
+      username: decoded.username,
+      userstatus: decoded.userstatus,
     };
 
     // {

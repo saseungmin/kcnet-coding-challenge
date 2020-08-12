@@ -32,8 +32,27 @@ const StyledInput = styled.input`
   & {
     margin-top: 1rem;
   }
-  input:checkbox {
+  &:checkbox {
     width: 0;
+  }
+`;
+
+const StyledDate = styled.input`
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid ${palette.Teal[5]};
+  padding-bottom: 0.5rem;
+  outline: none;
+  width: 45%;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:focus {
+    color: ${palette.gray[6]};
+    border-bottom: 1px solid ${palette.Teal[7]};
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+  & {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -61,33 +80,51 @@ const StyledLabel = styled.label`
   cursor: pointer;
 `;
 
-const PostRegisterForm = () => {
-  const [localTags, setLocalTags] = useState([]);
+const PostRegisterForm = ({onChangeField, applystartday,applyendday,teststartday,testendday,content,title,langs}) => {
+  const [selectLangs, setSelectLangs] = useState([]);
+  const [input, setInput] = useState('');
 
   const onChange = useCallback((e) => {
     const { value, name, checked } = e.target;
     if (name === 'lang' && checked) {
-      if (localTags.includes(value)) return;
-      const nextTags = [...localTags, value];
-      setLocalTags(nextTags);
+      if (selectLangs.includes(value)) return;
+      const nextTags = [...selectLangs, value];
+      setSelectLangs(nextTags);
     } else if (name === 'lang' && !checked) {
-      const nextTags = localTags.filter((t) => t !== value);
-      setLocalTags(nextTags);
+      const nextTags = selectLangs.filter((t) => t !== value);
+      setSelectLangs(nextTags);
     }else{
         console.log(value, name);
     }
-  }, [localTags]);
+  }, [selectLangs]);
 
-  console.log(localTags);
+
+  const onChangeLangs = useCallback((e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      if (selectLangs.includes(value)) return;
+      const nextTags = [...selectLangs, value];
+      setSelectLangs(nextTags);
+    } else if (!checked) {
+      const nextTags = selectLangs.filter((t) => t !== value);
+      setSelectLangs(nextTags);
+    }
+    onChangeField({key:'langs', value: selectLangs})
+  },[selectLangs]);
+
+  const onChangeee = e => {
+
+    onChangeField({key:'applystartday', value: e.target.value})
+  }
 
   return (
     <WriteFormBlock>
       <h3>코딩 챌린지 등록하기</h3>
       <form>
         <div>접수 기간</div>
-        <input type="date" name="applystart"  onChange={onChange}/> ~ <input type="date" name="applyend" onChange={onChange}/>
+        <StyledDate type="date" name="applystart"  onChange={onChangeee} value={applystartday}/> ~ <StyledDate type="date" name="applyend" onChange={onChange}/>
         <div>대회 기간</div>
-        <input type="date" name="teststart" onChange={onChange}/> ~ <input type="date" name="testend" onChange={onChange}/>
+        <StyledDate type="datetime-local" name="teststart" onChange={onChange}/> ~ <StyledDate type="datetime-local" name="testend" onChange={onChange}/>
         <StyledInput
           name="title"
           placeholder="제목"
@@ -103,29 +140,29 @@ const PostRegisterForm = () => {
         ></StyledTextarea>
         <div>사용 가능 언어</div>
         <StyledLabel>
-          <input type="checkbox" name="lang" value="Java" onChange={onChange} />
+          <input type="checkbox" name="langs" value="Java" onChange={onChangeLangs} />
           Java
         </StyledLabel>
         <StyledLabel>
           <input
             type="checkbox"
-            name="lang"
+            name="langs"
             value="JavaScript"
-            onChange={onChange}
+            onChange={onChangeLangs}
           />
           JavaScript
         </StyledLabel>
         <StyledLabel>
           <input
             type="checkbox"
-            name="lang"
+            name="langs"
             value="Python"
-            onChange={onChange}
+            onChange={onChangeLangs}
           />
           Python
         </StyledLabel>
         <StyledLabel>
-          <input type="checkbox" name="lang" value="C#" onChange={onChange} />
+          <input type="checkbox" name="langs" value="C#" onChange={onChangeLangs} />
           C#
         </StyledLabel>
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>

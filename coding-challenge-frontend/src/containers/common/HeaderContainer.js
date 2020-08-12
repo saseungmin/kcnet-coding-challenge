@@ -8,7 +8,6 @@ const HeaderContainer = () => {
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
-    localStorage.removeItem('user');
   };
   return <Header user={user} onLogout={onLogout} />;
 };

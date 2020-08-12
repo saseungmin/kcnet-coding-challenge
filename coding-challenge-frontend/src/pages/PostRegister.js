@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthTemplate from '../components/auth/AuthTemplate';
-import PostRegisterForm from 'src/components/write/PostRegisterForm';
+import ApplyWriteFrom from 'src/containers/write/ApplyWriteFrom';
 
 const PostRegister = () => {
 
@@ -8,7 +8,7 @@ const PostRegister = () => {
   return (
     <>
       <AuthTemplate>
-        <PostRegisterForm/>
+        <ApplyWriteFrom/>
       </AuthTemplate>
     </>
   );

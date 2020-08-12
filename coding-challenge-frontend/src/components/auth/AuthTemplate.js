@@ -35,15 +35,43 @@ const AuthBox = styled.div`
   border-radius: 2px;
 `;
 
+const RegisterApplyBox = styled.div`
+  .logo-area {
+    display: block;
+    padding-bottom: 2rem;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 30px;
+    font-family: 'Baloo', cursive;
+    &:hover {
+      color: ${palette.gray[6]};
+    }
+  }
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
+  padding: 2rem;
+  width: 500px;
+  background: white;
+  border-radius: 2px;
+`;
+
 const AuthTemplate = ({ children }) => {
   return (
     <AuthTemplateBlock>
-      <AuthBox>
-        <div className="logo-area">
-          <Link to="/">Coding Challenge</Link>
-        </div>
-        {children}
-      </AuthBox>
+      {children.type.name === 'ApplyWriteFrom' ? (
+        <RegisterApplyBox>
+          <div className="logo-area">
+            <Link to="/">Coding Challenge</Link>
+          </div>
+          {children}
+        </RegisterApplyBox>
+      ) : (
+        <AuthBox>
+          <div className="logo-area">
+            <Link to="/">Coding Challenge</Link>
+          </div>
+          {children}
+        </AuthBox>
+      )}
     </AuthTemplateBlock>
   );
 };

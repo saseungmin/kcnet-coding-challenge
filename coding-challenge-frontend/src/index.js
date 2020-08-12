@@ -10,8 +10,7 @@ import rootReducer, { rootSaga } from './modules/index';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { tempSetUser } from './modules/user';
-import { check } from './lib/api/auth';
+import { tempSetUser, check } from './modules/user';
 
 const sagaMiddleware = createSagaMiddleware();
 

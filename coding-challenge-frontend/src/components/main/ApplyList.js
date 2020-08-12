@@ -4,6 +4,7 @@ import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import palette from 'src/lib/styles/palette';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const ApplyListBlock = styled(Responsive)`
   margin-top: 3rem;
@@ -122,10 +123,14 @@ const ApplyItem = () => {
 };
 
 const ApplyList = () => {
+  const { user } = useSelector(({ user }) => ({ user: user.user }));
   return (
     <ApplyListBlock>
       <ApplyButtonWrapper>
-        <Button to="/write">코딩 챌린지 등록</Button>
+        {user && user.userstatus === 'manager' ? (
+          <Button to="/write">코딩 챌린지 등록</Button>
+        ): (null)        
+        }
       </ApplyButtonWrapper>
       <ApplyItem />
       <ApplyItem />

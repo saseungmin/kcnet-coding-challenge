@@ -1,27 +1,50 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeField, initialize } from 'src/modules/write';
+import PostRegisterForm from 'src/components/write/PostRegisterForm';
 
 const ApplyWriteFrom = () => {
-  const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, write, writeError, user } = useSelector(({ write }) => ({
-    form: write.apply,
-    write: write.write,
-    writeError: write.writeError,
+  const {
+    applystartday,
+    applyendday,
+    teststartday,
+    testendday,
+    content,
+    title,
+    langs,
+  } = useSelector(({ write }) => ({
+    applystartday: write.applystartday,
+    applyendday: write.applyendday,
+    teststartday: write.teststartday,
+    testendday: write.testendday,
+    content: write.content,
+    title: write.title,
+    langs: write.langs,
   }));
 
-  const onChange = (e) => {
-    const { value, name } = e.target;
-    dispatch(
-      changeField({
-        form: 'apply',
-        key: name,
-        value,
-      }),
-    );
-  };
+  const onChangeField = useCallback(
+    (payload) => dispatch(changeField(payload)),
+    [dispatch],
+  );
 
-  return <div></div>;
+  useEffect(() => {
+    return () => {
+      dispatch(initialize());
+    };
+  }, [dispatch]);
+  return (
+    <PostRegisterForm
+      onChangeField={onChangeField}
+      applystartday={applystartday}
+      applyendday={applyendday}
+      teststartday={teststartday}
+      testendday={testendday}
+      content={content}
+      title={title}
+      langs={langs}
+    />
+  );
 };
 
 export default ApplyWriteFrom;
