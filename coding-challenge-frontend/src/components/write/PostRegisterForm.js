@@ -105,12 +105,13 @@ const PostRegisterForm = ({onChangeField, applystartday,applyendday,teststartday
       if (selectLangs.includes(value)) return;
       const nextTags = [...selectLangs, value];
       setSelectLangs(nextTags);
+      onChangeField({key:'langs', value: nextTags})
     } else if (!checked) {
       const nextTags = selectLangs.filter((t) => t !== value);
       setSelectLangs(nextTags);
+      onChangeField({key:'langs', value: nextTags})
     }
-    onChangeField({key:'langs', value: selectLangs})
-  },[selectLangs]);
+  },[selectLangs,onChangeField]);
 
   const onChangeee = e => {
 
