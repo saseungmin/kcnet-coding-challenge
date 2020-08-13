@@ -29,16 +29,36 @@ const ApplyWriteFrom = () => {
     [dispatch],
   );
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    if([applystartday,applyendday,teststartday,testendday,title,content].includes('')){
+    if (
+      [
+        applystartday,
+        applyendday,
+        teststartday,
+        testendday,
+        title,
+        content,
+      ].includes('')
+    ) {
       setError('입력이 안된 사항이 존재합니다.');
       return;
-    }else if(langs.length === 0){
+    }
+    if (langs.length === 0) {
       setError('사용 가능 언어를 선택해주세요.');
       return;
     }
-  }
+    const applyStart = new Date(applystartday),
+      applyEnd = new Date(applyendday),
+      testStart = new Date(teststartday),
+      testEnd = new Date(testendday);
+      
+    if ((applyStart - applyEnd >= 0) || (testStart - testEnd >= 0)) {
+      setError('시작 날짜보다 이후의 날짜를 입력해주세요.');
+      return;
+    }
+    setError(null);
+  };
 
   useEffect(() => {
     return () => {
@@ -46,7 +66,13 @@ const ApplyWriteFrom = () => {
     };
   }, [dispatch]);
 
-  return <PostRegisterForm onChangeField={onChangeField} onSubmit={onSubmit} error={error} />;
+  return (
+    <PostRegisterForm
+      onChangeField={onChangeField}
+      onSubmit={onSubmit}
+      error={error}
+    />
+  );
 };
 
 export default ApplyWriteFrom;
