@@ -84,60 +84,42 @@ const PostRegisterForm = ({onChangeField, applystartday,applyendday,teststartday
   const [selectLangs, setSelectLangs] = useState([]);
   const [input, setInput] = useState('');
 
-  const onChange = useCallback((e) => {
-    const { value, name, checked } = e.target;
-    if (name === 'lang' && checked) {
-      if (selectLangs.includes(value)) return;
-      const nextTags = [...selectLangs, value];
-      setSelectLangs(nextTags);
-    } else if (name === 'lang' && !checked) {
-      const nextTags = selectLangs.filter((t) => t !== value);
-      setSelectLangs(nextTags);
-    }else{
-        console.log(value, name);
-    }
-  }, [selectLangs]);
-
-
   const onChangeLangs = useCallback((e) => {
-    const { value, checked } = e.target;
+    const { value, checked,name } = e.target;
     if (checked) {
       if (selectLangs.includes(value)) return;
       const nextTags = [...selectLangs, value];
       setSelectLangs(nextTags);
-      onChangeField({key:'langs', value: nextTags})
+      onChangeField({key:name, value: nextTags})
     } else if (!checked) {
       const nextTags = selectLangs.filter((t) => t !== value);
       setSelectLangs(nextTags);
-      onChangeField({key:'langs', value: nextTags})
+      onChangeField({key:name, value: nextTags})
+    }else{
+      onChangeField({key:name, value: value})
     }
   },[selectLangs,onChangeField]);
-
-  const onChangeee = e => {
-
-    onChangeField({key:'applystartday', value: e.target.value})
-  }
 
   return (
     <WriteFormBlock>
       <h3>코딩 챌린지 등록하기</h3>
       <form>
         <div>접수 기간</div>
-        <StyledDate type="date" name="applystart"  onChange={onChangeee} value={applystartday}/> ~ <StyledDate type="date" name="applyend" onChange={onChange}/>
+        <StyledDate type="date" name="applystartday"  onChange={onChangeLangs} value={applystartday}/> ~ <StyledDate type="date" name="applyendday" onChange={onChangeLangs}/>
         <div>대회 기간</div>
-        <StyledDate type="datetime-local" name="teststart" onChange={onChange}/> ~ <StyledDate type="datetime-local" name="testend" onChange={onChange}/>
+        <StyledDate type="datetime-local" name="teststartday" onChange={onChangeLangs}/> ~ <StyledDate type="datetime-local" name="testendday" onChange={onChangeLangs}/>
         <StyledInput
           name="title"
           placeholder="제목"
           type="text"
-          onChange={onChange}
+          onChange={onChangeLangs}
         ></StyledInput>
         <StyledTextarea
           name="content"
           rows="12"
           placeholder="챌린지 소개"
           type="text"
-          onChange={onChange}
+          onChange={onChangeLangs}
         ></StyledTextarea>
         <div>사용 가능 언어</div>
         <StyledLabel>
