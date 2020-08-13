@@ -80,18 +80,24 @@ const StyledLabel = styled.label`
   cursor: pointer;
 `;
 
-const PostRegisterForm = ({onChangeField, applystartday,applyendday,teststartday,testendday,content,title,langs}) => {
+const ErrorMessage = styled.div`
+  color:#ff6b6b;
+  text-align:center;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+`;
+
+const PostRegisterForm = ({onChangeField, error, onSubmit}) => {
   const [selectLangs, setSelectLangs] = useState([]);
-  const [input, setInput] = useState('');
 
   const onChangeLangs = useCallback((e) => {
-    const { value, checked,name } = e.target;
-    if (checked) {
+    const { value, checked, name } = e.target;
+    if (name==="langs" && checked) {
       if (selectLangs.includes(value)) return;
       const nextTags = [...selectLangs, value];
       setSelectLangs(nextTags);
       onChangeField({key:name, value: nextTags})
-    } else if (!checked) {
+    } else if (name=== "langs" && !checked) {
       const nextTags = selectLangs.filter((t) => t !== value);
       setSelectLangs(nextTags);
       onChangeField({key:name, value: nextTags})
@@ -103,11 +109,11 @@ const PostRegisterForm = ({onChangeField, applystartday,applyendday,teststartday
   return (
     <WriteFormBlock>
       <h3>코딩 챌린지 등록하기</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <div>접수 기간</div>
-        <StyledDate type="date" name="applystartday"  onChange={onChangeLangs} value={applystartday}/> ~ <StyledDate type="date" name="applyendday" onChange={onChangeLangs}/>
+        <StyledDate type="date" name="applystartday"  onChange={onChangeLangs} /> ~ <StyledDate type="date" name="applyendday" onChange={onChangeLangs} />
         <div>대회 기간</div>
-        <StyledDate type="datetime-local" name="teststartday" onChange={onChangeLangs}/> ~ <StyledDate type="datetime-local" name="testendday" onChange={onChangeLangs}/>
+        <StyledDate type="datetime-local" name="teststartday" onChange={onChangeLangs} /> ~ <StyledDate type="datetime-local" name="testendday" onChange={onChangeLangs} />
         <StyledInput
           name="title"
           placeholder="제목"
@@ -148,6 +154,7 @@ const PostRegisterForm = ({onChangeField, applystartday,applyendday,teststartday
           <input type="checkbox" name="langs" value="C#" onChange={onChangeLangs} />
           C#
         </StyledLabel>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>
           등록하기
         </Button>
