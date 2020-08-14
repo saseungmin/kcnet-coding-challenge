@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initialize } from 'src/modules/write';
+import { changeField, initialize,writeApply } from 'src/modules/write';
 import PostRegisterForm from 'src/components/write/PostRegisterForm';
 
 const ApplyWriteFrom = () => {
@@ -57,7 +57,7 @@ const ApplyWriteFrom = () => {
       setError('시작 날짜보다 이후의 날짜를 입력해주세요.');
       return;
     }
-    setError(null);
+    dispatch(writeApply(applystartday,applyendday,teststartday,testendday,title,content,langs));
   };
 
   useEffect(() => {

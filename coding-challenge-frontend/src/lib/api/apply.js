@@ -8,4 +8,4 @@ export const writeApply = ({
   title,
   content,
   langs,
-}) => client.post('/api/apply');
+}) => client.post('/api/apply',{applystartday,applyendday,teststartday,testendday,title,content,langs});
