@@ -87,7 +87,7 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const PostRegisterForm = ({onChangeField, error, onSubmit}) => {
+const PostRegisterForm = ({onChangeField, error, onSubmit,applystartday}) => {
   const [selectLangs, setSelectLangs] = useState([]);
 
   const onChangeLangs = useCallback((e) => {
@@ -111,7 +111,7 @@ const PostRegisterForm = ({onChangeField, error, onSubmit}) => {
       <h3>코딩 챌린지 등록하기</h3>
       <form onSubmit={onSubmit}>
         <div>접수 기간</div>
-        <StyledDate type="date" name="applystartday"  onChange={onChangeLangs} /> ~ <StyledDate type="date" name="applyendday" onChange={onChangeLangs} />
+        <StyledDate type="date" name="applystartday"  onChange={onChangeLangs} value={applystartday} /> ~ <StyledDate type="date" name="applyendday" onChange={onChangeLangs} />
         <div>대회 기간</div>
         <StyledDate type="datetime-local" name="teststartday" onChange={onChangeLangs} /> ~ <StyledDate type="datetime-local" name="testendday" onChange={onChangeLangs} />
         <StyledInput

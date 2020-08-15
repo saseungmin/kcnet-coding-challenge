@@ -71,6 +71,7 @@ const ApplyWriteFrom = () => {
       onChangeField={onChangeField}
       onSubmit={onSubmit}
       error={error}
+      applystartday={applystartday}
     />
   );
 };

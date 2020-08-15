@@ -3,14 +3,14 @@ import createRequestSaga, { createRequestActionTypes } from 'src/lib/createReque
 import * as applyAPI from '../lib/api/apply';
 import { takeLatest } from 'redux-saga/effects';
 
-const CHANGE_FIELD = 'write/CHANGE_FIELD';
-const INITIALIZE = 'write/INITIALIZE';
+const CHANGE_FIELD = 'apply/CHANGE_FIELD';
+const INITIALIZE = 'apply/INITIALIZE';
 
 const [
   WRITE_APPLY,
   WRITE_APPLY_SUCCESS,
   WRITE_APPLY_FAILURE,
-] = createRequestActionTypes('write/WRITE');
+] = createRequestActionTypes('apply/WRITE');
 
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
