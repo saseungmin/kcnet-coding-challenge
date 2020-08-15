@@ -49,15 +49,15 @@ const RegisterApplyBox = styled.div`
   }
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
   padding: 2rem;
-  width: 500px;
+  width: 600px;
   background: white;
   border-radius: 2px;
 `;
 
-const AuthTemplate = ({ children }) => {
+const AuthTemplate = ({ children,toggle }) => {
   return (
     <AuthTemplateBlock>
-      {children.type.name === 'ApplyWriteFrom' ? (
+      {toggle ? (
         <RegisterApplyBox>
           <div className="logo-area">
             <Link to="/">Coding Challenge</Link>

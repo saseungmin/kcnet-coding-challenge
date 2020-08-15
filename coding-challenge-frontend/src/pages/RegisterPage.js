@@ -3,8 +3,9 @@ import AuthTemplate from '../components/auth/AuthTemplate';
 import RegisterForm from '../containers/auth/RegisterForm';
 
 const RegisterPage = () => {
+  const toggle = false;
   return (
-    <AuthTemplate>
+    <AuthTemplate toggle={toggle}>
       <RegisterForm />
     </AuthTemplate>
   );

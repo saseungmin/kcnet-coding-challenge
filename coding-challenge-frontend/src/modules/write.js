@@ -10,7 +10,7 @@ const [
   WRITE_APPLY,
   WRITE_APPLY_SUCCESS,
   WRITE_APPLY_FAILURE,
-] = createRequestActionTypes('apply/WRITE');
+] = createRequestActionTypes('apply/WRITE_APPLY');
 
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
