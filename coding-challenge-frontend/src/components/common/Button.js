@@ -27,7 +27,7 @@ const ButtonBlock = css`
       font-size: 1.125rem;
     `}
 
-  ${(props) =>
+    ${(props) =>
     props.cyan &&
     css`
       background: ${palette.cyan[5]};
@@ -35,6 +35,7 @@ const ButtonBlock = css`
         background: ${palette.cyan[4]};
       }
     `}
+
     ${(props) =>
     props.teal &&
     css`
@@ -53,8 +54,9 @@ const StyledLink = styled(Link)`
 `;
 
 const Button = (props) => {
+
   return props.to ? (
-    <StyledLink {...props} cyan={props.cyan ? 1 : 0} teal={props.Teal ? 1 : 0}/>
+    <StyledLink {...props} cyan={props.cyan ? 1 : null} teal={props.teal ? 1 : null}/>
   ) : (
     <StyledButton {...props}/>
   );

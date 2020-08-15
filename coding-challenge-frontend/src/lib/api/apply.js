@@ -1,4 +1,5 @@
 import client from './client';
+import qs from 'qs';
 
 export const writeApply = ({
   applystartday,
@@ -19,3 +20,12 @@ export const writeApply = ({
     langs,
   });
 
+export const readApply = (id) => client.get(`/api/apply/${id}`);
+
+export const listApplys = ({ page, langs }) => {
+  const queryString = qs.stringify({
+    page,
+    langs,
+  });
+  return client.get(`/api/applys?${queryString}`);
+};
