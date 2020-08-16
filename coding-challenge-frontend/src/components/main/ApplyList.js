@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
-import { useSelector } from 'react-redux';
 import ApplyItem from './ApplyItem';
 
 const ApplyListBlock = styled(Responsive)`
@@ -15,8 +14,11 @@ const ApplyButtonWrapper = styled.div`
   margin-bottom: 3rem;
 `;
 
-const ApplyList = () => {
-  const { user } = useSelector(({ user }) => ({ user: user.user }));
+const ApplyList = ({applys, error, loading, user}) => {
+  if(error){
+    return <ApplyListBlock> 에러가 발생했습니다. </ApplyListBlock>
+  }
+
   return (
     <ApplyListBlock>
       <ApplyButtonWrapper>
@@ -25,9 +27,14 @@ const ApplyList = () => {
         ): (null)        
         }
       </ApplyButtonWrapper>
-      <ApplyItem />
-      <ApplyItem />
-      <ApplyItem />
+      {!loading && applys && (
+        <>
+         {applys.map(apply => (
+           <ApplyItem apply={apply} key={apply._id}/>
+         ))
+         }
+        </>
+      )}
     </ApplyListBlock>
   );
 };

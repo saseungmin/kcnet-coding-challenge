@@ -1,14 +1,14 @@
 import React from 'react';
 import MainTemplate from '../components/main/MainTemplate';
-import ApplyList from '../components/main/ApplyList';
 import HeaderContainer from 'src/containers/common/HeaderContainer';
+import ApplyListContainer from 'src/containers/applys/ApplyListContainer';
 
 const MainPage = () => {
     return (
         <>
             <HeaderContainer />
             <MainTemplate>
-                <ApplyList />
+                <ApplyListContainer />
             </MainTemplate>
         </>
     );

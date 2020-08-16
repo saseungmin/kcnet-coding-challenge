@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from 'src/lib/styles/palette';
+import Moment from 'react-moment';
 
 const DateInfoBlock = styled.div`
   color: ${palette.gray[6]};
@@ -13,23 +14,30 @@ const DateInfoBlock = styled.div`
   }
 `;
 
-const DateInfo= () => {
-    return (
-        <>
-        <DateInfoBlock>
-          <span>
-            <b>접수</b>
-          </span>
-          <span>20년 08월 03일 11:00 - 08월 21일 18:00</span>
-        </DateInfoBlock>
-        <DateInfoBlock>
-          <span>
-            <b>대회</b>
-          </span>
-          <span>20년 08월 28일 09:00 - 10월 04일 23:59</span>
-        </DateInfoBlock>
-        </>
-    );
+const DateInfo = ({ apply }) => {
+  const { applystartday, applyendday, teststartday, testendday } = apply;
+  return (
+    <>
+      <DateInfoBlock>
+        <span>
+          <b>접수</b>
+        </span>
+        <span>
+          <Moment format="YYYY년 MM월 DD일">{applystartday}</Moment> -{' '}
+          <Moment format="MM월 DD일">{applyendday}</Moment>
+        </span>
+      </DateInfoBlock>
+      <DateInfoBlock>
+        <span>
+          <b>대회</b>
+        </span>
+        <span>
+          <Moment format="YYYY년 MM월 DD일 HH:mm">{teststartday}</Moment> -{' '}
+          <Moment format="MM월 DD일 HH:mm">{testendday}</Moment>
+        </span>
+      </DateInfoBlock>
+    </>
+  );
 };
 
 export default DateInfo;

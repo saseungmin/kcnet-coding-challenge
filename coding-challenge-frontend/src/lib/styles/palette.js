@@ -48,7 +48,20 @@ const palette = {
     '#0ca678',
     '#099268',
     '#087f5b',
+  ],
+  violet:[
+    '#f3f0ff',
+    '#e5dbff',
+    '#d0bfff',
+    '#b197fc',
+    '#9775fa',
+    '#845ef7',
+    '#7950f2',
+    '#7048e8',
+    '#6741d9',
+    '#5f3dc4',
   ]
+
 };
 
 export default palette;

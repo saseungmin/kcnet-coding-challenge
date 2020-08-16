@@ -27,5 +27,5 @@ export const listApplys = ({ page, langs }) => {
     page,
     langs,
   });
-  return client.get(`/api/applys?${queryString}`);
+  return client.get(`/api/apply?${queryString}`);
 };

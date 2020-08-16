@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Responsive from '../common/Responsive';
 import DateInfo from '../common/DateInfo';
 import Langs from '../common/Langs';
+import Moment from 'react-moment';
 
 
 const ApplyButtonWrapper = styled.div`
@@ -37,26 +38,55 @@ p {
 }
 `;
 
-const ApplyItem = () => {
+const ApplyTitleBlock = styled.div`
+display: flex;
+justify-content: start;
+  span{
+    margin-left: 30px;
+    font-weight: bold;
+    font-family: 'Gamja Flower', cursive;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    display: inline-flex;
+    color: white;
+    text-decoration: none;
+    background:  ${palette.violet[3]};
+    border-radius: 0.5rem;
+    text-decoration: none;
+    align-items: center;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    
+  }
+  .title{
+    font-size: 2rem;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-weight: 600;
+    &:hover {
+    color: ${palette.gray[6]};
+  }
+  }
+`;
+
+const ApplyItem = ({apply}) => {
+    const {_id, langs, title, content, applystartday, applyendday, teststartday, testendday} = apply;
     return (
       <ApplyItemBlock>
-        <h2>
-          <Link to={`/introduce`}>
-            2020 Dev-Matching: 웹 프론트엔드 개발자(하반기)
+        <ApplyTitleBlock>
+          <Link to={`/introduce/${_id}`} className="title">
+            {title}
           </Link>
-        </h2>
-        <DateInfo />
-        <Langs langs={['python','C#','JAVA','JavaScript']}/>
-        <p>QWEQEQWEQWEQWEQWEE
-            qwe
-            qwe
-            qwe
-            qwe
-            wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-            wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+          <span className="blink">접수중</span>
+        </ApplyTitleBlock>
+        <DateInfo apply={apply} />
+        <Langs langs={langs}/>
+        <p>
+          {content}
         </p>
         <ApplyButtonWrapper>
-          <Button to='/introduce' teal>자세히 보기</Button>
+          <Button to={`/introduce/${_id}`} teal>자세히 보기</Button>
         </ApplyButtonWrapper>
       </ApplyItemBlock>
     );

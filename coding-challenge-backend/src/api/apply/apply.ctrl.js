@@ -54,8 +54,8 @@ export const list = async (ctx) => {
 
   try {
     // 쿼리를 프로미스로 만들기위해서는 exec()를 붙인다. 3 필수 4 필수 x
-    const applys = await Apply.find().sort({_id:-1}).limit(10).skip((page - 1) * 10).exec();
-
+    const applys = await Apply.find().sort({_id:-1}).limit(10).skip((page - 1) * 10).lean().exec();
+    
     // 전체 페이지
     const applyCount = await Apply.countDocuments().exec();
     // 마지막 페이지
