@@ -52,14 +52,19 @@ export const list = async (ctx) => {
     return;
   }
 
+  const {lang} = ctx.query;
+  const query = {
+    ...(lang? {langs: lang}: {}),
+  }
+
   try {
     // 쿼리를 프로미스로 만들기위해서는 exec()를 붙인다. 3 필수 4 필수 x
-    const applys = await Apply.find().sort({_id:-1}).limit(10).skip((page - 1) * 10).lean().exec();
+    const applys = await Apply.find(query).sort({_id:-1}).limit(5).skip((page - 1) * 5).lean().exec();
     
     // 전체 페이지
-    const applyCount = await Apply.countDocuments().exec();
+    const applyCount = await Apply.countDocuments(query).exec();
     // 마지막 페이지
-    ctx.set('Last-Page', Math.ceil(applyCount/10));
+    ctx.set('Last-Page', Math.ceil(applyCount/5));
     ctx.body = applys.map(apply => ({
       ...apply,
       content: apply.content.length < 200 ? apply.content : `${apply.content.slice(0,200)}...`,

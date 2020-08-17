@@ -22,10 +22,10 @@ export const writeApply = ({
 
 export const readApply = (id) => client.get(`/api/apply/${id}`);
 
-export const listApplys = ({ page, langs }) => {
+export const listApplys = ({ page, lang }) => {
   const queryString = qs.stringify({
     page,
-    langs,
+    lang,
   });
   return client.get(`/api/apply?${queryString}`);
 };

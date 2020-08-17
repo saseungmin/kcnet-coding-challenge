@@ -20,7 +20,7 @@ const LangsBlock = styled.div`
     border-radius: 1rem;
     text-decoration: none;
     align-items: center;
-    margin-right:0.5rem;
+    margin-right: 0.5rem;
     &:hover {
       color: ${palette.Teal[5]};
     }
@@ -34,15 +34,23 @@ const LangsBlock = styled.div`
   }
 `;
 
-const Langs= ({langs}) => {
-    return (
-        <LangsBlock>
-          <div className="langTitle">사용가능 언어</div>
-          {langs.map(lang => (
-          <Link className="lang" to={`/?lang=${lang}`} key={lang}>{lang}</Link>
-          ))}
-        </LangsBlock>
-    );
+const Langs = ({ langs }) => {
+  return (
+    <LangsBlock>
+      <div className="langTitle">사용가능 언어</div>
+      {langs.map((lang) =>
+        lang === 'C#' ? (
+          <Link className="lang" to={'/?lang=C%23'} key={lang}>
+            {lang}
+          </Link>
+        ) : (
+          <Link className="lang" to={`/?lang=${lang}`} key={lang}>
+            {lang}
+          </Link>
+        ),
+      )}
+    </LangsBlock>
+  );
 };
 
 export default Langs;

@@ -46,8 +46,18 @@ const ApplyWriteFrom = ({ history }) => {
       testStart = new Date(teststartday),
       testEnd = new Date(testendday);
 
+    if(Date.now() - applyStart >= 0){
+      setError('접수 날짜가 현재 날짜보다 빠를 수 없습니다.');
+      return;
+    }
+
     if (applyStart - applyEnd >= 0 || testStart - testEnd >= 0) {
       setError('시작 날짜보다 이후의 날짜를 입력해주세요.');
+      return;
+    }
+
+    if(applyEnd - testStart > 0){
+      setError('접수 날짜가 테스트 날짜보다 빠를 수 없습니다.');
       return;
     }
     dispatch(

@@ -7,7 +7,7 @@ const [LIST_APPLYS, LIST_APPLYS_SUCCESS, LIST_APPLYS_FAILURE] = createRequestAct
   'applys/LIST_APPLYS',
 );
 
-export const listApplys = createAction(LIST_APPLYS, ({ page, langs }) => ({ page, langs }));
+export const listApplys = createAction(LIST_APPLYS, ({ page, lang }) => ({ page, lang }));
 
 const listApplysSaga = createRequestSaga(LIST_APPLYS, applyAPI.listApplys);
 export function* applysSaga() {
@@ -17,13 +17,15 @@ export function* applysSaga() {
 const initialState = {
   applys: null,
   error: null,
+  lastPage: 1,
 };
 
 const applys = handleActions(
   {
-    [LIST_APPLYS_SUCCESS]: (state, { payload: applys }) => ({
+    [LIST_APPLYS_SUCCESS]: (state, { payload: applys, meta: response }) => ({
       ...state,
       applys,
+      lastPage: parseInt(response.headers['last-page'], 10),
     }),
     [LIST_APPLYS_FAILURE]: (state, { payload: error }) => ({
       ...state,
