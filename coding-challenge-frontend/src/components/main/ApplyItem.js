@@ -100,7 +100,7 @@ const ApplyItem = ({ apply }) => {
   const dateCalculation = () => {
     if (applyStart - now > 0) {
       return (
-        <span className="startapply">{moment(applyStart, 'YYYYMMDD').fromNow()} 접수 시작</span>
+        <span className="startapply">{moment(applystartday, 'YYYYMMDD').fromNow()} 접수 시작</span>
       );
     } else if (now - applyStart > 0 && now - applyEnd < 0) {
       return <span className="blink receive">접수중</span>;

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cute+Font&family=Jua&family=Kirang+Haerang&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
+@import url("//cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-full.css");
 
 * {
   box-sizing: inherit;
@@ -42,4 +43,22 @@ code {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+
+code {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-left: 3px solid #f36d33;
+  color: #666;
+  page-break-inside: avoid;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em 1.5em;
+  display: block;
+  word-wrap: break-word;
+  font-family: 'D2Coding', monospace;
 }
