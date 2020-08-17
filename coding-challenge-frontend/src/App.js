@@ -10,7 +10,7 @@ const App = () => {
   return(
     <>
       <Route component={MainPage} path="/" exact />
-      <Route component={IntroducePage} path="/introduce/:postId" />
+      <Route component={IntroducePage} path="/introduce/:id" />
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />
       <Route component={PostRegister} path="/Write" />

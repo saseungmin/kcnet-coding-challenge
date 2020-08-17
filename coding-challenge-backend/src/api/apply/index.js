@@ -5,6 +5,10 @@ const applys = new Router();
 
 applys.post("/", applyCtrl.write);
 applys.get('/', applyCtrl.list);
-applys.get('/:id', applyCtrl.read);
+
+const apply = new Router();
+apply.get('/', applyCtrl.read);
+
+applys.use('/:id', applyCtrl.checkObjectId, apply.routes());
 
 export default applys;

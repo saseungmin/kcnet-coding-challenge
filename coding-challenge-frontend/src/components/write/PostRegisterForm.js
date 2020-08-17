@@ -2,6 +2,10 @@ import React, { useState, useCallback } from 'react';
 import palette from 'src/lib/styles/palette';
 import styled from 'styled-components';
 import Button from '../common/Button';
+import { Editor } from 'react-draft-wysiwyg';
+import { convertToRaw  } from 'draft-js';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import draftToHtml from "draftjs-to-html";
 
 const WriteFormBlock = styled.div`
   h3 {
@@ -13,6 +17,12 @@ const WriteFormBlock = styled.div`
     div {
       margin-bottom: 0.5rem;
     }
+  }
+  .editer {
+    height: 250px !important;
+    border: 1px solid #f1f1f1 !important;
+    padding: 5px !important;
+    border-radius: 2px !important;
   }
 `;
 
@@ -56,19 +66,8 @@ const StyledDate = styled.input`
   }
 `;
 
-const StyledTextarea = styled.textarea`
-  font-size: 1rem;
-  border: none;
-  border: 1px solid ${palette.Teal[5]};
-  padding-bottom: 0.5rem;
-  outline: none;
+const StyledEditer = styled.div`
   width: 100%;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  &:focus {
-    color: ${palette.gray[6]};
-    border-bottom: 1px solid ${palette.Teal[7]};
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.23);
-  }
   & {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -89,6 +88,12 @@ const ErrorMessage = styled.div`
 
 const PostRegisterForm = ({ onChangeField, error, onSubmit }) => {
   const [selectLangs, setSelectLangs] = useState([]);
+
+  const onChangeEditer = useCallback((editerState) => {
+    onChangeField({key:'content', value: draftToHtml(convertToRaw(editerState.getCurrentContent())) });
+  },[onChangeField]);
+
+  
 
   const onChangeLangs = useCallback(
     (e) => {
@@ -125,13 +130,26 @@ const PostRegisterForm = ({ onChangeField, error, onSubmit }) => {
           type="text"
           onChange={onChangeLangs}
         ></StyledInput>
-        <StyledTextarea
-          name="content"
-          rows="12"
-          placeholder="챌린지 소개"
-          type="text"
-          onChange={onChangeLangs}
-        ></StyledTextarea>
+        <StyledEditer>
+          {/* 에디터 컴포넌트 */}
+          <Editor
+            onEditorStateChange={onChangeEditer}
+            // css Wrapper class name
+            wrapperClassName="demo-wrapper"
+            // css editor class name
+            editorClassName="editer"
+            localization={{
+              locale: 'ko',
+            }}
+            // 에디터 상단에 표시될 toolbar 설정
+            toolbar={{
+              list: { inDropdown: true },
+              textAlign: { inDropdown: true },
+              link: { inDropdown: true },
+              history: { inDropdown: true },
+            }}
+          />
+        </StyledEditer>
         <div>사용 가능 언어</div>
         <StyledLabel>
           <input type="checkbox" name="langs" value="Java" onChange={onChangeLangs} />
