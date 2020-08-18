@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cute+Font&family=Jua&family=Kirang+Haerang&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
-@import url("//cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-full.css");
+@import url('//cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-full.css');
 
 * {
   box-sizing: inherit;
@@ -23,21 +23,12 @@
   }
 }
 
-
-
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
 
 a {
@@ -45,8 +36,16 @@ a {
   text-decoration: none;
 }
 
-
 code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 6px;
+  font-family: 'D2Coding', monospace;
+}
+
+pre {
   background: #f4f4f4;
   border: 1px solid #ddd;
   border-left: 3px solid #f36d33;
@@ -61,4 +60,11 @@ code {
   display: block;
   word-wrap: break-word;
   font-family: 'D2Coding', monospace;
+}
+
+blockquote{
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: .25em solid #dfe2e5;
+  margin: 0;
 }

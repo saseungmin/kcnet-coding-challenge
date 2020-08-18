@@ -1,11 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import palette from 'src/lib/styles/palette';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import { Editor } from 'react-draft-wysiwyg';
-import { convertToRaw  } from 'draft-js';
+import { convertToRaw, ContentState, EditorState } from 'draft-js';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from "draftjs-to-html";
+import htmlToDraft from 'html-to-draftjs';
 
 const WriteFormBlock = styled.div`
   h3 {
@@ -86,14 +87,35 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const PostRegisterForm = ({ onChangeField, error, onSubmit }) => {
+const PostRegisterForm = ({ onChangeField, error, onSubmit, write }) => {
   const [selectLangs, setSelectLangs] = useState([]);
-
-  const onChangeEditer = useCallback((editerState) => {
-    onChangeField({key:'content', value: draftToHtml(convertToRaw(editerState.getCurrentContent())) });
-  },[onChangeField]);
+  const [editor, setEditor] = useState('');
+  const {applystartday,applyendday,teststartday,testendday,title,content,langs} = write;
+  const inputCheckBox = useRef([React.createRef(), React.createRef()]);
 
   
+
+  useEffect(() => {
+    const blocksFromHtml = htmlToDraft(content);
+    if(content){
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+      const editorState = EditorState.createWithContent(contentState);
+      setEditor(editorState);
+    }
+    if(langs){
+      for(let i = 0; i<langs.length; i++){
+        inputCheckBox.current.map(current => current.current.value === langs[i] ? current.current.checked = true : '');
+      }
+      setSelectLangs(langs);
+    }
+  // eslint-disable-next-line
+  },[])
+
+  const onChangeEditer = useCallback((editerState) => {
+    setEditor(editerState);
+    onChangeField({key:'content', value: draftToHtml(convertToRaw(editerState.getCurrentContent())) });
+  },[onChangeField]);
 
   const onChangeLangs = useCallback(
     (e) => {
@@ -119,20 +141,22 @@ const PostRegisterForm = ({ onChangeField, error, onSubmit }) => {
       <h3>코딩 챌린지 등록하기</h3>
       <form onSubmit={onSubmit}>
         <div>접수 기간</div>
-        <StyledDate type="date" name="applystartday" onChange={onChangeLangs} /> ~{' '}
-        <StyledDate type="date" name="applyendday" onChange={onChangeLangs} />
+        <StyledDate type="date" name="applystartday" onChange={onChangeLangs} value={applystartday}/> ~{' '}
+        <StyledDate type="date" name="applyendday" onChange={onChangeLangs} value={applyendday}/>
         <div>대회 기간</div>
-        <StyledDate type="datetime-local" name="teststartday" onChange={onChangeLangs} /> ~{' '}
-        <StyledDate type="datetime-local" name="testendday" onChange={onChangeLangs} />
+        <StyledDate type="datetime-local" name="teststartday" onChange={onChangeLangs} value={teststartday}/> ~{' '}
+        <StyledDate type="datetime-local" name="testendday" onChange={onChangeLangs} value={testendday}/>
         <StyledInput
           name="title"
           placeholder="제목"
           type="text"
           onChange={onChangeLangs}
+          value={title}
         ></StyledInput>
         <StyledEditer>
           {/* 에디터 컴포넌트 */}
           <Editor
+            editorState={editor}
             onEditorStateChange={onChangeEditer}
             // css Wrapper class name
             wrapperClassName="demo-wrapper"
@@ -152,19 +176,19 @@ const PostRegisterForm = ({ onChangeField, error, onSubmit }) => {
         </StyledEditer>
         <div>사용 가능 언어</div>
         <StyledLabel>
-          <input type="checkbox" name="langs" value="Java" onChange={onChangeLangs} />
+          <input type="checkbox" name="langs" value="Java" onChange={onChangeLangs} ref={inputCheckBox.current[0]} />
           Java
         </StyledLabel>
         <StyledLabel>
-          <input type="checkbox" name="langs" value="JavaScript" onChange={onChangeLangs} />
+          <input type="checkbox" name="langs" value="JavaScript" onChange={onChangeLangs}  ref={inputCheckBox.current[1]}/>
           JavaScript
         </StyledLabel>
         <StyledLabel>
-          <input type="checkbox" name="langs" value="Python" onChange={onChangeLangs} />
+          <input type="checkbox" name="langs" value="Python" onChange={onChangeLangs}  ref={inputCheckBox.current[2]} />
           Python
         </StyledLabel>
         <StyledLabel>
-          <input type="checkbox" name="langs" value="C#" onChange={onChangeLangs} />
+          <input type="checkbox" name="langs" value="C#" onChange={onChangeLangs}  ref={inputCheckBox.current[3]}/>
           C#
         </StyledLabel>
         {error && <ErrorMessage>{error}</ErrorMessage>}

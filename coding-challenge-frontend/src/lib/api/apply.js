@@ -29,3 +29,24 @@ export const listApplys = ({ page, lang }) => {
   });
   return client.get(`/api/apply?${queryString}`);
 };
+
+export const updateApply = ({
+  id,
+  applystartday,
+  applyendday,
+  teststartday,
+  testendday,
+  title,
+  content,
+  langs,
+}) => {
+  client.patch(`/api/apply/${id}`, {
+    applystartday,
+    applyendday,
+    teststartday,
+    testendday,
+    title,
+    content,
+    langs,
+  });
+};

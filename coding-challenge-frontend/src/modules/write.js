@@ -5,12 +5,15 @@ import { takeLatest } from 'redux-saga/effects';
 
 const CHANGE_FIELD = 'apply/CHANGE_FIELD';
 const INITIALIZE = 'apply/INITIALIZE';
+const SET_ORIGINAL_APPLY = 'apply/SET_ORIGINAL_APPLY';
+const [WRITE_APPLY, WRITE_APPLY_SUCCESS, WRITE_APPLY_FAILURE] = createRequestActionTypes(
+  'apply/WRITE_APPLY',
+);
+const [UPDATE_APPLY, UPDATE_APPLY_SUCCESS, UPDATE_APPLY_FAILURE] = createRequestActionTypes(
+  'apply/UPDATE_APPLY',
+);
 
-const [
-  WRITE_APPLY,
-  WRITE_APPLY_SUCCESS,
-  WRITE_APPLY_FAILURE,
-] = createRequestActionTypes('apply/WRITE_APPLY');
+export const setOriginalApply = createAction(SET_ORIGINAL_APPLY, (apply) => apply);
 
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
@@ -20,7 +23,7 @@ export const initialize = createAction(INITIALIZE);
 
 export const writeApply = createAction(
   WRITE_APPLY,
-  ({
+  ({ applystartday, applyendday, teststartday, testendday, title, content, langs }) => ({
     applystartday,
     applyendday,
     teststartday,
@@ -28,7 +31,13 @@ export const writeApply = createAction(
     title,
     content,
     langs,
-  }) => ({
+  }),
+);
+
+export const updateApply = createAction(
+  UPDATE_APPLY,
+  ({ id, applystartday, applyendday, teststartday, testendday, title, content, langs }) => ({
+    id,
     applystartday,
     applyendday,
     teststartday,
@@ -40,8 +49,11 @@ export const writeApply = createAction(
 );
 
 const writeApplySaga = createRequestSaga(WRITE_APPLY, applyAPI.writeApply);
+const updateApplySaga = createRequestSaga(UPDATE_APPLY, applyAPI.updateApply);
+
 export function* writeSaga() {
   yield takeLatest(WRITE_APPLY, writeApplySaga);
+  yield takeLatest(UPDATE_APPLY, updateApplySaga);
 }
 
 const initialState = {
@@ -54,6 +66,7 @@ const initialState = {
   langs: [],
   apply: null,
   applyError: null,
+  originalApplyId: null,
 };
 
 const write = handleActions(
@@ -72,6 +85,25 @@ const write = handleActions(
       apply,
     }),
     [WRITE_APPLY_FAILURE]: (state, { payload: applyError }) => ({
+      ...state,
+      applyError,
+    }),
+    [SET_ORIGINAL_APPLY]: (state, { payload: apply }) => ({
+      ...state,
+      applystartday: apply.applystartday,
+      applyendday: apply.applyendday,
+      teststartday: apply.teststartday,
+      testendday: apply.testendday,
+      title: apply.title,
+      content: apply.content,
+      langs: apply.langs,
+      originalApplyId: apply._id,
+    }),
+    [UPDATE_APPLY_SUCCESS]: (state, {payload: apply}) => ({
+      ...state,
+      apply,
+    }),
+    [UPDATE_APPLY_FAILURE]: (state, {payload: applyError}) => ({
       ...state,
       applyError,
     }),

@@ -17,6 +17,7 @@ const ApplyWriteFrom = ({ history }) => {
     langs,
     apply,
     applyError,
+    write,
   } = useSelector(({ write }) => ({
     applystartday: write.applystartday,
     applyendday: write.applyendday,
@@ -27,6 +28,7 @@ const ApplyWriteFrom = ({ history }) => {
     langs: write.langs,
     apply: write.apply,
     applyError: write.applyError,
+    write: write,
   }));
 
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch]);
@@ -74,7 +76,9 @@ const ApplyWriteFrom = ({ history }) => {
   };
 
   useEffect(() => {
-    dispatch(initialize());
+    return () => {
+      dispatch(initialize());
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -88,7 +92,7 @@ const ApplyWriteFrom = ({ history }) => {
     }
   }, [history, apply, applyError]);
 
-  return <PostRegisterForm onChangeField={onChangeField} onSubmit={onSubmit} error={error} />;
+  return <PostRegisterForm onChangeField={onChangeField} onSubmit={onSubmit} write={write} error={error} />;
 };
 
 export default withRouter(ApplyWriteFrom);

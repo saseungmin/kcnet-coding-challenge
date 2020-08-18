@@ -78,7 +78,7 @@ const IntroduceContentTitle = styled.div`
     font-size: 1.2rem;
 `;
 
-const IntroduceViewer= ({apply, error, loading}) => {
+const IntroduceViewer= ({apply, error, loading, actionButtons, user}) => {
     if(error){
         if(error.response && error.response.status === 404){
             return <IntroduceViewerBlock>존재하지 않는 포스트입니다.</IntroduceViewerBlock>
@@ -98,6 +98,7 @@ const IntroduceViewer= ({apply, error, loading}) => {
                 <h1>{title}</h1>
                 <Button teal className="applybutton">접수하기</Button>
             </IntroduceHead>
+            {user && user.userstatus === 'manager' ? actionButtons : null}
             <IntroduceDateBlock>
                 <IntroduceCountDate>
                     <div>접수 시작 : {moment(applystartday, 'YYYYMMDD').fromNow()}</div>
