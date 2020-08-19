@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import Responsive from '../common/Responsive';
 import DateInfo from '../common/DateInfo';
 import Langs from '../common/Langs';
-import * as moment from 'moment';
 import 'moment/locale/ko';
+import Moment from 'react-moment';
 
 const ApplyButtonWrapper = styled.div`
   display: flex;
@@ -94,13 +94,15 @@ const ApplyItem = ({ apply }) => {
   const applyEnd = new Date(applyendday),
     applyStart = new Date(applystartday),
     testStart = new Date(teststartday),
-    testEnd = new Date(testendday);
-  const now = new Date();
+    testEnd = new Date(testendday),
+    now = new Date();
 
   const dateCalculation = () => {
     if (applyStart - now > 0) {
       return (
-        <span className="startapply">{moment(applystartday, 'YYYYMMDD').fromNow()} 접수 시작</span>
+        <span className="startapply">
+          <Moment fromNow>{applyStart}</Moment> &nbsp;접수 시작
+        </span>
       );
     } else if (now - applyStart > 0 && now - applyEnd < 0) {
       return <span className="blink receive">접수중</span>;

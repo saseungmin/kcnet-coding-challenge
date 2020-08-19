@@ -5,8 +5,8 @@ import palette from 'src/lib/styles/palette';
 import Button from '../common/Button';
 import Langs from '../common/Langs';
 import Moment from 'react-moment';
-import * as moment from 'moment';
 import 'moment/locale/ko';
+import { Helmet } from 'react-helmet-async';
 
 const IntroduceViewerBlock = styled(Responsive)`
     margin-top: 5rem;
@@ -92,8 +92,16 @@ const IntroduceViewer= ({apply, error, loading, actionButtons, user}) => {
 
     const {langs, title, content, applystartday, applyendday,teststartday,testendday} = apply;
 
+    const applyEnd = new Date(applyendday),
+    applyStart = new Date(applystartday),
+    testStart = new Date(teststartday),
+    testEnd = new Date(testendday);
+
     return (
         <IntroduceViewerBlock>
+            <Helmet><title>
+                {title}-KCNET
+                </title></Helmet>
             <IntroduceHead>
                 <h1>{title}</h1>
                 <Button teal className="applybutton">접수하기</Button>
@@ -101,12 +109,12 @@ const IntroduceViewer= ({apply, error, loading, actionButtons, user}) => {
             {user && user.userstatus === 'manager' ? actionButtons : null}
             <IntroduceDateBlock>
                 <IntroduceCountDate>
-                    <div>접수 시작 : {moment(applystartday, 'YYYYMMDD').fromNow()}</div>
-                    <div>대회 시작 : {moment(teststartday, 'YYYYMMDD').fromNow()}</div>
+                    <div>접수 시작 : <Moment fromNow>{applyStart}</Moment></div>
+                    <div>대회 시작 : <Moment fromNow>{testStart}</Moment></div>
                 </IntroduceCountDate>
                 <IntroduceSchedule>
-                    <div>접수 : <Moment format="YYYY년 MM월 DD일 HH:mm">{applystartday}</Moment> - <Moment format="MM월 DD일 HH:mm">{applyendday}</Moment></div>
-                    <div>대회 :	<Moment format="YYYY년 MM월 DD일 HH:mm">{teststartday}</Moment> - <Moment format="MM월 DD일 HH:mm">{testendday}</Moment></div>
+                    <div>접수 : <Moment format="YYYY년 MM월 DD일 HH:mm">{applyStart}</Moment> - <Moment format="MM월 DD일 HH:mm">{applyEnd}</Moment></div>
+                    <div>대회 :	<Moment format="YYYY년 MM월 DD일 HH:mm">{testStart}</Moment> - <Moment format="MM월 DD일 HH:mm">{testEnd}</Moment></div>
                 </IntroduceSchedule>
             </IntroduceDateBlock>
             <Langs langs={langs}/>

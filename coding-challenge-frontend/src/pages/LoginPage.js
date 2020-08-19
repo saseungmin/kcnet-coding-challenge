@@ -1,13 +1,19 @@
 import React from 'react';
 import AuthTemplate from '../components/auth/AuthTemplate';
 import LoginForm from '../containers/auth/LoginForm';
+import { Helmet } from 'react-helmet-async';
 
 const LoginPage = () => {
   const toggle = false;
   return (
-    <AuthTemplate toggle={toggle} >
-      <LoginForm />
-    </AuthTemplate>
+    <>
+      <Helmet>
+        <title>로그인-KCNET</title>
+      </Helmet>
+      <AuthTemplate toggle={toggle}>
+        <LoginForm />
+      </AuthTemplate>
+    </>
   );
 };
 

@@ -16,18 +16,21 @@ const FullScreenBlock = styled.div`
 `;
 
 const ModalWindowBlock = styled.div`
-  width: 320px;
+  width: 400px;
+  height: 200px;
   background: white;
   padding: 1.5rem;
-  border-radius: 4px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+  border-radius: 5px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
   h2 {
+    font-size: 2rem;
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     font-family: 'Cute Font', cursive;
   }
   p {
-    margin-bottom: 3rem;
+      margin-top: 3rem;
+    margin-bottom: 2rem;
   }
   .buttons {
     display: flex;
@@ -36,6 +39,7 @@ const ModalWindowBlock = styled.div`
 `;
 
 const StyledButton = styled(Button)`
+    margin-top: 2rem;
   & + & {
     margin-left: 0.75rem;
   }
@@ -58,7 +62,7 @@ const ModalWindow = ({
         <p>{description}</p>
         <div className="buttons">
           <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton teal onClick={onConfirm}>
+          <StyledButton orange onClick={onConfirm}>
             {confirmText}
           </StyledButton>
         </div>

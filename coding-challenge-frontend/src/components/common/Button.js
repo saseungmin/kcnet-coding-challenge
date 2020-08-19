@@ -45,6 +45,15 @@ const ButtonBlock = css`
       }
     `}
 
+    ${(props) =>
+    props.orange &&
+    css`
+      background: ${palette.orange[5]};
+      &:hover {
+        background: ${palette.orange[4]};
+      }
+    `}
+
     &:disabled{
       background: ${palette.gray[3]};
       color: ${palette.gray[5]};
@@ -62,7 +71,7 @@ const StyledLink = styled(Link)`
 const Button = (props) => {
 
   return props.to ? (
-    <StyledLink {...props} cyan={props.cyan ? 1 : null} teal={props.teal ? 1 : null}/>
+    <StyledLink {...props} cyan={props.cyan ? 1 : null} teal={props.teal ? 1 : null} orange={props.orange ? 1 : null}/>
   ) : (
     <StyledButton {...props}/>
   );
