@@ -5,6 +5,7 @@ import { readApply, unloadApply } from 'src/modules/apply';
 import IntroduceViewer from 'src/components/introduce/IntroduceViewer';
 import ApplyActionButtons from 'src/components/introduce/ApplyActionButtons';
 import { setOriginalApply } from 'src/modules/write';
+import { removeApply } from 'src/lib/api/apply';
 
 const IntroduceViewerContainer = ({ match, history }) => {
   const { id } = match.params;
@@ -28,13 +29,21 @@ const IntroduceViewerContainer = ({ match, history }) => {
     };
   }, [dispatch, id]);
 
+  const onRemove = async () => {
+    try {
+      await removeApply(id);
+      history.push('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <IntroduceViewer
       apply={apply}
       error={error}
       loading={loading}
       user={user}
-      actionButtons={<ApplyActionButtons onEdit={onEdit} />}
+      actionButtons={<ApplyActionButtons onEdit={onEdit} onRemove={onRemove}/>}
     />
   );
 };

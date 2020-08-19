@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from 'src/lib/styles/palette';
+import IntroduceRemoveModal from './IntroduceRemoveModal';
 
 const ApplyActionButtonsBlock = styled.div`
   display: flex;
@@ -27,12 +28,26 @@ const ActionButton = styled.button`
   }
 `;
 
-const ApplyActionButtons = ({ onEdit }) => {
+const ApplyActionButtons = ({ onEdit, onRemove }) => {
+  const [modal, setModal] = useState(false);
+  const onRemoveClick = () => {
+    setModal(true);
+  }
+  const onCancel = () => {
+    setModal(false);
+  }
+  const onConfirm = () => {
+    setModal(false);
+    onRemove();
+  }
   return (
+    <>
     <ApplyActionButtonsBlock>
       <ActionButton onClick={onEdit}>수정</ActionButton>
-      <ActionButton>삭제</ActionButton>
+      <ActionButton onClick={onRemoveClick}>삭제</ActionButton>
     </ApplyActionButtonsBlock>
+    <IntroduceRemoveModal visible={modal} onConfirm={onConfirm} onCancel={onCancel}/>
+    </>
   );
 };
 

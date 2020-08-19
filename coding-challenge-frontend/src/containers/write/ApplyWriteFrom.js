@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initialize, writeApply } from 'src/modules/write';
+import { changeField, initialize, writeApply, updateApply } from 'src/modules/write';
 import PostRegisterForm from 'src/components/write/PostRegisterForm';
 import { withRouter } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ const ApplyWriteFrom = ({ history }) => {
     apply,
     applyError,
     write,
+    originalApplyId,
   } = useSelector(({ write }) => ({
     applystartday: write.applystartday,
     applyendday: write.applyendday,
@@ -29,6 +30,7 @@ const ApplyWriteFrom = ({ history }) => {
     apply: write.apply,
     applyError: write.applyError,
     write: write,
+    originalApplyId: write.originalApplyId,
   }));
 
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch]);
@@ -62,6 +64,19 @@ const ApplyWriteFrom = ({ history }) => {
       setError('접수 날짜가 테스트 날짜보다 빠를 수 없습니다.');
       return;
     }
+    if(originalApplyId) {
+      dispatch(updateApply({
+        id: originalApplyId,
+        applystartday,
+        applyendday,
+        teststartday,
+        testendday,
+        title,
+        content,
+        langs,
+      }));
+      return;
+    }
     dispatch(
       writeApply({
         applystartday,
@@ -86,11 +101,10 @@ const ApplyWriteFrom = ({ history }) => {
       history.push('/');
     }
     if (applyError) {
-      console.log(applyError);
-      setError('글 등록에 실패하였습니다.');
+      originalApplyId ? setError('글 수정에 실패하였습니다.') : setError('글 등록에 실패하였습니다.');
       return;
     }
-  }, [history, apply, applyError]);
+  }, [history, apply, applyError,originalApplyId]);
 
   return <PostRegisterForm onChangeField={onChangeField} onSubmit={onSubmit} write={write} error={error} />;
 };

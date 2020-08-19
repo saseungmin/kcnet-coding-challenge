@@ -39,7 +39,7 @@ export const updateApply = ({
   title,
   content,
   langs,
-}) => {
+}) =>
   client.patch(`/api/apply/${id}`, {
     applystartday,
     applyendday,
@@ -49,4 +49,5 @@ export const updateApply = ({
     content,
     langs,
   });
-};
+
+export const removeApply = (id) => client.delete(`/api/apply/${id}`);

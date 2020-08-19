@@ -1,19 +1,18 @@
 import Apply from "../../models/apply";
 import Joi from "@hapi/joi";
 import sanitizeHtml from "sanitize-html";
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const {ObjectId} = mongoose.Types;
+const { ObjectId } = mongoose.Types;
 
 export const checkObjectId = (ctx, next) => {
-  const {id} = ctx.params;
-  if(!ObjectId.isValid(id)){
+  const { id } = ctx.params;
+  if (!ObjectId.isValid(id)) {
     ctx.status = 400;
     return;
   }
   return next();
-}
-
+};
 
 const sanitizeOption = {
   allowedTags: [
@@ -172,6 +171,49 @@ export const read = async (ctx) => {
       return;
     }
     ctx.body = apply;
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
+
+export const update = async (ctx) => {
+  const { id } = ctx.params;
+  const schema = Joi.object().keys({
+    applystartday: Joi.string(),
+    applyendday: Joi.string(),
+    teststartday: Joi.string(),
+    testendday: Joi.string(),
+    title: Joi.string(),
+    content: Joi.string(),
+    langs: Joi.array().items(Joi.string()),
+  });
+
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
+
+  try {
+    const apply = await Apply.findByIdAndUpdate(id, ctx.request.body, {
+      new: true, // 업데이트된 데이터 반환
+    }).exec();
+    if (!apply) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = apply;
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
+
+export const remove = async (ctx) => {
+  const { id } = ctx.params;
+  try {
+    await Apply.findByIdAndRemove(id).exec();
+    ctx.status = 204;
   } catch (error) {
     ctx.throw(500, error);
   }

@@ -90,8 +90,8 @@ const ErrorMessage = styled.div`
 const PostRegisterForm = ({ onChangeField, error, onSubmit, write }) => {
   const [selectLangs, setSelectLangs] = useState([]);
   const [editor, setEditor] = useState('');
-  const {applystartday,applyendday,teststartday,testendday,title,content,langs} = write;
-  const inputCheckBox = useRef([React.createRef(), React.createRef()]);
+  const {applystartday,applyendday,teststartday,testendday,title,content,langs,originalApplyId} = write;
+  const inputCheckBox = useRef([React.createRef(), React.createRef(),React.createRef(),React.createRef()]);
 
   
 
@@ -193,7 +193,7 @@ const PostRegisterForm = ({ onChangeField, error, onSubmit, write }) => {
         </StyledLabel>
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>
-          등록하기
+          {!!originalApplyId ? '수정하기' : '등록하기'}
         </Button>
       </form>
     </WriteFormBlock>

@@ -8,7 +8,8 @@ applys.get('/', applyCtrl.list);
 
 const apply = new Router();
 apply.get('/', applyCtrl.read);
-
+apply.patch('/',applyCtrl.update);
+apply.delete('/', applyCtrl.remove);
 applys.use('/:id', applyCtrl.checkObjectId, apply.routes());
 
 export default applys;
