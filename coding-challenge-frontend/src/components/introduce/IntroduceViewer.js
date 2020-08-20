@@ -78,7 +78,8 @@ const IntroduceContentTitle = styled.div`
     font-size: 1.2rem;
 `;
 
-const IntroduceViewer= ({apply, error, loading, actionButtons, user}) => {
+
+const IntroduceViewer= ({apply, error, loading, actionButtons, user,seconds}) => {
     if(error){
         if(error.response && error.response.status === 404){
             return <IntroduceViewerBlock>존재하지 않는 포스트입니다.</IntroduceViewerBlock>
@@ -109,12 +110,13 @@ const IntroduceViewer= ({apply, error, loading, actionButtons, user}) => {
             {user && user.userstatus === 'manager' ? actionButtons : null}
             <IntroduceDateBlock>
                 <IntroduceCountDate>
+                    {seconds}
                     <div>접수 시작 : <Moment fromNow>{applyStart}</Moment></div>
                     <div>대회 시작 : <Moment fromNow>{testStart}</Moment></div>
                 </IntroduceCountDate>
                 <IntroduceSchedule>
-                    <div>접수 : <Moment format="YYYY년 MM월 DD일 HH:mm">{applyStart}</Moment> - <Moment format="MM월 DD일 HH:mm">{applyEnd}</Moment></div>
-                    <div>대회 :	<Moment format="YYYY년 MM월 DD일 HH:mm">{testStart}</Moment> - <Moment format="MM월 DD일 HH:mm">{testEnd}</Moment></div>
+                    <div>접수 : <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{applyStart}</Moment> - <Moment interval={0} format="MM월 DD일 HH:mm">{applyEnd}</Moment></div>
+                    <div>대회 :	<Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{testStart}</Moment> - <Moment interval={0} format="MM월 DD일 HH:mm">{testEnd}</Moment></div>
                 </IntroduceSchedule>
             </IntroduceDateBlock>
             <Langs langs={langs}/>

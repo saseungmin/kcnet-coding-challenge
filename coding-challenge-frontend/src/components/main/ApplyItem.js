@@ -97,6 +97,7 @@ const ApplyItem = ({ apply }) => {
     testEnd = new Date(testendday),
     now = new Date();
 
+
   const dateCalculation = () => {
     if (applyStart - now > 0) {
       return (
@@ -114,7 +115,8 @@ const ApplyItem = ({ apply }) => {
       return <span className="deadline">대회 종료</span>;
     }
   };
-
+  
+  
   return (
     <ApplyItemBlock>
       <ApplyTitleBlock>

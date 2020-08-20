@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { readApply, unloadApply } from 'src/modules/apply';
@@ -6,9 +6,17 @@ import IntroduceViewer from 'src/components/introduce/IntroduceViewer';
 import ApplyActionButtons from 'src/components/introduce/ApplyActionButtons';
 import { setOriginalApply } from 'src/modules/write';
 import { removeApply } from 'src/lib/api/apply';
+import moment from 'moment';
+import 'moment-timezone';
+import 'moment/locale/ko';
+import useInterval from 'src/lib/useInterval';
+moment.tz.setDefault("Asia/Seoul");
 
 const IntroduceViewerContainer = ({ match, history }) => {
   const { id } = match.params;
+  const nowDate = moment().format('YYYY-MM-DD HH:mm:ss');
+  const [seconds, setSeconds] = useState(nowDate);
+
   const dispatch = useDispatch();
   const { apply, error, loading, user } = useSelector(({ apply, loading, user }) => ({
     apply: apply.apply,
@@ -16,6 +24,11 @@ const IntroduceViewerContainer = ({ match, history }) => {
     user: user.user,
     loading: loading['apply/READ_APPLY'],
   }));
+
+  useInterval(() => {
+    setSeconds(moment().format('YYYY-MM-DD HH:mm:ss'));
+  }, 1000);
+
 
   const onEdit = () => {
     dispatch(setOriginalApply(apply));
@@ -43,6 +56,7 @@ const IntroduceViewerContainer = ({ match, history }) => {
       error={error}
       loading={loading}
       user={user}
+      seconds={seconds}
       actionButtons={<ApplyActionButtons onEdit={onEdit} onRemove={onRemove}/>}
     />
   );
