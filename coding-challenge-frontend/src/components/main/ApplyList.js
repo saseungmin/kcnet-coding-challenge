@@ -14,7 +14,7 @@ const ApplyButtonWrapper = styled.div`
   margin-bottom: 3rem;
 `;
 
-const ApplyList = ({applys, error, loading, user}) => {
+const ApplyList = ({applys, error, loading, user, seconds}) => {
   if(error){
     return <ApplyListBlock> 에러가 발생했습니다. </ApplyListBlock>
   }
@@ -30,7 +30,7 @@ const ApplyList = ({applys, error, loading, user}) => {
       {!loading && applys && (
         <>
          {applys.map(apply => (
-           <ApplyItem apply={apply} key={apply._id}/>
+           <ApplyItem apply={apply} key={apply._id} seconds={seconds}/>
          ))
          }
         </>

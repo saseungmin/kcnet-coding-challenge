@@ -14,8 +14,8 @@ moment.tz.setDefault("Asia/Seoul");
 
 const IntroduceViewerContainer = ({ match, history }) => {
   const { id } = match.params;
-  const nowDate = moment().format('YYYY-MM-DD HH:mm:ss');
-  const [seconds, setSeconds] = useState(nowDate);
+  const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+  const [seconds, setSeconds] = useState(nowTime);
 
   const dispatch = useDispatch();
   const { apply, error, loading, user } = useSelector(({ apply, loading, user }) => ({
@@ -50,6 +50,7 @@ const IntroduceViewerContainer = ({ match, history }) => {
       console.log(error);
     }
   }
+
   return (
     <IntroduceViewer
       apply={apply}

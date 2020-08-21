@@ -7,6 +7,7 @@ import Langs from '../common/Langs';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 import { Helmet } from 'react-helmet-async';
+import DateTimeChange from '../common/DateTimeChange';
 
 const IntroduceViewerBlock = styled(Responsive)`
     margin-top: 5rem;
@@ -78,7 +79,6 @@ const IntroduceContentTitle = styled.div`
     font-size: 1.2rem;
 `;
 
-
 const IntroduceViewer= ({apply, error, loading, actionButtons, user,seconds}) => {
     if(error){
         if(error.response && error.response.status === 404){
@@ -91,7 +91,7 @@ const IntroduceViewer= ({apply, error, loading, actionButtons, user,seconds}) =>
         return null;
     }
 
-    const {langs, title, content, applystartday, applyendday,teststartday,testendday} = apply;
+    const {langs, title, content, applyendday,applystartday,teststartday,testendday} = apply;
 
     const applyEnd = new Date(applyendday),
     applyStart = new Date(applystartday),
@@ -110,11 +110,9 @@ const IntroduceViewer= ({apply, error, loading, actionButtons, user,seconds}) =>
             {user && user.userstatus === 'manager' ? actionButtons : null}
             <IntroduceDateBlock>
                 <IntroduceCountDate>
-                    {seconds}
-                    <div>접수 시작 : <Moment fromNow>{applyStart}</Moment></div>
-                    <div>대회 시작 : <Moment fromNow>{testStart}</Moment></div>
+                    <DateTimeChange seconds={seconds} apply={apply}/>
                 </IntroduceCountDate>
-                <IntroduceSchedule>
+                <IntroduceSchedule >
                     <div>접수 : <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{applyStart}</Moment> - <Moment interval={0} format="MM월 DD일 HH:mm">{applyEnd}</Moment></div>
                     <div>대회 :	<Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{testStart}</Moment> - <Moment interval={0} format="MM월 DD일 HH:mm">{testEnd}</Moment></div>
                 </IntroduceSchedule>

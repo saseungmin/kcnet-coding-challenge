@@ -23,8 +23,8 @@ const DateInfo = ({ apply }) => {
           <b>접수</b>
         </span>
         <span>
-          <Moment format="YYYY년 MM월 DD일">{applystartday}</Moment> -{' '}
-          <Moment format="MM월 DD일">{applyendday}</Moment>
+          <Moment format="YYYY년 MM월 DD일 HH:mm">{applystartday}</Moment> -{' '}
+          <Moment format="MM월 DD일 HH:mm">{applyendday}</Moment>
         </span>
       </DateInfoBlock>
       <DateInfoBlock>
