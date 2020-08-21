@@ -23,8 +23,8 @@ const DateInfo = ({ apply }) => {
           <b>접수</b>
         </span>
         <span>
-          <Moment format="YYYY년 MM월 DD일 HH:mm">{applystartday}</Moment> -{' '}
-          <Moment format="MM월 DD일 HH:mm">{applyendday}</Moment>
+          <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{applystartday}</Moment> -{' '}
+          <Moment interval={0} format="MM월 DD일 HH:mm">{applyendday}</Moment>
         </span>
       </DateInfoBlock>
       <DateInfoBlock>
@@ -32,8 +32,8 @@ const DateInfo = ({ apply }) => {
           <b>대회</b>
         </span>
         <span>
-          <Moment format="YYYY년 MM월 DD일 HH:mm">{teststartday}</Moment> -{' '}
-          <Moment format="MM월 DD일 HH:mm">{testendday}</Moment>
+          <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{teststartday}</Moment> -{' '}
+          <Moment interval={0} format="MM월 DD일 HH:mm">{testendday}</Moment>
         </span>
       </DateInfoBlock>
     </>
