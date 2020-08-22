@@ -79,9 +79,9 @@ const IntroduceContentTitle = styled.div`
   font-size: 1.2rem;
 `;
 
-const IntroduceViewer = ({ apply, error, loading, actionButtons, user, seconds }) => {
+const IntroduceViewer = ({ apply, error, loading, actionButtons, user, seconds, applyError }) => {
   if (error) {
-    if (error.response && error.response.status === 404) {
+    if ((error.response && error.response.status === 404) || applyError) {
       return <IntroduceViewerBlock>존재하지 않는 포스트입니다.</IntroduceViewerBlock>;
     }
     return <IntroduceViewerBlock>오류 발생..</IntroduceViewerBlock>;

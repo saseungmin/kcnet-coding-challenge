@@ -7,12 +7,10 @@ const [READ_APPLY, READ_APPLY_SUCCESS, READ_APPLY_FAILURE] = createRequestAction
   'apply/READ_APPLY',
 );
 const UNLOAD_APPLY = 'apply/UNLOAD_APPLY';
-const SELECT_APPLY = 'apply/SELECT_APPLY';
 
 export const readApply = createAction(READ_APPLY, (id) => id);
 
 export const unloadApply = createAction(UNLOAD_APPLY);
-export const selectApply = createAction(SELECT_APPLY, (selectApplyId) => selectApplyId);
 
 const readApplySaga = createRequestSaga(READ_APPLY, applyAPI.readApply);
 
@@ -23,7 +21,6 @@ export function* applySaga() {
 const initialState = {
   apply: null,
   error: null,
-  selectApplyId: null,
 };
 
 const apply = handleActions(
@@ -37,10 +34,6 @@ const apply = handleActions(
       error,
     }),
     [UNLOAD_APPLY]: () => initialState,
-    [SELECT_APPLY]: (state, {payload: selectApplyId}) => ({
-      ...state,
-      selectApplyId,
-    })
   },
   initialState,
 );

@@ -14,7 +14,7 @@ const App = () => {
       <title>KCNET 코딩 챌린지</title>
     </Helmet>
       <Route component={MainPage} path="/" exact />
-      <Route component={IntroducePage} path="/introduce/:id" />
+      <Route component={IntroducePage} path="/introduce/:id"/>
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />
       <Route component={PostRegister} path="/Write" />
