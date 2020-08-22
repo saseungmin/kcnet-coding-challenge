@@ -17,17 +17,19 @@ import mongoose from "mongoose";
 
 export const receive = async (ctx) => {
   //validate
-//   const schema = Joi.object().keys({
-//     score: Joi.number().required(),
-//     lang: Joi.string().required(),
-//   });
+  const schema = Joi.object().keys({
+    score: Joi.number().required(),
+    lang: Joi.string().required(),
+  });
 
-//   const result = schema.validate(ctx.request.body);
-//   if (result.error) {
-//     ctx.status = 400;
-//     ctx.body = result.error;
-//     return;
-//   }
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
+
+console.log(ctx.state.user);
 
   const { score, lang, applyId } = ctx.request.body;
 

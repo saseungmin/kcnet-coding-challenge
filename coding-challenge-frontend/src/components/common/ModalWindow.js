@@ -29,7 +29,7 @@ const ModalWindowBlock = styled.div`
     font-family: 'Cute Font', cursive;
   }
   p {
-      margin-top: 3rem;
+    margin-top: 3rem;
     margin-bottom: 2rem;
   }
   .buttons {
@@ -39,7 +39,7 @@ const ModalWindowBlock = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-    margin-top: 2rem;
+  margin-top: 2rem;
   & + & {
     margin-left: 0.75rem;
   }
@@ -50,21 +50,28 @@ const ModalWindow = ({
   title,
   description,
   confirmText = '확인',
-  cancelText = '취소',
+  cancelText,
   onConfirm,
   onCancel,
+  danger,
 }) => {
-    if(!visible) return null;
+  if (!visible) return null;
   return (
     <FullScreenBlock>
       <ModalWindowBlock>
         <h2>{title}</h2>
         <p>{description}</p>
         <div className="buttons">
-          <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton orange onClick={onConfirm}>
-            {confirmText}
-          </StyledButton>
+          {(cancelText && onCancel) ? (<StyledButton onClick={onCancel}>{cancelText}</StyledButton>):null}
+          {danger ? (
+            <StyledButton orange onClick={onConfirm}>
+              {confirmText}
+            </StyledButton>
+          ) : (
+            <StyledButton teal onClick={onConfirm}>
+              {confirmText}
+            </StyledButton>
+          )}
         </div>
       </ModalWindowBlock>
     </FullScreenBlock>

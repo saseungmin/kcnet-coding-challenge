@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import palette from 'src/lib/styles/palette';
-import Button from '../common/Button';
 import Langs from '../common/Langs';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
@@ -79,9 +78,10 @@ const IntroduceContentTitle = styled.div`
   font-size: 1.2rem;
 `;
 
-const IntroduceViewer = ({ apply, error, loading, actionButtons, user, seconds, applyError }) => {
+const IntroduceViewer = ({ apply, error, loading, actionButtons, user, seconds,recieveButton }) => {
+
   if (error) {
-    if ((error.response && error.response.status === 404) || applyError) {
+    if (error.response && error.response.status === 404) {
       return <IntroduceViewerBlock>존재하지 않는 포스트입니다.</IntroduceViewerBlock>;
     }
     return <IntroduceViewerBlock>오류 발생..</IntroduceViewerBlock>;
@@ -105,9 +105,7 @@ const IntroduceViewer = ({ apply, error, loading, actionButtons, user, seconds, 
       </Helmet>
       <IntroduceHead>
         <h1>{title}</h1>
-        <Button teal className="applybutton">
-          접수하기
-        </Button>
+      {recieveButton}
       </IntroduceHead>
       {user && user.userstatus === 'manager' ? actionButtons : null}
       <IntroduceDateBlock>

@@ -10,6 +10,6 @@ const apply = new Router();
 apply.get('/', applyCtrl.read);
 apply.patch('/',applyCtrl.update);
 apply.delete('/', applyCtrl.remove);
-applys.use('/:id', applyCtrl.checkObjectId, apply.routes());
+applys.use('/:id', applyCtrl.getApplyId, apply.routes());
 
 export default applys;

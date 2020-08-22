@@ -5,13 +5,23 @@ import mongoose from "mongoose";
 
 const { ObjectId } = mongoose.Types;
 
-export const checkObjectId = (ctx, next) => {
+export const getApplyId = async (ctx, next) => {
   const { id } = ctx.params;
   if (!ObjectId.isValid(id)) {
     ctx.status = 400;
     return;
   }
-  return next();
+  try {
+    const apply = await Apply.findById(id);
+    if(!apply){
+      ctx.status = 404;
+      return;
+    }
+    ctx.state.apply = apply;
+    return next();
+  } catch (error) {
+    ctx.throw(500, error);
+  }
 };
 
 const sanitizeOption = {
@@ -162,18 +172,8 @@ export const list = async (ctx) => {
   }
 };
 
-export const read = async (ctx) => {
-  const { id } = ctx.params;
-  try {
-    const apply = await Apply.findById(id).exec();
-    if (!apply) {
-      ctx.status = 404; // not found
-      return;
-    }
-    ctx.body = apply;
-  } catch (error) {
-    ctx.throw(500, error);
-  }
+export const read = (ctx) => {
+    ctx.body = ctx.state.apply;
 };
 
 export const update = async (ctx) => {

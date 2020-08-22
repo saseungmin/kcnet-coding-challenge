@@ -10,6 +10,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import 'moment/locale/ko';
 import useInterval from 'src/lib/useInterval';
+import ReceiveActionButton from 'src/components/introduce/ReceiveActionButton';
 moment.tz.setDefault('Asia/Seoul');
 
 const IntroduceViewerContainer = ({ history, match }) => {
@@ -49,7 +50,7 @@ const IntroduceViewerContainer = ({ history, match }) => {
       console.log(error);
     }
   };
-
+  
   return (
     <IntroduceViewer
       apply={apply}
@@ -58,6 +59,7 @@ const IntroduceViewerContainer = ({ history, match }) => {
       user={user}
       seconds={seconds}
       actionButtons={<ApplyActionButtons onEdit={onEdit} onRemove={onRemove} />}
+      recieveButton={<ReceiveActionButton user={user} />}
     />
   );
 };
