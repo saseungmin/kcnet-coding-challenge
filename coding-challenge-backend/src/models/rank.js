@@ -1,8 +1,14 @@
 import mongoose, { Schema } from "mongoose";
 
 const RankSchema = new Schema({
-  score: Number,
-  lang: String,
+  score: {
+    type: Number,
+    default: 0,
+  },
+  lang: {
+    type: String,
+    default: 'JavaScript'
+  },
   applyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Apply' },
   user: {
     _id: mongoose.Types.ObjectId,

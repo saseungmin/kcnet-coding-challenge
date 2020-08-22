@@ -11,6 +11,8 @@ import 'moment-timezone';
 import 'moment/locale/ko';
 import useInterval from 'src/lib/useInterval';
 import ReceiveActionButton from 'src/components/introduce/ReceiveActionButton';
+import { unloadRank, rankReceive } from 'src/modules/rank';
+import { useCallback } from 'react';
 moment.tz.setDefault('Asia/Seoul');
 
 const IntroduceViewerContainer = ({ history, match }) => {
@@ -19,11 +21,12 @@ const IntroduceViewerContainer = ({ history, match }) => {
   const [seconds, setSeconds] = useState(nowTime);
 
   const dispatch = useDispatch();
-  const { apply, error, loading, user } = useSelector(({ apply, loading, user }) => ({
+  const { apply, error, loading, user,receiveError } = useSelector(({ apply, loading, user, rank }) => ({
     apply: apply.apply,
     error: apply.error,
     user: user.user,
     loading: loading['apply/READ_APPLY'],
+    receiveError: rank.receiveError,
   }));
 
   useInterval(() => {
@@ -39,6 +42,7 @@ const IntroduceViewerContainer = ({ history, match }) => {
     dispatch(readApply(id));
     return () => {
       dispatch(unloadApply());
+      dispatch(unloadRank());
     };
   }, [dispatch, id]);
 
@@ -50,7 +54,19 @@ const IntroduceViewerContainer = ({ history, match }) => {
       console.log(error);
     }
   };
-  
+
+  const onApplyReceive = useCallback(() => {
+    dispatch(rankReceive({applyId: id}));
+  },[dispatch,id]);
+
+  useEffect(() => {
+    if (receiveError) {
+      console.log('error');
+      console.log(receiveError);
+      return;
+    }
+  }, [receiveError]);
+
   return (
     <IntroduceViewer
       apply={apply}
@@ -59,7 +75,7 @@ const IntroduceViewerContainer = ({ history, match }) => {
       user={user}
       seconds={seconds}
       actionButtons={<ApplyActionButtons onEdit={onEdit} onRemove={onRemove} />}
-      recieveButton={<ReceiveActionButton user={user} />}
+      recieveButton={<ReceiveActionButton user={user} onApplyReceive={onApplyReceive}/>}
     />
   );
 };
