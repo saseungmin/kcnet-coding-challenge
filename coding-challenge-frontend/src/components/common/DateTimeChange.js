@@ -32,7 +32,7 @@ const DateTimeChangeBlock = styled.div`
   &.applyline {
     background: #ffa94d;
   }
-  &.starttest {
+  &.testreceive {
     background: #74c0fc;
   }
 `;
@@ -44,30 +44,46 @@ const IntroduceDateTimeChangeBlock = styled.div`
   text-decoration: none;
   border-radius: 0.5rem;
   margin-top: 7px;
-  margin-bottom: 7px;
-  padding: 0.3rem 1rem 0.3rem 1rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
 
   &.receive {
     background: ${palette.violet[3]};
-    padding-left: 48px;
+    width: 100%;
   }
   &.deadline {
     background: #ff6b6b;
+    padding-left: 2.8rem;
+    padding-right: 2.8rem;
   }
   &.startapply {
     background-color: ${palette.cyan[4]};
+    width: 100%;
   }
   &.starttest {
     background-color: #69db7c;
+    padding-left: 1.35rem;
+    padding-right: 1.35rem;
   }
   &.applyline {
     background: #ffa94d;
-    padding-left: 38px;
+    width: 100%;
   }
-  &.starttest {
+  &.testreceive {
     background: #74c0fc;
-    padding-left: 20px;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
   }
+`;
+
+const DateTimeUlBlock = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
 `;
 
 const DateTimeChange = ({ seconds, apply, toggle }) => {
@@ -83,14 +99,18 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
     return (
       <>
         {toggle ? (
-          <>
-            <IntroduceDateTimeChangeBlock className="startapply">
-              <Moment fromNow>{applyStart}</Moment> &nbsp;접수 시작
-            </IntroduceDateTimeChangeBlock>
-            <IntroduceDateTimeChangeBlock className="starttest">
-              <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
-            </IntroduceDateTimeChangeBlock>
-          </>
+          <DateTimeUlBlock>
+            <li>
+              <IntroduceDateTimeChangeBlock className="startapply">
+                <Moment fromNow>{applyStart}</Moment> &nbsp;접수 시작
+              </IntroduceDateTimeChangeBlock>
+            </li>
+            <li>
+              <IntroduceDateTimeChangeBlock className="starttest">
+                <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
+              </IntroduceDateTimeChangeBlock>
+            </li>
+          </DateTimeUlBlock>
         ) : (
           <DateTimeChangeBlock className="startapply">
             <Moment fromNow>{applyStart}</Moment> &nbsp;접수 시작
@@ -102,14 +122,18 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
     return (
       <>
         {toggle ? (
-          <>
-            <IntroduceDateTimeChangeBlock className="blink receive">
-              접수중
-            </IntroduceDateTimeChangeBlock>
-            <IntroduceDateTimeChangeBlock className="starttest">
-              <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
-            </IntroduceDateTimeChangeBlock>
-          </>
+          <DateTimeUlBlock>
+            <li>
+              <IntroduceDateTimeChangeBlock className="blink receive">
+                접수중
+              </IntroduceDateTimeChangeBlock>
+            </li>
+            <li>
+              <IntroduceDateTimeChangeBlock className="starttest">
+                <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
+              </IntroduceDateTimeChangeBlock>
+            </li>
+          </DateTimeUlBlock>
         ) : (
           <DateTimeChangeBlock className="blink receive">접수중</DateTimeChangeBlock>
         )}
@@ -119,14 +143,18 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
     return (
       <>
         {toggle ? (
-          <>
-            <IntroduceDateTimeChangeBlock className="applyline">
-              접수 마감
-            </IntroduceDateTimeChangeBlock>
-            <IntroduceDateTimeChangeBlock className="starttest">
-              <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
-            </IntroduceDateTimeChangeBlock>
-          </>
+          <DateTimeUlBlock>
+            <li>
+              <IntroduceDateTimeChangeBlock className="applyline">
+                접수 마감
+              </IntroduceDateTimeChangeBlock>
+            </li>
+            <li>
+              <IntroduceDateTimeChangeBlock className="starttest">
+                <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
+              </IntroduceDateTimeChangeBlock>
+            </li>
+          </DateTimeUlBlock>
         ) : (
           <DateTimeChangeBlock className="applyline">접수 마감</DateTimeChangeBlock>
         )}
@@ -134,30 +162,36 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
     );
   } else if (now - testStart >= 0 && now - testEnd < 0) {
     return (
-    <>
-    {toggle ? (
-        <>
-        <IntroduceDateTimeChangeBlock className="applyline">
-              접수 마감
-        </IntroduceDateTimeChangeBlock>
-        <IntroduceDateTimeChangeBlock className="blink starttest">대회 진행 중</IntroduceDateTimeChangeBlock>
-        </>
-    ) : (
-        <DateTimeChangeBlock className="blink starttest">대회 진행 중</DateTimeChangeBlock>
-    )
-
-    }
-    </>
+      <>
+        {toggle ? (
+          <DateTimeUlBlock>
+            <li>
+              <IntroduceDateTimeChangeBlock className="applyline">
+                접수 마감
+              </IntroduceDateTimeChangeBlock>
+            </li>
+            <li>
+              <IntroduceDateTimeChangeBlock className="blink testreceive">
+                대회 진행 중
+              </IntroduceDateTimeChangeBlock>
+            </li>
+          </DateTimeUlBlock>
+        ) : (
+          <DateTimeChangeBlock className="blink testreceive">대회 진행 중</DateTimeChangeBlock>
+        )}
+      </>
     );
   } else {
     return (
-        <>
+      <>
         {toggle ? (
-            <IntroduceDateTimeChangeBlock className="deadline">대회 종료</IntroduceDateTimeChangeBlock>
-        ):(
-            <DateTimeChangeBlock className="deadline">대회 종료</DateTimeChangeBlock>
+          <IntroduceDateTimeChangeBlock className="deadline">
+            대회 종료
+          </IntroduceDateTimeChangeBlock>
+        ) : (
+          <DateTimeChangeBlock className="deadline">대회 종료</DateTimeChangeBlock>
         )}
-    </>
+      </>
     );
   }
 };

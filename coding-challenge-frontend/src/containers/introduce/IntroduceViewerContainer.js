@@ -12,17 +12,17 @@ import 'moment/locale/ko';
 import useInterval from 'src/lib/useInterval';
 moment.tz.setDefault("Asia/Seoul");
 
-const IntroduceViewerContainer = ({ match, history }) => {
-  const { id } = match.params;
+const IntroduceViewerContainer = ({ history }) => {
   const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
   const [seconds, setSeconds] = useState(nowTime);
 
   const dispatch = useDispatch();
-  const { apply, error, loading, user } = useSelector(({ apply, loading, user }) => ({
+  const { apply, error, loading, user,selectApplyId } = useSelector(({ apply, loading, user }) => ({
     apply: apply.apply,
     error: apply.error,
     user: user.user,
     loading: loading['apply/READ_APPLY'],
+    selectApplyId: apply.selectApplyId,
   }));
 
   useInterval(() => {
@@ -36,15 +36,15 @@ const IntroduceViewerContainer = ({ match, history }) => {
   };
 
   useEffect(() => {
-    dispatch(readApply(id));
+    dispatch(readApply(selectApplyId));
     return () => {
       dispatch(unloadApply());
     };
-  }, [dispatch, id]);
+  }, [dispatch, selectApplyId]);
 
   const onRemove = async () => {
     try {
-      await removeApply(id);
+      await removeApply(selectApplyId);
       history.push('/');
     } catch (error) {
       console.log(error);

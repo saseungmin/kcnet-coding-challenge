@@ -52,18 +52,19 @@ const ApplyTitleBlock = styled.div`
   }
 `;
 
-const ApplyItem = ({ apply, seconds }) => {
+const ApplyItem = ({ apply, seconds,linkOnClick }) => {
   const {
     _id,
     langs,
     title,
     content
   } = apply;
+  const enconded = encodeURIComponent(title);
 
   return (
     <ApplyItemBlock>
       <ApplyTitleBlock>
-        <Link to={`/introduce/${_id}`} className="title">
+        <Link to={`/introduce/${enconded}`} className="title" onClick={() => linkOnClick(_id)}>
           {title}
         </Link>
         <DateTimeChange seconds={seconds} apply={apply} toggle={false}/>
@@ -72,7 +73,7 @@ const ApplyItem = ({ apply, seconds }) => {
       <Langs langs={langs} />
       <p>{content}</p>
       <ApplyButtonWrapper>
-        <Button to={`/introduce/${_id}`} teal>
+        <Button to={`/introduce/${enconded}`} onClick={() => linkOnClick(_id)} teal>
           자세히 보기
         </Button>
       </ApplyButtonWrapper>

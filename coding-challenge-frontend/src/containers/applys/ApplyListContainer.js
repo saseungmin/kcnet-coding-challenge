@@ -9,6 +9,8 @@ import moment from 'moment';
 import 'moment-timezone';
 import 'moment/locale/ko';
 import useInterval from 'src/lib/useInterval';
+import { useCallback } from 'react';
+import { selectApply } from 'src/modules/apply';
 moment.tz.setDefault("Asia/Seoul");
 
 const ApplyListContainer = ({ location }) => {
@@ -35,7 +37,11 @@ const ApplyListContainer = ({ location }) => {
     dispatch(listApplys({ lang, page }));
   }, [dispatch, location.search]);
 
-  return <ApplyList loading={loading} applys={applys} error={error} user={user} seconds={seconds} />;
+  const linkOnClick = useCallback((id) => {
+    dispatch(selectApply(id))
+  },[dispatch])
+
+  return <ApplyList loading={loading} applys={applys} error={error} user={user} seconds={seconds} linkOnClick={linkOnClick} />;
 };
 
 export default withRouter(ApplyListContainer);
