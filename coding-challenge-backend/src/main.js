@@ -8,7 +8,6 @@ import jwtMiddleware from './lib/jwtMiddleware';
 
 const { PORT, MONGO_URI } = process.env;
 
-
 mongoose
 .connect(MONGO_URI, { useNewUrlParser: true, useFindAndModify: false }) // useFindAndModify => Deprecation Warnings
 .then(() => {
@@ -17,6 +16,8 @@ mongoose
 .catch((error) => {
   console.error(error);
 });
+
+mongoose.set('useCreateIndex', true);
 
 mongoose.connection.on('disconnected', () => {
   console.error('mongodb 연결이 끊겼습니다.');

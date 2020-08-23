@@ -42,13 +42,6 @@ const IntroduceViewerContainer = ({ history, match }) => {
   };
 
   useEffect(() => {
-    dispatch(readApply(id));
-    return () => {
-      dispatch(unloadApply());
-    };
-  }, [dispatch, id]);
-
-  useEffect(() => {
     if (user) {
       dispatch(getReceiveUser(id));
     } else {
@@ -58,6 +51,13 @@ const IntroduceViewerContainer = ({ history, match }) => {
       dispatch(unloadRank());
     };
   }, [dispatch, id, user]);
+
+  useEffect(() => {
+    dispatch(readApply(id));
+    return () => {
+      dispatch(unloadApply());
+    };
+  }, [dispatch, id]);
 
   const onRemove = async () => {
     try {

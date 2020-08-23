@@ -2,6 +2,7 @@ import Apply from "../../models/apply";
 import Joi from "@hapi/joi";
 import sanitizeHtml from "sanitize-html";
 import mongoose from "mongoose";
+import Rank from "../../models/rank";
 
 const { ObjectId } = mongoose.Types;
 
@@ -213,6 +214,7 @@ export const remove = async (ctx) => {
   const { id } = ctx.params;
   try {
     await Apply.findByIdAndRemove(id).exec();
+    await Rank.deleteMany({"applyId":{$in: ObjectId(id)}})
     ctx.status = 204;
   } catch (error) {
     ctx.throw(500, error);

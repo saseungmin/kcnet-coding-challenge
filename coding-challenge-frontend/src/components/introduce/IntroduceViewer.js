@@ -7,6 +7,7 @@ import Moment from 'react-moment';
 import 'moment/locale/ko';
 import { Helmet } from 'react-helmet-async';
 import DateTimeChange from '../common/DateTimeChange';
+import Button from '../common/Button';
 
 const IntroduceViewerBlock = styled(Responsive)`
   margin-top: 5rem;
@@ -78,8 +79,15 @@ const IntroduceContentTitle = styled.div`
   font-size: 1.2rem;
 `;
 
-const IntroduceViewer = ({ apply, error, loading, actionButtons, user, seconds,recieveButton }) => {
-
+const IntroduceViewer = ({
+  apply,
+  error,
+  loading,
+  actionButtons,
+  user,
+  seconds,
+  recieveButton,
+}) => {
   if (error) {
     if (error.response && error.response.status === 404) {
       return <IntroduceViewerBlock>존재하지 않는 포스트입니다.</IntroduceViewerBlock>;
@@ -96,7 +104,8 @@ const IntroduceViewer = ({ apply, error, loading, actionButtons, user, seconds,r
   const applyEnd = new Date(applyendday),
     applyStart = new Date(applystartday),
     testStart = new Date(teststartday),
-    testEnd = new Date(testendday);
+    testEnd = new Date(testendday),
+    nowTime = new Date(seconds);
 
   return (
     <IntroduceViewerBlock>
@@ -105,7 +114,13 @@ const IntroduceViewer = ({ apply, error, loading, actionButtons, user, seconds,r
       </Helmet>
       <IntroduceHead>
         <h1>{title}</h1>
-      {recieveButton}
+        {nowTime - applyStart >= 0 && nowTime - applyEnd < 0 ? (
+          recieveButton
+        ) : (
+          <Button disabled className="applybutton">
+            접수 불가
+          </Button>
+        )}
       </IntroduceHead>
       {user && user.userstatus === 'manager' ? actionButtons : null}
       <IntroduceDateBlock>
