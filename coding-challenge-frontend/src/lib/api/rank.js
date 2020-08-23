@@ -2,3 +2,7 @@ import client from './client';
 
 export const rankReceive = ({applyId}) =>
     client.post('/api/rank', {applyId});
+
+export const receiveUser = id => client.get(`/api/rank/${id}`);
+
+export const cancelReceive = id => client.delete(`/api/rank/${id}`);

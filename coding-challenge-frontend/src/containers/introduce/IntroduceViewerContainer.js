@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { readApply, unloadApply } from 'src/modules/apply';
@@ -7,13 +7,13 @@ import ApplyActionButtons from 'src/components/introduce/ApplyActionButtons';
 import { setOriginalApply } from 'src/modules/write';
 import { removeApply } from 'src/lib/api/apply';
 import moment from 'moment';
-import 'moment-timezone';
+//import 'moment-timezone';
 import 'moment/locale/ko';
 import useInterval from 'src/lib/useInterval';
 import ReceiveActionButton from 'src/components/introduce/ReceiveActionButton';
-import { unloadRank, rankReceive } from 'src/modules/rank';
-import { useCallback } from 'react';
-moment.tz.setDefault('Asia/Seoul');
+import { unloadRank, rankReceive, getReceiveUser } from 'src/modules/rank';
+import { cancelReceive } from 'src/lib/api/rank';
+//moment.tz.setDefault('Asia/Seoul');
 
 const IntroduceViewerContainer = ({ history, match }) => {
   const { id } = match.params;
@@ -21,13 +21,16 @@ const IntroduceViewerContainer = ({ history, match }) => {
   const [seconds, setSeconds] = useState(nowTime);
 
   const dispatch = useDispatch();
-  const { apply, error, loading, user,receiveError } = useSelector(({ apply, loading, user, rank }) => ({
-    apply: apply.apply,
-    error: apply.error,
-    user: user.user,
-    loading: loading['apply/READ_APPLY'],
-    receiveError: rank.receiveError,
-  }));
+  const { apply, error, loading, user, receiveError, receiveUser } = useSelector(
+    ({ apply, loading, user, rank }) => ({
+      apply: apply.apply,
+      error: apply.error,
+      user: user.user,
+      loading: loading['apply/READ_APPLY'],
+      receiveError: rank.receiveError,
+      receiveUser: rank.receiveUser,
+    }),
+  );
 
   useInterval(() => {
     setSeconds(moment().format('YYYY-MM-DD HH:mm:ss'));
@@ -42,9 +45,19 @@ const IntroduceViewerContainer = ({ history, match }) => {
     dispatch(readApply(id));
     return () => {
       dispatch(unloadApply());
-      dispatch(unloadRank());
     };
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(getReceiveUser(id));
+    } else {
+      dispatch(unloadRank());
+    }
+    return () => {
+      dispatch(unloadRank());
+    };
+  }, [dispatch, id, user]);
 
   const onRemove = async () => {
     try {
@@ -55,9 +68,19 @@ const IntroduceViewerContainer = ({ history, match }) => {
     }
   };
 
+  const onClickCancelReceive = useCallback(async () => {
+    const { _id } = receiveUser;
+    try {
+      await cancelReceive(_id);
+      dispatch(unloadRank());
+    } catch (error) {
+      console.log(error);
+    }
+  },[dispatch,receiveUser]);
+
   const onApplyReceive = useCallback(() => {
-    dispatch(rankReceive({applyId: id}));
-  },[dispatch,id]);
+    dispatch(rankReceive({ applyId: id }));
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (receiveError) {
@@ -75,7 +98,14 @@ const IntroduceViewerContainer = ({ history, match }) => {
       user={user}
       seconds={seconds}
       actionButtons={<ApplyActionButtons onEdit={onEdit} onRemove={onRemove} />}
-      recieveButton={<ReceiveActionButton user={user} onApplyReceive={onApplyReceive}/>}
+      recieveButton={
+        <ReceiveActionButton
+          user={user}
+          onApplyReceive={onApplyReceive}
+          onClickCancelReceive={onClickCancelReceive}
+          receiveUser={receiveUser}
+        />
+      }
     />
   );
 };

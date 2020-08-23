@@ -7,15 +7,21 @@ const [RANK_RECEIVE, RANK_RECEIVE_SUCCESS, RANK_RECEIVE_FAILURE] = createRequest
   'rank/RANK_RECEIVE',
 );
 
+const [GET_RECEIVE_USER, GET_RECEIVE_USER_SUCCESS, GET_RECEIVE_USER_FAILURE] = createRequestActionTypes(
+  'rank/GET_RECEIVE_USER',
+);
 const UNLOAD_RANK = 'rank/UNLOAD_RANK';
 
-export const rankReceive = createAction(RANK_RECEIVE, ({applyId}) => ({applyId}));
+export const rankReceive = createAction(RANK_RECEIVE, ({ applyId }) => ({ applyId }));
 export const unloadRank = createAction(UNLOAD_RANK);
+export const getReceiveUser = createAction(GET_RECEIVE_USER, (id) => id);
 
 const rankReceiveSaga = createRequestSaga(RANK_RECEIVE, rankAPI.rankReceive);
+const receiveUserSaga = createRequestSaga(GET_RECEIVE_USER, rankAPI.receiveUser);
 
 export function* rankSaga() {
   yield takeLatest(RANK_RECEIVE, rankReceiveSaga);
+  yield takeLatest(GET_RECEIVE_USER, receiveUserSaga);
 }
 
 const initialState = {
@@ -35,6 +41,15 @@ const rank = handleActions(
       ...state,
       receiveError: error,
     }),
+    [GET_RECEIVE_USER_SUCCESS]: (state, {payload: receiveUser}) => ({
+      ...state,
+      receiveUser: receiveUser === "" ? null : receiveUser,
+      receiveError: null,
+    }),
+    [GET_RECEIVE_USER_FAILURE]: (state, {payload: error}) => ({
+      ...state,
+      receiveError: error,
+    })
   },
   initialState,
 );
