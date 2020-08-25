@@ -35,13 +35,13 @@ const RankItem = ({ ranklist }) => {
         <RankItemBlock>언어</RankItemBlock>
         <RankItemBlock>점수</RankItemBlock>
       </RankTableTitleBlock>
-      {ranklist.map((val, index) => 
+      {ranklist.map((rank, index) => 
         <RankTableItemBoxBlock key={index}>
           <RankItemBlock className="text-center">{index+1}</RankItemBlock>
-          <RankItemBlock>{`${val.userid}(${val.username})`}</RankItemBlock>
+          <RankItemBlock>{`${rank.user.userid}(${rank.user.username})`}</RankItemBlock>
           <RankItemBlock>2</RankItemBlock>
-          <RankItemBlock>{val.lang}</RankItemBlock>
-          <RankItemBlock>{val.score}</RankItemBlock>
+          <RankItemBlock>{rank.lang}</RankItemBlock>
+          <RankItemBlock>{rank.score}</RankItemBlock>
         </RankTableItemBoxBlock>
       )}
     </>

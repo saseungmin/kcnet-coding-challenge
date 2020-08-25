@@ -29,33 +29,17 @@ const RankTableBlock = styled.div`
   overflow: hidden;
 `;
 
-const fakeData = [
-    {
-        score: 500,
-        lang: 'JavaScript',
-        userid: "seung02169",
-        username: '사승민',
-    },
-    {
-        score: 300,
-        lang: 'JavaScript',
-        userid: "seung02169",
-        username: '사하랑',
-    },
-    {
-        score: 400,
-        lang: 'JavaScript',
-        userid: "seung02169",
-        username: '홍길동',
-    }
-]
+const RankForm = ({ rankList, loading, rankError }) => {
+  
+  if (loading || !rankList) {
+    return null;
+  }
 
-const RankForm = () => {
   return (
     <RankFormBlock>
       <RankTitleBlock>랭킹</RankTitleBlock>
       <RankTableBlock>
-        <RankItem ranklist={fakeData} />
+        <RankItem ranklist={rankList} />
       </RankTableBlock>
     </RankFormBlock>
   );
