@@ -4,8 +4,9 @@ import IntroducePage from './pages/IntroducePage';
 import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import PostRegister from './pages/PostRegister';
+import PostRegisterPage from './pages/PostRegisterPage';
 import { Helmet } from 'react-helmet-async';
+import MyInfoPage from './pages/MyInfoPage';
 
 const App = () => {
   return(
@@ -17,7 +18,8 @@ const App = () => {
       <Route component={IntroducePage} path="/introduce/:id"/>
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />
-      <Route component={PostRegister} path="/Write" />
+      <Route component={PostRegisterPage} path="/write" />
+      <Route component={MyInfoPage} path="/myinfo" />
     </>
   )
 }

@@ -11,7 +11,7 @@ const RankTitleBlock = styled.div`
   padding: 7px 1rem 7px 1rem;
   border-radius: 0.75rem;
   background-color: #eeebff;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   width: 17%;
   text-align: center;
   color: #0053f4;

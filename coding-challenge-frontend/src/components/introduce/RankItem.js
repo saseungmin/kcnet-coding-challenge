@@ -10,6 +10,15 @@ const RankItemBlock = styled.div`
   }
 `;
 
+const RankItemHeaderBlock = styled.div`
+  font-family: 'Sunflower', sans-serif;
+  padding: 9px 12px;
+  display: table-cell;
+  &.text-center {
+    text-align: center;
+  }
+`;
+
 const RankTableItemBoxBlock = styled.div`
   display: table-row;
   background: #f6f6f6;
@@ -29,11 +38,11 @@ const RankItem = ({ ranklist }) => {
   return (
     <>
       <RankTableTitleBlock>
-        <RankItemBlock className="text-center">순위</RankItemBlock>
-        <RankItemBlock>이름</RankItemBlock>
-        <RankItemBlock>LEVEL</RankItemBlock>
-        <RankItemBlock>언어</RankItemBlock>
-        <RankItemBlock>점수</RankItemBlock>
+        <RankItemHeaderBlock className="text-center">순위</RankItemHeaderBlock>
+        <RankItemHeaderBlock>이름</RankItemHeaderBlock>
+        <RankItemHeaderBlock>LEVEL</RankItemHeaderBlock>
+        <RankItemHeaderBlock>언어</RankItemHeaderBlock>
+        <RankItemHeaderBlock>점수</RankItemHeaderBlock>
       </RankTableTitleBlock>
       {ranklist.map((rank, index) => 
         <RankTableItemBoxBlock key={index}>

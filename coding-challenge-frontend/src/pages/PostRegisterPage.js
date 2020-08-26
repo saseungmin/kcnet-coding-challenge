@@ -3,7 +3,7 @@ import AuthTemplate from '../components/auth/AuthTemplate';
 import ApplyWriteFrom from 'src/containers/write/ApplyWriteFrom';
 import { Helmet } from 'react-helmet-async';
 
-const PostRegister = () => {
+const PostRegisterPage = () => {
   const toggle = true;
 
   return (
@@ -18,4 +18,4 @@ const PostRegister = () => {
   );
 };
 
-export default PostRegister;
+export default PostRegisterPage;
