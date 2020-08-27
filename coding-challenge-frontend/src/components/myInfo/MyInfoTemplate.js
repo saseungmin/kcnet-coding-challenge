@@ -22,8 +22,9 @@ const ComInProgressHeadBlock = styled.div`
 const MyInfoTemplate= () => {
     return (
         <MyInfoTemplateBlock>
-            <ComInProgressHeadBlock>접수중인 대회</ComInProgressHeadBlock>
+            <ComInProgressHeadBlock>내가 접수한 대회</ComInProgressHeadBlock>
             <ComInProgressForm/>
+
         </MyInfoTemplateBlock>
     );
 };
