@@ -5,8 +5,6 @@ import PostRegisterForm from 'src/components/write/PostRegisterForm';
 import { withRouter } from 'react-router-dom';
 
 const ApplyWriteFrom = ({ history }) => {
-  const [error, setError] = useState(null);
-
   const dispatch = useDispatch();
   const {
     applystartday,
@@ -34,6 +32,7 @@ const ApplyWriteFrom = ({ history }) => {
     originalApplyId: write.originalApplyId,
   }));
 
+  const [error, setError] = useState(null);
   const [selectLangs, setSelectLangs] = useState(langs);
 
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch]);

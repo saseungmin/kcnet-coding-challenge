@@ -30,9 +30,18 @@ const RankTableBlock = styled.div`
 `;
 
 const RankForm = ({ rankList, loading, rankError }) => {
-  
+  if (rankError) {
+    return <RankFormBlock>랭킹 에러..</RankFormBlock>;
+  }
+
   if (loading || !rankList) {
-    return null;
+    return (
+      <>
+        <RankFormBlock>
+          <RankTitleBlock>랭킹</RankTitleBlock>
+        </RankFormBlock>
+      </>
+    );
   }
 
   return (

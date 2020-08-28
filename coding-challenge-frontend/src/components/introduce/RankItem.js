@@ -10,15 +10,6 @@ const RankItemBlock = styled.div`
   }
 `;
 
-const RankItemHeaderBlock = styled.div`
-  font-family: 'Sunflower', sans-serif;
-  padding: 9px 12px;
-  display: table-cell;
-  &.text-center {
-    text-align: center;
-  }
-`;
-
 const RankTableItemBoxBlock = styled.div`
   display: table-row;
   background: #f6f6f6;
@@ -34,6 +25,15 @@ const RankTableTitleBlock = styled.div`
   background: ${palette.Teal[5]};
 `;
 
+const RankItemHeaderBlock = styled.div`
+  font-family: 'Sunflower', sans-serif;
+  padding: 9px 12px;
+  display: table-cell;
+  &.text-center {
+    text-align: center;
+  }
+`;
+
 const RankItem = ({ ranklist }) => {
   return (
     <>
@@ -44,15 +44,15 @@ const RankItem = ({ ranklist }) => {
         <RankItemHeaderBlock>언어</RankItemHeaderBlock>
         <RankItemHeaderBlock>점수</RankItemHeaderBlock>
       </RankTableTitleBlock>
-      {ranklist.map((rank, index) => 
+      {ranklist.map((rank, index) => (
         <RankTableItemBoxBlock key={index}>
-          <RankItemBlock className="text-center">{index+1}</RankItemBlock>
+          <RankItemBlock className="text-center">{index + 1}</RankItemBlock>
           <RankItemBlock>{`${rank.user.userid}(${rank.user.username})`}</RankItemBlock>
           <RankItemBlock>2</RankItemBlock>
           <RankItemBlock>{rank.lang}</RankItemBlock>
           <RankItemBlock>{rank.score}</RankItemBlock>
         </RankTableItemBoxBlock>
-      )}
+      ))}
     </>
   );
 };

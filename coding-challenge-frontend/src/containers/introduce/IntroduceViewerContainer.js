@@ -10,7 +10,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import useInterval from 'src/lib/useInterval';
 import ReceiveActionButton from 'src/components/introduce/ReceiveActionButton';
-import { unloadRank, rankReceive } from 'src/modules/rank';
+import { unloadRank, rankReceive, getRankList } from 'src/modules/rank';
 import { cancelReceive } from 'src/lib/api/rank';
 
 const IntroduceViewerContainer = ({ history, match }) => {
@@ -61,13 +61,15 @@ const IntroduceViewerContainer = ({ history, match }) => {
     try {
       await cancelReceive(_id);
       dispatch(unloadRank());
+      dispatch(getRankList(id));
     } catch (error) {
       console.log(error);
     }
-  },[dispatch,receiveUser]);
+  },[dispatch,receiveUser,id]);
 
   const onApplyReceive = useCallback(() => {
     dispatch(rankReceive({ applyId: id }));
+    dispatch(getRankList(id));
   }, [dispatch, id]);
 
   useEffect(() => {
