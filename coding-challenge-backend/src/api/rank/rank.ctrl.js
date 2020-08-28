@@ -61,17 +61,16 @@ export const cancelReceive = async (ctx) => {
   const { id } = ctx.params;
   try {
     await Rank.findByIdAndRemove(id).exec();
-    ctx.status = 204; 
+    ctx.status = 204;
   } catch (error) {
     ctx.throw(500, error);
   }
-}
+};
 
 export const rankList = async (ctx) => {
-  const {id} = ctx.params;
+  const { id } = ctx.params;
 
   try {
-
     const apply = await Apply.findById(id).exec();
 
     if (!apply) {
@@ -79,11 +78,28 @@ export const rankList = async (ctx) => {
       return;
     }
 
-    const exists = await Rank.find({applyId: ObjectId(id)}).sort({score: -1}).lean().exec();
+    const exists = await Rank.find({ applyId: ObjectId(id) })
+      .sort({ score: -1 })
+      .lean()
+      .exec();
 
     ctx.body = exists;
-
   } catch (error) {
     ctx.throw(500, error);
   }
-}
+};
+
+export const myApplyList = async (ctx) => {
+  try {
+    const exists = await Rank.find({ "user._id": ObjectId(ctx.state.user._id) })
+      .populate(
+        "applyId",
+        "langs _id applystartday applyendday teststartday testendday title"
+      )
+      .exec();
+
+    ctx.body = exists;
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
