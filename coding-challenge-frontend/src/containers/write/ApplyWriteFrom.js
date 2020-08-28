@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 const ApplyWriteFrom = ({ history }) => {
   const [error, setError] = useState(null);
+
   const dispatch = useDispatch();
   const {
     applystartday,
@@ -33,7 +34,25 @@ const ApplyWriteFrom = ({ history }) => {
     originalApplyId: write.originalApplyId,
   }));
 
+  const [selectLangs, setSelectLangs] = useState(langs);
+
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch]);
+
+  const onChangebody = (e) => {
+    const { value, checked, name } = e.target;
+    if (name === 'langs' && checked) {
+      if (selectLangs.includes(value)) return;
+      const nextTags = [...selectLangs, value];
+      setSelectLangs(nextTags);
+      onChangeField({ key: name, value: nextTags });
+    } else if (name === 'langs' && !checked) {
+      const nextTags = selectLangs.filter((t) => t !== value);
+      setSelectLangs(nextTags);
+      onChangeField({ key: name, value: nextTags });
+    } else {
+      onChangeField({ key: name, value: value });
+    }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -50,7 +69,7 @@ const ApplyWriteFrom = ({ history }) => {
       testStart = new Date(teststartday),
       testEnd = new Date(testendday);
 
-    if(Date.now() - applyStart >= 0){
+    if (Date.now() - applyStart >= 0) {
       setError('접수 날짜가 현재 날짜보다 빠를 수 없습니다.');
       return;
     }
@@ -60,21 +79,23 @@ const ApplyWriteFrom = ({ history }) => {
       return;
     }
 
-    if(applyEnd - testStart > 0){
+    if (applyEnd - testStart > 0) {
       setError('접수 날짜가 테스트 날짜보다 빠를 수 없습니다.');
       return;
     }
-    if(originalApplyId) {
-      dispatch(updateApply({
-        id: originalApplyId,
-        applystartday,
-        applyendday,
-        teststartday,
-        testendday,
-        title,
-        content,
-        langs,
-      }));
+    if (originalApplyId) {
+      dispatch(
+        updateApply({
+          id: originalApplyId,
+          applystartday,
+          applyendday,
+          teststartday,
+          testendday,
+          title,
+          content,
+          langs,
+        }),
+      );
       return;
     }
     dispatch(
@@ -101,12 +122,22 @@ const ApplyWriteFrom = ({ history }) => {
       history.push('/');
     }
     if (applyError) {
-      originalApplyId ? setError('글 수정에 실패하였습니다.') : setError('글 등록에 실패하였습니다.');
+      originalApplyId
+        ? setError('글 수정에 실패하였습니다.')
+        : setError('글 등록에 실패하였습니다.');
       return;
     }
-  }, [history, apply, applyError,originalApplyId]);
+  }, [history, apply, applyError, originalApplyId]);
 
-  return <PostRegisterForm onChangeField={onChangeField} onSubmit={onSubmit} write={write} error={error} />;
+  return (
+    <PostRegisterForm
+      onChangeField={onChangeField}
+      onChangebody={onChangebody}
+      onSubmit={onSubmit}
+      write={write}
+      error={error}
+    />
+  );
 };
 
 export default withRouter(ApplyWriteFrom);

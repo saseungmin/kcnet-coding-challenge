@@ -10,12 +10,12 @@ const PostEditorFormBlock = styled.div`
   }
 `;
 
-const PostEditorForm = ({editor, onChangeEditer}) => {
+const PostEditorForm = ({ editor, onChangeEditor }) => {
   return (
     <PostEditorFormBlock>
       <Editor
         editorState={editor}
-        onEditorStateChange={onChangeEditer}
+        onEditorStateChange={onChangeEditor}
         // css Wrapper class name
         wrapperClassName="demo-wrapper"
         // css editor class name
