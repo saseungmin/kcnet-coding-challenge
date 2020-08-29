@@ -4,8 +4,9 @@ import { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { unloadMyInfo, myInfoApplyList } from 'src/modules/myInfo';
 import MyInfoTemplate from 'src/components/myInfo/MyInfoTemplate';
+import qs from 'qs';
 
-const ReceiveCompetitionContainer = ({ history }) => {
+const ReceiveCompetitionContainer = ({ history, location }) => {
   const dispatch = useDispatch();
   const { myInfoList, loading, error, user } = useSelector(({ myInfo, loading, user }) => ({
     myInfoList: myInfo.myInfoList,
@@ -15,8 +16,11 @@ const ReceiveCompetitionContainer = ({ history }) => {
   }));
 
   useEffect(() => {
-    dispatch(myInfoApplyList());
-  }, [dispatch]);
+    const { page } = qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+      });
+    dispatch(myInfoApplyList({page}));
+  }, [dispatch, location.search]);
 
   useEffect(() => {
     if (!user) {

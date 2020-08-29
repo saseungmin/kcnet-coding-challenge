@@ -65,7 +65,7 @@ const DateTimeChangeBlock = styled.div`
 `;
 
 const ReceiveCompetitionForm = ({ myInfoList, loading }) => {
-  if (!(!!myInfoList && !!myInfoList.length)) {
+  if (!(!!myInfoList && !!myInfoList.length) && !loading) {
     return <ReceiveCompetitionFormBlock className="empty">접수한 대회가 없습니다.</ReceiveCompetitionFormBlock>;
   }
   return (
