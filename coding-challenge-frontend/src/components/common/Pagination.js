@@ -20,10 +20,11 @@ const buildLink = ({ lang, page }) => {
 
 const myInfoBuildLink = ({ page }) => {
     const query = qs.stringify({ page });
-    return `/?${query}`;
+    return `/myinfo/?${query}`;
   };
 
 const Pagination = ({ page, lastPage, lang, receiveLastPage }) => {
+
   return (
     <>
       {lastPage ? (
@@ -46,14 +47,14 @@ const Pagination = ({ page, lastPage, lang, receiveLastPage }) => {
         <PaginationBlock>
           <Button
             disabled={page === 1}
-            to={page === 1 ? undefined : myInfoBuildLink({ page: page - 1 })}
+            to={page === 1 ? undefined : `${myInfoBuildLink({ page: page - 1 })}`}
           >
             이전
           </Button>
           <PageNumber>{page}</PageNumber>
           <Button
             disabled={page === receiveLastPage}
-            to={page === receiveLastPage ? undefined : myInfoBuildLink({ page: page + 1 })}
+            to={page === receiveLastPage ? undefined : `${myInfoBuildLink({ page: page + 1 })}`}
           >
             다음
           </Button>

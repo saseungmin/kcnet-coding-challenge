@@ -5,7 +5,6 @@ const { ObjectId } = mongoose.Types;
 
 // NOTE : myinfo페이지 내가 접수한 챌린지
 export const myApplyList = async (ctx) => {
-  console.log(ctx.query.page);
   const page = parseInt(ctx.query.page || "1", 10);
   if (page < 1) {
     ctx.status = 400;
