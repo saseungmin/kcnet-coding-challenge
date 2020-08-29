@@ -88,18 +88,3 @@ export const rankList = async (ctx) => {
     ctx.throw(500, error);
   }
 };
-
-export const myApplyList = async (ctx) => {
-  try {
-    const exists = await Rank.find({ "user._id": ObjectId(ctx.state.user._id) })
-      .populate(
-        "applyId",
-        "langs _id applystartday applyendday teststartday testendday title"
-      )
-      .exec();
-
-    ctx.body = exists;
-  } catch (error) {
-    ctx.throw(500, error);
-  }
-};

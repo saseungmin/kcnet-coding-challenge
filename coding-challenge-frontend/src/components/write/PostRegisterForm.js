@@ -111,6 +111,7 @@ const PostRegisterForm = ({ onChangeField, onChangebody, error, onSubmit, write 
     }
   }, [content, langs]);
 
+  // FIXME: 한글로 쳤을 때 editorState가 한박자 늦게 되서 꼬이는 현상.. 알 수가 없다.
   const onChangeEditor = (editorState) => {
     setEditor(editorState);
     onChangeField({
