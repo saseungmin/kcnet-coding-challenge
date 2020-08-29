@@ -1,3 +1,3 @@
 import client from "./client";
 
-export const check = () => client.get('/api/myinfo/list');
+export const myApplyList = () => client.get('/api/myinfo/list');

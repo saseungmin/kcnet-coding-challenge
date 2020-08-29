@@ -4,7 +4,7 @@ import checkLoggedIn from "../../lib/checkLoggedIn";
 
 const rank = new Router();
 rank.post("/", checkLoggedIn, rankCtrl.receive);
-rank.get('/list/:id',rankCtrl.rankList);
+rank.get("/list/:id", rankCtrl.rankList);
 
 const receive = new Router();
 receive.get("/", rankCtrl.getReceiveUser);
