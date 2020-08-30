@@ -34,21 +34,15 @@ const RankForm = ({ rankList, loading, rankError }) => {
     return <RankFormBlock>랭킹 에러..</RankFormBlock>;
   }
 
-  if (loading || !rankList) {
-    return (
-      <>
-        <RankFormBlock>
-          <RankTitleBlock>랭킹</RankTitleBlock>
-        </RankFormBlock>
-      </>
-    );
+  if(loading){
+    return null;
   }
 
   return (
     <RankFormBlock>
       <RankTitleBlock>랭킹</RankTitleBlock>
       <RankTableBlock>
-        <RankItem ranklist={rankList} />
+        <RankItem ranklist={rankList} loading={loading}/>
       </RankTableBlock>
     </RankFormBlock>
   );

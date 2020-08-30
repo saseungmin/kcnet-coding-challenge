@@ -10,7 +10,7 @@ const PostEditorFormBlock = styled.div`
   }
 `;
 
-const PostEditorForm = ({ editor, onChangeEditor }) => {
+const PostEditorForm = ({ editor, onChangeEditor, uploadImageCallBack }) => {
   return (
     <PostEditorFormBlock>
       <Editor
@@ -20,6 +20,7 @@ const PostEditorForm = ({ editor, onChangeEditor }) => {
         wrapperClassName="demo-wrapper"
         // css editor class name
         editorClassName="editer"
+        placeholder="내용을 작성해주세요."
         localization={{
           locale: 'ko',
         }}
@@ -29,6 +30,12 @@ const PostEditorForm = ({ editor, onChangeEditor }) => {
           textAlign: { inDropdown: true },
           link: { inDropdown: true },
           history: { inDropdown: true },
+          image: {
+            uploadCallback: uploadImageCallBack,
+            previewImage: true,
+            alt: { present: true, mandatory: false },
+            inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+          },
         }}
       />
     </PostEditorFormBlock>

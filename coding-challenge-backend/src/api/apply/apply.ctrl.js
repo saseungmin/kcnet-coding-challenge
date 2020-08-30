@@ -3,8 +3,33 @@ import Joi from "@hapi/joi";
 import sanitizeHtml from "sanitize-html";
 import mongoose from "mongoose";
 import Rank from "../../models/rank";
+import fs from 'fs';
+import path from 'path';
+import multer from "@koa/multer";
 
 const { ObjectId } = mongoose.Types;
+
+fs.readdir('src/uploads', (error) => {
+  if(error){
+    console.log('uploads 폴더가 존재하지 않아 생성합니다.');
+    fs.mkdirSync('src/uploads');
+  }
+})
+
+export const upload = multer({
+  storage: multer.diskStorage({
+    destination(req, file, cb){
+      cb(null, 'src/uploads/');
+    },
+    filename(req, file, cb){
+      const ext = path.extname(file.originalname);
+      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+    },
+  }),
+  // NOTE : 10MB 제한
+  limits: {fileSize: 5*1024*1024},
+});
+
 
 export const getApplyId = async (ctx, next) => {
   const { id } = ctx.params;
@@ -57,6 +82,7 @@ const sanitizeOption = {
     "td",
     "pre",
     "iframe",
+    "img",
   ],
   disallowedTagsMode: "discard",
   allowedAttributes: {

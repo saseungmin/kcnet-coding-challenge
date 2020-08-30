@@ -34,7 +34,7 @@ const RankItemHeaderBlock = styled.div`
   }
 `;
 
-const RankItem = ({ ranklist }) => {
+const RankItem = ({ ranklist, loading }) => {
   return (
     <>
       <RankTableTitleBlock>
@@ -44,7 +44,7 @@ const RankItem = ({ ranklist }) => {
         <RankItemHeaderBlock>언어</RankItemHeaderBlock>
         <RankItemHeaderBlock>점수</RankItemHeaderBlock>
       </RankTableTitleBlock>
-      {ranklist.map((rank, index) => (
+      {ranklist && !loading && ranklist.map((rank, index) => (
         <RankTableItemBoxBlock key={index}>
           <RankItemBlock className="text-center">{index + 1}</RankItemBlock>
           <RankItemBlock>{`${rank.user.userid}(${rank.user.username})`}</RankItemBlock>

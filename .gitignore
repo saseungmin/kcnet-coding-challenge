@@ -3,6 +3,7 @@
 # dependencies
 /coding-challenge-backend/node_modules
 /coding-challenge-frontend/node_modules
+/coding-challenge-backend/src/uploads
 /.pnp
 .pnp.js
 

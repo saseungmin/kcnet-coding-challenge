@@ -68,9 +68,11 @@ const ApplyWriteFrom = ({ history }) => {
       testStart = new Date(teststartday),
       testEnd = new Date(testendday);
 
-    if (Date.now() - applyStart >= 0) {
-      setError('접수 날짜가 현재 날짜보다 빠를 수 없습니다.');
-      return;
+    if(!originalApplyId){
+      if (Date.now() - applyStart >= 0) {
+        setError('접수 날짜가 현재 날짜보다 빠를 수 없습니다.');
+        return;
+      }
     }
 
     if (applyStart - applyEnd >= 0 || testStart - testEnd >= 0) {
@@ -82,6 +84,7 @@ const ApplyWriteFrom = ({ history }) => {
       setError('접수 날짜가 테스트 날짜보다 빠를 수 없습니다.');
       return;
     }
+
     if (originalApplyId) {
       dispatch(
         updateApply({
@@ -128,6 +131,27 @@ const ApplyWriteFrom = ({ history }) => {
     }
   }, [history, apply, applyError, originalApplyId]);
 
+const uploadImageCallBack = file => {
+  return new Promise(
+    (resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/api/apply/img');
+      const data = new FormData();
+      data.append('img', file);
+      xhr.send(data);
+      xhr.addEventListener('load', () => {
+        const response = JSON.parse(xhr.responseText);
+        resolve(response);
+      });
+      xhr.addEventListener('error', () => {
+        const error = JSON.parse(xhr.responseText);
+        reject(error);
+      });
+    }
+  );
+}
+
+
   return (
     <PostRegisterForm
       onChangeField={onChangeField}
@@ -135,6 +159,7 @@ const ApplyWriteFrom = ({ history }) => {
       onSubmit={onSubmit}
       write={write}
       error={error}
+      uploadImageCallBack={uploadImageCallBack}
     />
   );
 };

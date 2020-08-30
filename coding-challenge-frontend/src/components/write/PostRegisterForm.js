@@ -52,7 +52,7 @@ const StyledDate = styled.input`
   border-bottom: 1px solid ${palette.Teal[5]};
   padding-bottom: 0.5rem;
   outline: none;
-  width: 45%;
+  width: 35%;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:focus {
     color: ${palette.gray[6]};
@@ -72,7 +72,7 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const PostRegisterForm = ({ onChangeField, onChangebody, error, onSubmit, write }) => {
+const PostRegisterForm = ({ onChangeField, onChangebody, error, onSubmit, write, uploadImageCallBack }) => {
   const {
     applystartday,
     applyendday,
@@ -89,7 +89,7 @@ const PostRegisterForm = ({ onChangeField, onChangebody, error, onSubmit, write 
     React.createRef(),
     React.createRef(),
   ]);
-  const [editor, setEditor] = useState('');
+  const [editor, setEditor] = useState(EditorState.createEmpty());
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -111,7 +111,8 @@ const PostRegisterForm = ({ onChangeField, onChangebody, error, onSubmit, write 
     }
   }, [content, langs]);
 
-  // FIXME: 한글로 쳤을 때 editorState가 한박자 늦게 되서 꼬이는 현상.. 알 수가 없다.
+
+  // FIXME: 한글로 쳤을 때 editorState가 한박자 늦게 되서 꼬이는 현상
   const onChangeEditor = (editorState) => {
     setEditor(editorState);
     onChangeField({
@@ -153,7 +154,7 @@ const PostRegisterForm = ({ onChangeField, onChangebody, error, onSubmit, write 
           onChange={onChangebody}
           value={title}
         ></StyledInput>
-        <PostEditorForm editor={editor} onChangeEditor={onChangeEditor} />
+        <PostEditorForm editor={editor} onChangeEditor={onChangeEditor} uploadImageCallBack={uploadImageCallBack} />
         <div>사용 가능 언어</div>
         <PostRegisterLangs onChangeLangs={onChangebody} inputCheckBox={inputCheckBox} />
         {error && <ErrorMessage>{error}</ErrorMessage>}
