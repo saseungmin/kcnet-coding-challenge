@@ -26,7 +26,6 @@ const MyInfoTemplate = ({ myInfoList, error, loading }) => {
   return (
     <MyInfoTemplateBlock>
       <ReceiveCompetitionHeadBlock>내가 접수한 대회</ReceiveCompetitionHeadBlock>
-      {/* TODO: 페이징 처리*/}
       <ReceiveCompetitionForm myInfoList={myInfoList} loading={loading} />
     </MyInfoTemplateBlock>
   );

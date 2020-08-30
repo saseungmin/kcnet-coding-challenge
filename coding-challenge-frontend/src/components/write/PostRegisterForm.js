@@ -1,11 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import palette from 'src/lib/styles/palette';
 import styled from 'styled-components';
 import Button from '../common/Button';
-import { convertToRaw, ContentState, EditorState } from 'draft-js';
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
 import PostRegisterLangs from './PostRegisterLangs';
 import PostEditorForm from './PostEditorForm';
 
@@ -72,54 +68,15 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const PostRegisterForm = ({ onChangeField, onChangebody, error, onSubmit, write, uploadImageCallBack }) => {
+const PostRegisterForm = ({ onChangebody, error, onSubmit, write, uploadImageCallBack, inputCheckBox,editor,onChangeEditor }) => {
   const {
     applystartday,
     applyendday,
     teststartday,
     testendday,
     title,
-    content,
-    langs,
     originalApplyId,
   } = write;
-  const inputCheckBox = useRef([
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-    React.createRef(),
-  ]);
-  const [editor, setEditor] = useState(EditorState.createEmpty());
-  const mounted = useRef(false);
-
-  useEffect(() => {
-    if (mounted.current) return;
-    mounted.current = true;
-    const blocksFromHtml = htmlToDraft(content);
-    if (content) {
-      const { contentBlocks, entityMap } = blocksFromHtml;
-      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-      const editorState = EditorState.createWithContent(contentState);
-      setEditor(editorState);
-    }
-    if (langs) {
-      for (let i = 0; i < langs.length; i++) {
-        inputCheckBox.current.map((current) =>
-          current.current.value === langs[i] ? (current.current.checked = true) : '',
-        );
-      }
-    }
-  }, [content, langs]);
-
-
-  // FIXME: 한글로 쳤을 때 editorState가 한박자 늦게 되서 꼬이는 현상
-  const onChangeEditor = (editorState) => {
-    setEditor(editorState);
-    onChangeField({
-      key: 'content',
-      value: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-    });
-  };
 
   return (
     <WriteFormBlock>

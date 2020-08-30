@@ -1,9 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initialize, writeApply, updateApply } from 'src/modules/write';
 import PostRegisterForm from 'src/components/write/PostRegisterForm';
 import { withRouter } from 'react-router-dom';
+import { convertToRaw, ContentState, EditorState } from 'draft-js';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
+
+// FIXME: 리팩토링 하기
 const ApplyWriteFrom = ({ history }) => {
   const dispatch = useDispatch();
   const {
@@ -34,6 +40,12 @@ const ApplyWriteFrom = ({ history }) => {
 
   const [error, setError] = useState(null);
   const [selectLangs, setSelectLangs] = useState(langs);
+  const inputCheckBox = useRef([
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+    React.createRef(),
+  ]);
 
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch]);
 
@@ -53,6 +65,37 @@ const ApplyWriteFrom = ({ history }) => {
     }
   };
 
+  const [editor, setEditor] = useState(EditorState.createEmpty());
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (mounted.current) return;
+    mounted.current = true;
+    const blocksFromHtml = htmlToDraft(content);
+    if (content) {
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+      const editorState = EditorState.createWithContent(contentState);
+      setEditor(editorState);
+    }
+    if (langs) {
+      for (let i = 0; i < langs.length; i++) {
+        inputCheckBox.current.map((current) =>
+          current.current.value === langs[i] ? (current.current.checked = true) : '',
+        );
+      }
+    }
+  }, [content, langs]);
+
+  // FIXME: 한글로 쳤을 때 editorState가 한박자 늦게 되서 꼬이는 현상 => 공식문서 demo에서도 문제 발생
+  const onChangeEditor = (editorState) => {
+    setEditor(editorState);
+    onChangeField({
+      key: 'content',
+      value: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+    });
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
     if ([applystartday, applyendday, teststartday, testendday, title, content].includes('')) {
@@ -68,7 +111,7 @@ const ApplyWriteFrom = ({ history }) => {
       testStart = new Date(teststartday),
       testEnd = new Date(testendday);
 
-    if(!originalApplyId){
+    if (!originalApplyId) {
       if (Date.now() - applyStart >= 0) {
         setError('접수 날짜가 현재 날짜보다 빠를 수 없습니다.');
         return;
@@ -121,7 +164,7 @@ const ApplyWriteFrom = ({ history }) => {
 
   useEffect(() => {
     if (apply) {
-      history.push('/');
+      history.push(`/introduce/${apply._id}`);
     }
     if (applyError) {
       originalApplyId
@@ -131,9 +174,8 @@ const ApplyWriteFrom = ({ history }) => {
     }
   }, [history, apply, applyError, originalApplyId]);
 
-const uploadImageCallBack = file => {
-  return new Promise(
-    (resolve, reject) => {
+  const uploadImageCallBack = (file) => {
+    return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', '/api/apply/img');
       const data = new FormData();
@@ -147,19 +189,19 @@ const uploadImageCallBack = file => {
         const error = JSON.parse(xhr.responseText);
         reject(error);
       });
-    }
-  );
-}
-
+    });
+  };
 
   return (
     <PostRegisterForm
-      onChangeField={onChangeField}
       onChangebody={onChangebody}
       onSubmit={onSubmit}
       write={write}
       error={error}
       uploadImageCallBack={uploadImageCallBack}
+      inputCheckBox={inputCheckBox}
+      onChangeEditor={onChangeEditor}
+      editor={editor}
     />
   );
 };
