@@ -9,17 +9,17 @@ import multer from "@koa/multer";
 
 const { ObjectId } = mongoose.Types;
 
-fs.readdir('src/uploads', (error) => {
+fs.readdir('uploads', (error) => {
   if(error){
     console.log('uploads 폴더가 존재하지 않아 생성합니다.');
-    fs.mkdirSync('src/uploads');
+    fs.mkdirSync('uploads');
   }
 })
 
 export const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb){
-      cb(null, 'src/uploads/');
+      cb(null, 'uploads/');
     },
     filename(req, file, cb){
       const ext = path.extname(file.originalname);
@@ -29,6 +29,17 @@ export const upload = multer({
   // NOTE : 10MB 제한
   limits: {fileSize: 5*1024*1024},
 });
+
+
+export const uploadImg = async (ctx) => {
+  try {
+    ctx.status = 200;
+    ctx.body = {data:{link: `/img/${ctx.request.file.filename}`}};
+  } catch (error) {
+    ctx.status = 400;
+    ctx.body = error.message;
+  }
+}
 
 
 export const getApplyId = async (ctx, next) => {

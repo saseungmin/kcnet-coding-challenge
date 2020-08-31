@@ -16,7 +16,7 @@ const WriteFormBlock = styled.div`
       margin-bottom: 0.5rem;
     }
   }
-  .editer {
+  .editor {
     height: 250px !important;
     border: 1px solid #f1f1f1 !important;
     padding: 5px !important;

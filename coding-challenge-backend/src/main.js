@@ -21,19 +21,14 @@ mongoose
 
 mongoose.set('useCreateIndex', true);
 
-mongoose.connection.on('disconnected', () => {
-  console.error('mongodb 연결이 끊겼습니다.');
-})
-
 const app = new Koa();
 const router = new Router();
 
 router.use("/api", api.routes());
 
-console.log(__dirname);
 app.use(bodyParser());
 app.use(jwtMiddleware);
-app.use(mount('/img',serve(`${__dirname}/uploads`)));
+app.use(mount('/img',serve('uploads')));
 
 // app 인스턴스에 라우터 적용
 app.use(router.routes()).use(router.allowedMethods());

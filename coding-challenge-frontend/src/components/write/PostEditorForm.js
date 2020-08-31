@@ -19,7 +19,7 @@ const PostEditorForm = ({ editor, onChangeEditor, uploadImageCallBack }) => {
         // css Wrapper class name
         wrapperClassName="demo-wrapper"
         // css editor class name
-        editorClassName="editer"
+        editorClassName="editor"
         placeholder="내용을 작성해주세요."
         localization={{
           locale: 'ko',

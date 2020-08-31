@@ -4,7 +4,7 @@ import { changeField, initialize, writeApply, updateApply } from 'src/modules/wr
 import PostRegisterForm from 'src/components/write/PostRegisterForm';
 import { withRouter } from 'react-router-dom';
 import { convertToRaw, ContentState, EditorState } from 'draft-js';
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
