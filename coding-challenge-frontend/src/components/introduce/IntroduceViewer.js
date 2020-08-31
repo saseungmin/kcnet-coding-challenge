@@ -87,8 +87,10 @@ const IntroduceViewer = ({
   user,
   seconds,
   recieveButton,
+  receiveError,
+  receiveLoading,
 }) => {
-  if (error) {
+  if (error || receiveError) {
     if (error.response && error.response.status === 404) {
       return <IntroduceViewerBlock>존재하지 않는 포스트입니다.</IntroduceViewerBlock>;
     }
@@ -114,12 +116,16 @@ const IntroduceViewer = ({
       </Helmet>
       <IntroduceHead>
         <h1>{title}</h1>
-        {nowTime - applyStart >= 0 && nowTime - applyEnd < 0 ? (
-          recieveButton
-        ) : (
-          <Button disabled className="applybutton">
-            접수 불가
-          </Button>
+        {!receiveLoading && (
+          <>
+            {nowTime - applyStart >= 0 && nowTime - applyEnd < 0 ? (
+              recieveButton
+            ) : (
+              <Button disabled className="applybutton">
+                접수 불가
+              </Button>
+            )}
+          </>
         )}
       </IntroduceHead>
       {user && user.userstatus === 'manager' ? actionButtons : null}

@@ -50,6 +50,7 @@ const Header = ({ user, onLogout }) => {
           {user ? (
             <div className="right">
               <UserInfo>{user.userid}{`(${user.username})`}</UserInfo>
+              <Button to="/myinfo" cyan style={{ marginRight: '0.5rem' }}>내 정보</Button>
               <Button onClick={onLogout}>로그아웃</Button>
             </div>
           ) : (

@@ -15,14 +15,14 @@ const jwtMiddleware = async (ctx, next) => {
     };
 
     // {
-    //     _id: '5f327d7f996cb73ae8a53f32',
-    //     userid: 'seunwwg02169',
+    //     _id: '*',
+    //     userid: '*',
     //     iat: 1597145658,
     //     exp: 1597750458
     //   }
     const now = Math.floor(Date.now() / 1000);
     if (decoded.exp - now < 60 * 60 * 24 * 2) {
-      // 2일 미만 재발급
+      // NOTE: 2일 미만 재발급
       const user = await User.findById(decoded._id);
       const token = user.generateToken();
       ctx.cookies.set("access_token", token, {

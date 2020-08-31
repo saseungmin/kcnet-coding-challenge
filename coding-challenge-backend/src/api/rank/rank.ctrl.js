@@ -24,7 +24,7 @@ export const receive = async (ctx) => {
     const exists = await Apply.findById(applyId).exec();
 
     if (!exists) {
-      ctx.status = 400;
+      ctx.status = 404;
       return;
     }
 
@@ -33,10 +33,10 @@ export const receive = async (ctx) => {
       user: ctx.state.user,
     });
 
-    await rank.save(); // mongodb에 저장
+    await rank.save();
     ctx.body = rank;
-  } catch (e) {
-    ctx.throw(500, e);
+  } catch (error) {
+    ctx.throw(500, error);
   }
 };
 
@@ -52,8 +52,8 @@ export const getReceiveUser = async (ctx) => {
     }).exec();
 
     ctx.body = exists;
-  } catch (e) {
-    ctx.throw(500, e);
+  } catch (error) {
+    ctx.throw(500, error);
   }
 };
 
@@ -61,8 +61,30 @@ export const cancelReceive = async (ctx) => {
   const { id } = ctx.params;
   try {
     await Rank.findByIdAndRemove(id).exec();
-    ctx.status = 204; 
+    ctx.status = 204;
   } catch (error) {
     ctx.throw(500, error);
   }
-}
+};
+
+export const rankList = async (ctx) => {
+  const { id } = ctx.params;
+
+  try {
+    const apply = await Apply.findById(id).exec();
+
+    if (!apply) {
+      ctx.status = 404;
+      return;
+    }
+
+    const exists = await Rank.find({ applyId: ObjectId(id) })
+      .sort({ score: -1 })
+      .lean()
+      .exec();
+
+    ctx.body = exists;
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
