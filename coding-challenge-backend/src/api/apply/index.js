@@ -1,6 +1,7 @@
 import Router from "koa-router";
 import * as applyCtrl from "./apply.ctrl";
 
+// TODO: 이미지 삭제 기능 추가하기
 const applys = new Router();
 
 applys.post("/", applyCtrl.write);

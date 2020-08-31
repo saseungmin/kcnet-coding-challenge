@@ -46,6 +46,9 @@ const ApplyWriteFrom = ({ history }) => {
     React.createRef(),
     React.createRef(),
   ]);
+  const [editor, setEditor] = useState(EditorState.createEmpty());
+  const mounted = useRef(false);
+
 
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch]);
 
@@ -64,9 +67,6 @@ const ApplyWriteFrom = ({ history }) => {
       onChangeField({ key: name, value: value });
     }
   };
-
-  const [editor, setEditor] = useState(EditorState.createEmpty());
-  const mounted = useRef(false);
 
   useEffect(() => {
     if (mounted.current) return;
@@ -174,6 +174,8 @@ const ApplyWriteFrom = ({ history }) => {
     }
   }, [history, apply, applyError, originalApplyId]);
 
+
+  // TODO: 리덕스로 상태관리하여 axios로 넘기기로 변경하기
   const uploadImageCallBack = (file) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
