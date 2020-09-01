@@ -24,7 +24,7 @@ const myInfoBuildLink = ({ page }) => {
   };
 
 const Pagination = ({ page, lastPage, lang, receiveLastPage }) => {
-
+  
   return (
     <>
       {lastPage ? (

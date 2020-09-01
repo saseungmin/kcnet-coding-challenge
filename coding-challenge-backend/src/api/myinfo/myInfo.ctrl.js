@@ -6,6 +6,7 @@ const { ObjectId } = mongoose.Types;
 // NOTE : myinfo페이지 내가 접수한 챌린지
 export const myApplyList = async (ctx) => {
   const page = parseInt(ctx.query.page || "1", 10);
+
   if (page < 1) {
     ctx.status = 400;
     return;
@@ -27,7 +28,10 @@ export const myApplyList = async (ctx) => {
       "user._id": ObjectId(ctx.state.user._id),
     }).exec();
 
-    ctx.set("My-Info-Receive-Last-Page", Math.ceil(receiveCount / 3));
+    ctx.set(
+      "My-Info-Receive-Last-Page",
+      Math.ceil(receiveCount === 0 ? 1 : receiveCount / 3)
+    );
 
     ctx.body = exists;
   } catch (error) {
