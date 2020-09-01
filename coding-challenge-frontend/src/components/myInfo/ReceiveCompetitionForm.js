@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import palette from 'src/lib/styles/palette';
 import Moment from 'react-moment';
 import LangTemplate from './LangTemplate';
+import DateChangeTemplate from './DateChangeTemplate';
 
 const ReceiveCompetitionFormBlock = styled.div`
   margin-bottom: 1.2rem;
@@ -46,25 +47,8 @@ const DateInfoBlock = styled.div`
   margin-bottom: 1rem;
 `;
 
-const DateTimeChangeBlock = styled.div`
-  font-size: 1rem;
-  display: flex;
-  justify-items: center;
-  margin-right: 20px;
-  font-weight: bold;
-  font-family: 'Gamja Flower', cursive;
-  padding-left: 0.7rem;
-  padding-right: 0.7rem;
-  color: white;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  align-items: center;
-  &.deadline {
-    background: #ff8787;
-  }
-`;
+const ReceiveCompetitionForm = ({ myInfoList, loading, seconds }) => {
 
-const ReceiveCompetitionForm = ({ myInfoList, loading }) => {
   if (!(!!myInfoList && !!myInfoList.length) && !loading) {
     return <ReceiveCompetitionFormBlock className="empty">접수한 대회가 없습니다.</ReceiveCompetitionFormBlock>;
   }
@@ -78,14 +62,13 @@ const ReceiveCompetitionForm = ({ myInfoList, loading }) => {
                 <Link to={`/introduce/${receive.applyId._id}`} className="title">
                   {receive.applyId.title}
                 </Link>
-                <DateTimeChangeBlock className="deadline">5일 후 접수 마감</DateTimeChangeBlock>
+                <DateChangeTemplate apply={receive.applyId} seconds={seconds}>5일 후 접수 마감</DateChangeTemplate>
               </ReceiveCompetitionHeaderBlock>
               <DateInfoBlock>
                 <span>
                   <b>대회</b>
                 </span>
                 <span>
-                  {/*  TODO: moment 처리 */}
                   <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">
                     {receive.applyId.teststartday}
                   </Moment>

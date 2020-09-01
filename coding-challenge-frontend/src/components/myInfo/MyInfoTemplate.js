@@ -19,14 +19,14 @@ const ReceiveCompetitionHeadBlock = styled.div`
 `;
 
 // TODO - 최상단 현재 진행중인 대회, 내가 접수한 대회, 내 랭킹 점수 정보, 내 계정 관리
-const MyInfoTemplate = ({ myInfoList, error, loading }) => {
+const MyInfoTemplate = ({ myInfoList, error, loading, seconds }) => {
   if (error) {
     return <MyInfoTemplateBlock>내 정보 불러오기 실패..</MyInfoTemplateBlock>;
   }
   return (
     <MyInfoTemplateBlock>
       <ReceiveCompetitionHeadBlock>내가 접수한 대회</ReceiveCompetitionHeadBlock>
-      <ReceiveCompetitionForm myInfoList={myInfoList} loading={loading} />
+      <ReceiveCompetitionForm myInfoList={myInfoList} loading={loading} seconds={seconds}/>
     </MyInfoTemplateBlock>
   );
 };
