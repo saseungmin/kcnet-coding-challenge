@@ -27,6 +27,7 @@ const MyRankListItem = () => {
             <MyChallengeRankBlock>
             각 챌린지별 랭킹 정보
             </MyChallengeRankBlock>
+            
             {/* TODO: 전체 랭킹 정보 */}
             <MyChallengeRankBlock>
             전체 랭킹 정보
