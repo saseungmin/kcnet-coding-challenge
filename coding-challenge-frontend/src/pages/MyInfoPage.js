@@ -5,6 +5,7 @@ import ReceiveCompetitionContainer from 'src/containers/myInfo/ReceiveCompetitio
 import MyInfoListPaginationContainer from 'src/containers/myInfo/MyInfoListPaginationContainer';
 import MyRankListForm from 'src/components/myInfo/MyRankListForm';
 import MyPrivacyForm from 'src/components/myInfo/MyPrivacyForm';
+import FooterContainer from 'src/containers/common/FooterContainer';
 
 const MyInfoPage = () => {
     return (
@@ -17,6 +18,7 @@ const MyInfoPage = () => {
             <MyInfoListPaginationContainer/>
             <MyRankListForm/>
             <MyPrivacyForm/>
+            <FooterContainer/>
         </>
     );
 };
