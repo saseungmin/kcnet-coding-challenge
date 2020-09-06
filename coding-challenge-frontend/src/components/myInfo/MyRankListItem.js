@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import palette from 'src/lib/styles/palette';
 
 const MyRankListItemBlock = styled.div`
     margin-top : 2rem;

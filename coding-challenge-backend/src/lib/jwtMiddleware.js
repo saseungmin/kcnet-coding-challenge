@@ -12,6 +12,7 @@ const jwtMiddleware = async (ctx, next) => {
       userid: decoded.userid,
       username: decoded.username,
       userstatus: decoded.userstatus,
+      apikey: decoded.apikey,
     };
 
     // {

@@ -44,7 +44,6 @@ const LoginForm = ({ history }) => {
   useEffect(() => {
     if (authError) {
       console.log('error');
-      console.log(authError);
       setError('로그인 실패');
       return;
     }
@@ -55,10 +54,9 @@ const LoginForm = ({ history }) => {
 
   useEffect(() => {
     if (user) {
-      console.log('로그인 완료');
       history.push('/');
       try {
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify({userid: user.userid, username:user.username }));
       } catch (e) {
         console.log('localStorage 오류');
       }

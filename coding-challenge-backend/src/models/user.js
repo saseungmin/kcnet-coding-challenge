@@ -63,6 +63,7 @@ UserSchema.methods.generateToken = function () {
       userid: this.userid,
       username: this.username,
       userstatus: this.userstatus,
+      apikey: this.apikey,
     },
     process.env.JWT_SECRET,
     {

@@ -1,26 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import Responsive from '../common/Responsive';
-import palette from 'src/lib/styles/palette';
 
-const MyPrivacyFormBlock = styled(Responsive)`
-  margin-top: 4rem;
-`;
-
-const MyPrivacyHeadBlock = styled.div`
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: ${palette.gray[7]};
-  border-bottom: 1px solid ${palette.gray[3]};
-  padding-bottom: 1rem;
+const MyPrivacyFormBlock = styled.div`
   margin-bottom: 2rem;
-  padding-left: 1rem;
+  padding: 1rem;
+  border: 0.0625rem solid #d7e2eb;
+  border-radius: 0.4rem;
+  height: auto;
 `;
 
-const MyPrivacyForm = () => {
+
+const MyPrivacyForm = ({user}) => {
     return (
         <MyPrivacyFormBlock>
-            <MyPrivacyHeadBlock>내 정보</MyPrivacyHeadBlock>
+
         </MyPrivacyFormBlock>
     );
 };
