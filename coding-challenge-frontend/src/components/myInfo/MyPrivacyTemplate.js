@@ -18,11 +18,11 @@ const MyPrivacyHeadBlock = styled.div`
   padding-left: 1rem;
 `;
 
-const MyPrivacyTemplate= ({user, onChange}) => {
+const MyPrivacyTemplate= ({user, onChange, onUpdate, error}) => {
     return (
         <MyPrivacyTemplateBlock>
             <MyPrivacyHeadBlock>내 정보</MyPrivacyHeadBlock>
-            {user && <MyPrivacyForm user={user} onChange={onChange}/>}
+            {user && <MyPrivacyForm user={user} onChange={onChange} onUpdate={onUpdate} error={error}/>}
         </MyPrivacyTemplateBlock>
     );
 };

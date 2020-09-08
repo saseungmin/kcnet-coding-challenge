@@ -12,17 +12,23 @@ const [
 const CHANGE_USER = 'myInfo/CHANGE_USER';
 const UNLOAD_MYINFO = 'myInfo/UNLOAD_MYINFO';
 const SET_ORIGINAL_USER = 'myInfo/SET_ORIGINAL_USER';
+const [UPDATE_USER, UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE] = createRequestActionTypes(
+  'myInfo/UPDATE_USER',
+);
+
+export const updateUser = createAction(UPDATE_USER, (user) => user);
 
 export const changeUser = createAction(CHANGE_USER, ({ key, value }) => ({
   key,
   value,
 }));
-
 export const setOriginalUser = createAction(SET_ORIGINAL_USER, (user) => user);
 export const myInfoApplyList = createAction(MYINFO_APPLY_LIST, ({ page }) => ({ page }));
 export const unloadMyInfo = createAction(UNLOAD_MYINFO);
 
 const myInfoApplyListSaga = createRequestSaga(MYINFO_APPLY_LIST, myInfoAPI.myApplyList);
+
+//TODO: UPDATE_USER saga API 처리
 
 export function* myInfoSaga() {
   yield takeLatest(MYINFO_APPLY_LIST, myInfoApplyListSaga);
@@ -55,7 +61,7 @@ const myInfo = handleActions(
       produce(state, (draft) => {
         draft['originalUser'][key] = value;
       }),
-    [SET_ORIGINAL_USER]: (state, {payload: user}) => ({
+    [SET_ORIGINAL_USER]: (state, { payload: user }) => ({
       ...state,
       originalUser: {
         originalId: user._id,

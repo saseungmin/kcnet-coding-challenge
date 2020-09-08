@@ -82,11 +82,12 @@ const ButtonBlock = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const MyPrivacyForm = ({user, onChange}) => {
+
+const MyPrivacyForm = ({user, onChange, onUpdate, error}) => {
     const {userid, username, apikey} = user;
     return (
         <MyPrivacyFormBlock>
-          <form>
+          {/* <form onSubmit={onUpdate}> */}
             <MyPrivacyItemBlock>
               <MyPrivacyTitleBlock className="required" htmlFor="userid">아이디</MyPrivacyTitleBlock>
               <MyPrivacyInputBlock value={userid || ''} name="userid" disabled />
@@ -101,10 +102,10 @@ const MyPrivacyForm = ({user, onChange}) => {
               <MyPrivacyInputBlock value={apikey || ''} name="apikey" className="apikey" onChange={onChange}/>
             </MyPrivacyItemBlock>
             <ButtonBlock>
-            <Button teal style={{ marginLeft: '1rem' }}>변경 사항 저장</Button>
-            <Button orange style={{ marginRight: '1rem' }}>비밀 번호 변경</Button>
+            <Button teal style={{ marginLeft: '1rem' }} onClick={onUpdate} >변경 사항 저장</Button>
+            <Button orange style={{ marginRight: '1rem' }} >비밀 번호 변경</Button>
             </ButtonBlock>
-          </form>
+            {/* </form> */}
         </MyPrivacyFormBlock>
     );
 };

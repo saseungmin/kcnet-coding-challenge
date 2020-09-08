@@ -1,26 +1,43 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MyPrivacyTemplate from 'src/components/myInfo/MyPrivacyTemplate';
-import { changeUser,setOriginalUser } from 'src/modules/myInfo';
+import { changeUser, setOriginalUser } from 'src/modules/myInfo';
 
 const MyPrivacyContainer = () => {
-    const { user,orginalUser } = useSelector(({ user, myInfo }) => ({ user: user.user, orginalUser: myInfo.originalUser }));
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        dispatch(setOriginalUser(user));
-    }, [dispatch, user]);
-    
-    const onChangeUser = useCallback((payload) => dispatch(changeUser(payload)), [dispatch]);
-    
-    const onChange = (e) => {
-        const { value, name } = e.target;
-        onChangeUser({ key: name, value: value });
-    }
+  const [error, setError] = useState(null);
+  const { user, orginalUser } = useSelector(({ user, myInfo }) => ({
+    user: user.user,
+    orginalUser: myInfo.originalUser,
+  }));
+  const dispatch = useDispatch();
 
-    return (
-        <MyPrivacyTemplate user={orginalUser} onChange={onChange}/>
-    );
+  useEffect(() => {
+    dispatch(setOriginalUser(user));
+  }, [dispatch, user]);
+
+  const onChangeUser = useCallback((payload) => dispatch(changeUser(payload)), [dispatch]);
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    onChangeUser({ key: name, value: value });
+  };
+
+  //TODO: 변경사항 처리
+  const onUpdate = () => {
+    const { apikey, username } = orginalUser;
+    if (username.trim() === '' || username === null) {
+      setError('이름을 입력해주세요.');
+      return;
+    } else if (apikey.trim() === '' || apikey === null) {
+      setError('api키를 입력해주세요.');
+      return;
+    }
+    // TODO: dispatch 처리
+  };
+
+  return (
+    <MyPrivacyTemplate user={orginalUser} onChange={onChange} error={error} onUpdate={onUpdate} />
+  );
 };
 
 export default MyPrivacyContainer;
