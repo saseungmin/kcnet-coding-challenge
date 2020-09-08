@@ -83,22 +83,22 @@ const ButtonBlock = styled.div`
   justify-content: space-between;
 `;
 const MyPrivacyForm = ({user, onChange}) => {
-  const {userid, username, apikey} = user;
+    const {userid, username, apikey} = user;
     return (
         <MyPrivacyFormBlock>
           <form>
             <MyPrivacyItemBlock>
-              <MyPrivacyTitleBlock className="required" for="userid">아이디</MyPrivacyTitleBlock>
-              <MyPrivacyInputBlock value={userid} name="userid" disabled />
+              <MyPrivacyTitleBlock className="required" htmlFor="userid">아이디</MyPrivacyTitleBlock>
+              <MyPrivacyInputBlock value={userid || ''} name="userid" disabled />
               <LabelWarningSmallBlock>아이디는 수정할 수 없습니다.</LabelWarningSmallBlock>
             </MyPrivacyItemBlock>
             <MyPrivacyItemBlock>
-              <MyPrivacyTitleBlock className="required" for="username">이름</MyPrivacyTitleBlock>
-              <MyPrivacyInputBlock value={username} name="username" onChange={onChange}/>
+              <MyPrivacyTitleBlock className="required" htmlFor="username">이름</MyPrivacyTitleBlock>
+              <MyPrivacyInputBlock value={username || ''} name="username" onChange={onChange}/>
             </MyPrivacyItemBlock>
             <MyPrivacyItemBlock>
-              <MyPrivacyTitleBlock className="required" for="apikey">apikey</MyPrivacyTitleBlock>
-              <MyPrivacyInputBlock value={apikey} name="apikey" className="apikey" onChange={onChange}/>
+              <MyPrivacyTitleBlock className="required" htmlFor="apikey">apikey</MyPrivacyTitleBlock>
+              <MyPrivacyInputBlock value={apikey || ''} name="apikey" className="apikey" onChange={onChange}/>
             </MyPrivacyItemBlock>
             <ButtonBlock>
             <Button teal style={{ marginLeft: '1rem' }}>변경 사항 저장</Button>

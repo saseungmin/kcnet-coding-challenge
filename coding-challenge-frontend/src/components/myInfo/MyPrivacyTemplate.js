@@ -22,7 +22,7 @@ const MyPrivacyTemplate= ({user, onChange}) => {
     return (
         <MyPrivacyTemplateBlock>
             <MyPrivacyHeadBlock>내 정보</MyPrivacyHeadBlock>
-            <MyPrivacyForm user={user} onChange={onChange}/>
+            {user && <MyPrivacyForm user={user} onChange={onChange}/>}
         </MyPrivacyTemplateBlock>
     );
 };

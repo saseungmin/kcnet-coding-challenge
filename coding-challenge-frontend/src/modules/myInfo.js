@@ -11,11 +11,14 @@ const [
 ] = createRequestActionTypes('myInfo/MYINFO_APPLY_LIST');
 const CHANGE_USER = 'myInfo/CHANGE_USER';
 const UNLOAD_MYINFO = 'myInfo/UNLOAD_MYINFO';
+const SET_ORIGINAL_USER = 'myInfo/SET_ORIGINAL_USER';
 
 export const changeUser = createAction(CHANGE_USER, ({ key, value }) => ({
   key,
   value,
 }));
+
+export const setOriginalUser = createAction(SET_ORIGINAL_USER, (user) => user);
 export const myInfoApplyList = createAction(MYINFO_APPLY_LIST, ({ page }) => ({ page }));
 export const unloadMyInfo = createAction(UNLOAD_MYINFO);
 
@@ -27,7 +30,9 @@ export function* myInfoSaga() {
 
 const initialState = {
   myInfoList: null,
-  user:{
+  originalUser: {
+    originalId: '',
+    userid: '',
     username: '',
     apikey: '',
   },
@@ -47,8 +52,17 @@ const myInfo = handleActions(
       error,
     }),
     [CHANGE_USER]: (state, { payload: { key, value } }) =>
-    produce(state, (draft) => {
-      draft['user'][key] = value;
+      produce(state, (draft) => {
+        draft['originalUser'][key] = value;
+      }),
+    [SET_ORIGINAL_USER]: (state, {payload: user}) => ({
+      ...state,
+      originalUser: {
+        originalId: user._id,
+        userid: user.userid,
+        username: user.username,
+        apikey: user.apikey,
+      },
     }),
     [UNLOAD_MYINFO]: () => initialState,
   },
