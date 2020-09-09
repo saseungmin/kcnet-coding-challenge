@@ -42,11 +42,11 @@ export const myApplyList = async (ctx) => {
 };
 
 export const updateUser = async (ctx) => {
+  const { id } = ctx.params;
+
   const schema = Joi.object().keys({
-    _id: Joi.string(),
     userid: Joi.string(),
     username: Joi.string(),
-    userstatus: Joi.string(),
     apikey: Joi.string(),
   });
 
@@ -57,14 +57,14 @@ export const updateUser = async (ctx) => {
     return;
   }
 
-  const { _id, username, apikey } = ctx.request.body;
+  const { username, apikey } = ctx.request.body;
   const userObj = {
     username,
     apikey,
   };
 
   try {
-    const user = await User.findByIdAndUpdate(_id, userObj, {
+    const user = await User.findByIdAndUpdate(id, userObj, {
       new: true,
     }).exec();
     if (!user) {

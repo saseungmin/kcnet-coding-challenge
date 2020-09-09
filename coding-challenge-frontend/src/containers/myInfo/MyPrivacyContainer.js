@@ -22,7 +22,7 @@ const MyPrivacyContainer = () => {
     onChangeUser({ key: name, value: value });
   };
 
-  //TODO: 변경사항 처리
+  //TODO: error 변경사항 처리
   const onUpdate = useCallback(() => {
     const { apikey, username } = orginalUser;
     if (username.trim() === '' || username === null) {
@@ -32,7 +32,7 @@ const MyPrivacyContainer = () => {
       setError('api키를 입력해주세요.');
       return;
     }
-    // TODO: dispatch 처리
+    // TODO: user 정보 바뀌게
     dispatch(updateUser(orginalUser));
   },[orginalUser, dispatch] );
 

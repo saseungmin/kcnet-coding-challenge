@@ -18,7 +18,6 @@ const ReceiveCompetitionHeadBlock = styled.div`
   padding-left: 1rem;
 `;
 
-// TODO - 최상단 현재 진행중인 대회, 내가 접수한 대회
 const MyInfoTemplate = ({ myInfoList, error, loading, seconds }) => {
   if (error) {
     return <MyInfoTemplateBlock>내 정보 불러오기 실패..</MyInfoTemplateBlock>;
