@@ -1,5 +1,7 @@
 import Rank from "../../models/rank";
 import mongoose from "mongoose";
+import Joi from "@hapi/joi";
+import User from "../../models/user";
 
 const { ObjectId } = mongoose.Types;
 
@@ -34,6 +36,42 @@ export const myApplyList = async (ctx) => {
     );
 
     ctx.body = exists;
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
+
+export const updateUser = async (ctx) => {
+  const schema = Joi.object().keys({
+    _id: Joi.string(),
+    userid: Joi.string(),
+    username: Joi.string(),
+    userstatus: Joi.string(),
+    apikey: Joi.string(),
+  });
+
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
+
+  const { _id, username, apikey } = ctx.request.body;
+  const userObj = {
+    username,
+    apikey,
+  };
+
+  try {
+    const user = await User.findByIdAndUpdate(_id, userObj, {
+      new: true,
+    }).exec();
+    if (!user) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = user.serialize();
   } catch (error) {
     ctx.throw(500, error);
   }
