@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MyPrivacyTemplate from 'src/components/myInfo/MyPrivacyTemplate';
-import { changeUser, setOriginalUser } from 'src/modules/myInfo';
+import { changeUser, setOriginalUser,updateUser } from 'src/modules/myInfo';
 
 const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ const MyPrivacyContainer = () => {
   };
 
   //TODO: 변경사항 처리
-  const onUpdate = () => {
+  const onUpdate = useCallback(() => {
     const { apikey, username } = orginalUser;
     if (username.trim() === '' || username === null) {
       setError('이름을 입력해주세요.');
@@ -33,7 +33,8 @@ const MyPrivacyContainer = () => {
       return;
     }
     // TODO: dispatch 처리
-  };
+    dispatch(updateUser(orginalUser));
+  },[orginalUser, dispatch] );
 
   return (
     <MyPrivacyTemplate user={orginalUser} onChange={onChange} error={error} onUpdate={onUpdate} />

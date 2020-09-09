@@ -29,20 +29,17 @@ export const unloadMyInfo = createAction(UNLOAD_MYINFO);
 const myInfoApplyListSaga = createRequestSaga(MYINFO_APPLY_LIST, myInfoAPI.myApplyList);
 
 //TODO: UPDATE_USER saga API 처리
-
+const updateUserSaga = createRequestSaga(UPDATE_USER, myInfoAPI.updateUser);
 export function* myInfoSaga() {
   yield takeLatest(MYINFO_APPLY_LIST, myInfoApplyListSaga);
+  yield takeLatest(UPDATE_USER, updateUserSaga);
 }
 
 const initialState = {
   myInfoList: null,
-  originalUser: {
-    originalId: '',
-    userid: '',
-    username: '',
-    apikey: '',
-  },
+  originalUser: null,
   error: null,
+  userError: null,
   receiveLastPage: 1,
 };
 
@@ -63,12 +60,15 @@ const myInfo = handleActions(
       }),
     [SET_ORIGINAL_USER]: (state, { payload: user }) => ({
       ...state,
-      originalUser: {
-        originalId: user._id,
-        userid: user.userid,
-        username: user.username,
-        apikey: user.apikey,
-      },
+      originalUser: user,
+    }),
+    [UPDATE_USER_SUCCESS]: (state, {payload: user }) => ({
+      ...state,
+      originalUser:user,
+    }),
+    [UPDATE_USER_FAILURE]: (state, {payload: userError}) => ({
+      ...state,
+      userError,
     }),
     [UNLOAD_MYINFO]: () => initialState,
   },
