@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MyPrivacyTemplate from 'src/components/myInfo/MyPrivacyTemplate';
 import { changeUser, setOriginalUser,updateUser } from 'src/modules/myInfo';
+import { tempSetUser } from 'src/modules/user';
 
 const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
@@ -32,8 +33,14 @@ const MyPrivacyContainer = () => {
       setError('api키를 입력해주세요.');
       return;
     }
-    // TODO: user 정보 바뀌게
+
     dispatch(updateUser(orginalUser));
+    dispatch(tempSetUser(orginalUser));
+    try {
+      localStorage.setItem('user', JSON.stringify({userid: orginalUser.userid, username:orginalUser.username }));
+    } catch (e) {
+      console.log('localStorage 오류', e);
+    }
   },[orginalUser, dispatch] );
 
   return (
