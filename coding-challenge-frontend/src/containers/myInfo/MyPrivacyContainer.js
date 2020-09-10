@@ -1,14 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MyPrivacyTemplate from 'src/components/myInfo/MyPrivacyTemplate';
-import { changeUser, setOriginalUser,updateUser } from 'src/modules/myInfo';
+import { changeUser, setOriginalUser, updateUser } from 'src/modules/myInfo';
 import { tempSetUser } from 'src/modules/user';
 
 const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
-  const { user, orginalUser } = useSelector(({ user, myInfo }) => ({
+  const [modal, setModal] = useState(false);
+
+  const { user, orginalUser,userError } = useSelector(({ user, myInfo }) => ({
     user: user.user,
     orginalUser: myInfo.originalUser,
+    userError: myInfo.userError
   }));
   const dispatch = useDispatch();
 
@@ -18,6 +21,10 @@ const MyPrivacyContainer = () => {
 
   const onChangeUser = useCallback((payload) => dispatch(changeUser(payload)), [dispatch]);
 
+  const onConfirm = () => {
+    setModal(false);
+  };
+
   const onChange = (e) => {
     const { value, name } = e.target;
     onChangeUser({ key: name, value: value });
@@ -26,25 +33,35 @@ const MyPrivacyContainer = () => {
   //TODO: error 변경사항 처리
   const onUpdate = useCallback(() => {
     const { apikey, username } = orginalUser;
-    if (username.trim() === '' || username === null) {
+    if (username.trim() === '') {
       setError('이름을 입력해주세요.');
       return;
-    } else if (apikey.trim() === '' || apikey === null) {
+    } else if (apikey.trim() === '') {
       setError('api키를 입력해주세요.');
       return;
     }
 
     dispatch(updateUser(orginalUser));
-    dispatch(tempSetUser(orginalUser));
-    try {
-      localStorage.setItem('user', JSON.stringify({userid: orginalUser.userid, username:orginalUser.username }));
-    } catch (e) {
-      console.log('localStorage 오류', e);
+
+    if(!userError){
+      dispatch(tempSetUser(orginalUser));
+      try {
+        localStorage.setItem(
+          'user',
+          JSON.stringify({ userid: orginalUser.userid, username: orginalUser.username }),
+        );
+        setModal(true);
+      } catch (e) {
+        console.log('localStorage 오류', e);
+      }
+    }else{
+      setError('내 정보 수정 실패!');
     }
-  },[orginalUser, dispatch] );
+
+  }, [orginalUser, dispatch, userError]);
 
   return (
-    <MyPrivacyTemplate user={orginalUser} onChange={onChange} error={error} onUpdate={onUpdate} />
+    <MyPrivacyTemplate user={orginalUser} onChange={onChange} error={error} onUpdate={onUpdate} confirmModal={modal} onConfirm={onConfirm}/>
   );
 };
 

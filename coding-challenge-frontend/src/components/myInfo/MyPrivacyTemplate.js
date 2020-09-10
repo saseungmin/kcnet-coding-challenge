@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import palette from 'src/lib/styles/palette';
 import MyPrivacyForm from './MyPrivacyForm';
+import MyPrivacyConfirmUpdateModal from './MyPrivacyConfirmUpdateModal';
 
 const MyPrivacyTemplateBlock = styled(Responsive)`
     margin-top: 4rem;
@@ -18,12 +19,15 @@ const MyPrivacyHeadBlock = styled.div`
   padding-left: 1rem;
 `;
 
-const MyPrivacyTemplate= ({user, onChange, onUpdate, error}) => {
+const MyPrivacyTemplate= ({user, onChange, onUpdate, error, confirmModal, onConfirm}) => {
     return (
+        <>
         <MyPrivacyTemplateBlock>
             <MyPrivacyHeadBlock>내 정보</MyPrivacyHeadBlock>
             {user && <MyPrivacyForm user={user} onChange={onChange} onUpdate={onUpdate} error={error}/>}
         </MyPrivacyTemplateBlock>
+        <MyPrivacyConfirmUpdateModal visible={confirmModal} onConfirm={onConfirm}/>
+        </>
     );
 };
 
