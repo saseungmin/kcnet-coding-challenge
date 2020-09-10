@@ -40,6 +40,7 @@ const ReceiveCompetitionContainer = ({ history, location }) => {
       history.push('/');
     }
     return () => {
+      //FIXME - 유저 정보 수정 후 unload되는 거 수정하기
       dispatch(unloadMyInfo());
     };
   }, [dispatch, history, user]);

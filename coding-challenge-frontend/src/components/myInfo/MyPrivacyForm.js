@@ -130,6 +130,7 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
           <Button teal style={{ marginLeft: '1rem' }} onClick={onUpdateClick}>
             변경 사항 저장
           </Button>
+          {/*TODO - 비번 변경 로직 추가하기 */}
           <Button orange style={{ marginRight: '1rem' }}>
             비밀 번호 변경
           </Button>

@@ -30,7 +30,7 @@ const MyPrivacyContainer = () => {
     onChangeUser({ key: name, value: value });
   };
 
-  //TODO: error 변경사항 처리
+  //TODO - error 별 변경사항 처리
   const onUpdate = useCallback(() => {
     const { apikey, username } = orginalUser;
     if (username.trim() === '') {
