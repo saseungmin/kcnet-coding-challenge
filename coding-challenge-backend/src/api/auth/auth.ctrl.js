@@ -83,6 +83,7 @@ export const login = async (ctx) => {
 // 로그인 중 체크
 export const check = async (ctx) => {
   const { user } = ctx.state;
+  
   if (!user) {
     ctx.status = 401;
     return;

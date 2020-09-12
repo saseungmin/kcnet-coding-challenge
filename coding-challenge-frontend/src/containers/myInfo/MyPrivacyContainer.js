@@ -8,16 +8,20 @@ const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
   const [modal, setModal] = useState(false);
 
-  const { user, orginalUser,userError } = useSelector(({ user, myInfo }) => ({
+  const { user, orginalUser, checkLoading, userError, updateUserLoading } = useSelector(({ user, myInfo, loading }) => ({
     user: user.user,
     orginalUser: myInfo.originalUser,
-    userError: myInfo.userError
+    checkLoading: loading['user/CHECK'],
+    updateUserLoading: loading['myInfo/UPDATE_USER'],
+    userError: myInfo.userError,
   }));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setOriginalUser(user));
-  }, [dispatch, user]);
+    if(!checkLoading){
+      dispatch(setOriginalUser(user));
+    }
+  }, [dispatch, user, checkLoading]);
 
   const onChangeUser = useCallback((payload) => dispatch(changeUser(payload)), [dispatch]);
 
@@ -31,7 +35,7 @@ const MyPrivacyContainer = () => {
   };
 
   //TODO - error 별 변경사항 처리
-  const onUpdate = useCallback(() => {
+  const onUpdate = (() => {
     const { apikey, username } = orginalUser;
     if (username.trim() === '') {
       setError('이름을 입력해주세요.');
@@ -40,25 +44,30 @@ const MyPrivacyContainer = () => {
       setError('api키를 입력해주세요.');
       return;
     }
-
     dispatch(updateUser(orginalUser));
 
-    if(!userError){
-      dispatch(tempSetUser(orginalUser));
-      try {
-        localStorage.setItem(
-          'user',
-          JSON.stringify({ userid: orginalUser.userid, username: orginalUser.username }),
-        );
-        setModal(true);
-      } catch (e) {
-        console.log('localStorage 오류', e);
-      }
-    }else{
-      setError('내 정보 수정 실패!');
+    try {
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ userid: orginalUser.userid, username: orginalUser.username }),
+      );
+    } catch (e) {
+      console.log('localStorage 오류', e);
     }
+    
+    dispatch(tempSetUser(orginalUser))
+    setModal(true);
+    
+  });
 
-  }, [orginalUser, dispatch, userError]);
+
+  useEffect(() => {
+    if(userError){
+      setError('변경사항 저장 실패');
+      return;
+    }
+  },[userError]);
+
 
   return (
     <MyPrivacyTemplate user={orginalUser} onChange={onChange} error={error} onUpdate={onUpdate} confirmModal={modal} onConfirm={onConfirm}/>

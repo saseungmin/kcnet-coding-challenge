@@ -34,16 +34,17 @@ const ReceiveCompetitionContainer = ({ history, location }) => {
       setSeconds(moment().format('YYYY-MM-DD HH:mm:ss'));
     }, 1000);
 
+  useEffect(() => {
+    return () => {
+      dispatch(unloadMyInfo());
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     if (!user) {
       history.push('/');
     }
-    return () => {
-      //FIXME - 유저 정보 수정 후 unload되는 거 수정하기
-      dispatch(unloadMyInfo());
-    };
-  }, [dispatch, history, user]);
+  },[user, history]);
 
   return <MyInfoTemplate myInfoList={myInfoList} loading={loading} error={error} seconds={seconds}/>;
 };
