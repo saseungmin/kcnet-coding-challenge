@@ -1,14 +1,10 @@
-import createRequestSaga, {
-  createRequestActionTypes,
-} from 'src/lib/createRequestSaga';
+import createRequestSaga, { createRequestActionTypes } from 'src/lib/createRequestSaga';
 import { createAction, handleActions } from 'redux-actions';
 import * as authAPI from '../lib/api/auth';
 import { takeLatest, call } from 'redux-saga/effects';
 
 const TEMP_SET_USER = 'user/TEMP_SET_USER';
-const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
-  'user/CHECK',
-);
+const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes('user/CHECK');
 const LOGOUT = 'user/LOGOUT';
 
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);

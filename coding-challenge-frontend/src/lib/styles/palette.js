@@ -37,7 +37,7 @@ const palette = {
     '#e8590c',
     '#d9480f',
   ],
-  Teal:[
+  Teal: [
     '#e6fcf5',
     '#c3fae8',
     '#96f2d7',
@@ -49,7 +49,7 @@ const palette = {
     '#099268',
     '#087f5b',
   ],
-  violet:[
+  violet: [
     '#f3f0ff',
     '#e5dbff',
     '#d0bfff',
@@ -60,8 +60,7 @@ const palette = {
     '#7048e8',
     '#6741d9',
     '#5f3dc4',
-  ]
-
+  ],
 };
 
 export default palette;

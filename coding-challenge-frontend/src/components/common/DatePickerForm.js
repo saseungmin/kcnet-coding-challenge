@@ -6,12 +6,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 registerLocale('ko', ko);
 
 const DatePickerForm = ({ start, end }) => {
-  const [startDate, setStartDate] = useState(
-    setHours(setMinutes(new Date(), 30), 16),
-  );
-  const [endDate, setEndDate] = useState(
-    setHours(setMinutes(new Date(), 30), 16),
-  );
+  const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 16));
+  const [endDate, setEndDate] = useState(setHours(setMinutes(new Date(), 30), 16));
   const onChanged = (date) => {
     setStartDate(date);
     console.log(date);

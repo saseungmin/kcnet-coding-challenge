@@ -44,15 +44,17 @@ const RankItem = ({ ranklist, loading }) => {
         <RankItemHeaderBlock>언어</RankItemHeaderBlock>
         <RankItemHeaderBlock>점수</RankItemHeaderBlock>
       </RankTableTitleBlock>
-      {ranklist && !loading && ranklist.map((rank, index) => (
-        <RankTableItemBoxBlock key={index}>
-          <RankItemBlock className="text-center">{index + 1}</RankItemBlock>
-          <RankItemBlock>{`${rank.user.userid}(${rank.user.username})`}</RankItemBlock>
-          <RankItemBlock>2</RankItemBlock>
-          <RankItemBlock>{rank.lang}</RankItemBlock>
-          <RankItemBlock>{rank.score}</RankItemBlock>
-        </RankTableItemBoxBlock>
-      ))}
+      {ranklist &&
+        !loading &&
+        ranklist.map((rank, index) => (
+          <RankTableItemBoxBlock key={index}>
+            <RankItemBlock className="text-center">{index + 1}</RankItemBlock>
+            <RankItemBlock>{`${rank.user.userid}(${rank.user.username})`}</RankItemBlock>
+            <RankItemBlock>2</RankItemBlock>
+            <RankItemBlock>{rank.lang}</RankItemBlock>
+            <RankItemBlock>{rank.score}</RankItemBlock>
+          </RankTableItemBoxBlock>
+        ))}
     </>
   );
 };

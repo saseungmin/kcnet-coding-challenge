@@ -4,7 +4,7 @@ import ReceiveApplyModal from './ReceiveApplyModal';
 import ReceiveLoginCheckModal from './ReceiveLoginCheckModal';
 import CancelReceiveModal from './CancelReceiveModal';
 
-const ReceiveActionButton = ({ user, onApplyReceive, receiveUser, onClickCancelReceive}) => {
+const ReceiveActionButton = ({ user, onApplyReceive, receiveUser, onClickCancelReceive }) => {
   const [modal, setModal] = useState(false);
   const onReceiveClick = () => {
     setModal(true);
@@ -36,8 +36,8 @@ const ReceiveActionButton = ({ user, onApplyReceive, receiveUser, onClickCancelR
       {!user ? (
         <ReceiveLoginCheckModal visible={modal} onConfirm={onCancel} />
       ) : receiveUser ? (
-        <CancelReceiveModal visible={modal} onConfirm={onCancelReceive} onCancel={onCancel}/>
-      ): (
+        <CancelReceiveModal visible={modal} onConfirm={onCancelReceive} onCancel={onCancel} />
+      ) : (
         <ReceiveApplyModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
       )}
     </>

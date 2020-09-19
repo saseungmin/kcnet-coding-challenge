@@ -8,19 +8,19 @@ import FooterContainer from 'src/containers/common/FooterContainer';
 import MyPrivacyContainer from 'src/containers/myInfo/MyPrivacyContainer';
 
 const MyInfoPage = () => {
-    return (
-        <>
-            <Helmet>
-                <title>내 정보 - KCNET</title>
-            </Helmet>
-            <HeaderContainer />
-            <ReceiveCompetitionContainer />
-            <MyInfoListPaginationContainer/>
-            <MyRankListForm/>
-            <MyPrivacyContainer/>
-            <FooterContainer/>
-        </>
-    );
+  return (
+    <>
+      <Helmet>
+        <title>내 정보 - KCNET</title>
+      </Helmet>
+      <HeaderContainer />
+      <ReceiveCompetitionContainer />
+      <MyInfoListPaginationContainer />
+      <MyRankListForm />
+      <MyPrivacyContainer />
+      <FooterContainer />
+    </>
+  );
 };
 
 export default MyInfoPage;

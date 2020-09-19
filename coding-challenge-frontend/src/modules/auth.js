@@ -1,8 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
-import createRequestSaga, {
-  createRequestActionTypes,
-} from '../lib/createRequestSaga';
+import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
 import * as authAPI from '../lib/api/auth';
 import { takeLatest } from 'redux-saga/effects';
 
@@ -10,34 +8,24 @@ const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
 // register
-const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
-  'auth/REGISTER',
-);
+const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes('auth/REGISTER');
 // login
-const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
-  'auth/LOGIN',
-);
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes('auth/LOGIN');
 
-export const changeField = createAction(
-  CHANGE_FIELD,
-  ({ form, key, value }) => ({
-    form, // register, login
-    key,
-    value,
-  }),
-);
+export const changeField = createAction(CHANGE_FIELD, ({ form, key, value }) => ({
+  form, // register, login
+  key,
+  value,
+}));
 
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
-export const register = createAction(
-  REGISTER,
-  ({ userid, username, password, apikey }) => ({
-    userid,
-    username,
-    password,
-    apikey,
-  }),
-);
+export const register = createAction(REGISTER, ({ userid, username, password, apikey }) => ({
+  userid,
+  username,
+  password,
+  apikey,
+}));
 
 export const login = createAction(LOGIN, ({ userid, password }) => ({
   userid,

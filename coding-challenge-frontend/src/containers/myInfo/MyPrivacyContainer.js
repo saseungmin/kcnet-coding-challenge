@@ -8,17 +8,19 @@ const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
   const [modal, setModal] = useState(false);
 
-  const { user, orginalUser, checkLoading, userError, updateUserLoading } = useSelector(({ user, myInfo, loading }) => ({
-    user: user.user,
-    orginalUser: myInfo.originalUser,
-    checkLoading: loading['user/CHECK'],
-    updateUserLoading: loading['myInfo/UPDATE_USER'],
-    userError: myInfo.userError,
-  }));
+  const { user, orginalUser, checkLoading, userError, updateUserLoading } = useSelector(
+    ({ user, myInfo, loading }) => ({
+      user: user.user,
+      orginalUser: myInfo.originalUser,
+      checkLoading: loading['user/CHECK'],
+      updateUserLoading: loading['myInfo/UPDATE_USER'],
+      userError: myInfo.userError,
+    }),
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!checkLoading){
+    if (!checkLoading) {
       dispatch(setOriginalUser(user));
     }
   }, [dispatch, user, checkLoading]);
@@ -35,7 +37,7 @@ const MyPrivacyContainer = () => {
   };
 
   //TODO - error 별 변경사항 처리
-  const onUpdate = (() => {
+  const onUpdate = () => {
     const { apikey, username } = orginalUser;
     if (username.trim() === '') {
       setError('이름을 입력해주세요.');
@@ -54,23 +56,27 @@ const MyPrivacyContainer = () => {
     } catch (e) {
       console.log('localStorage 오류', e);
     }
-    
-    dispatch(tempSetUser(orginalUser))
-    setModal(true);
-    
-  });
 
+    dispatch(tempSetUser(orginalUser));
+    setModal(true);
+  };
 
   useEffect(() => {
-    if(userError){
+    if (userError) {
       setError('변경사항 저장 실패');
       return;
     }
-  },[userError]);
-
+  }, [userError]);
 
   return (
-    <MyPrivacyTemplate user={orginalUser} onChange={onChange} error={error} onUpdate={onUpdate} confirmModal={modal} onConfirm={onConfirm}/>
+    <MyPrivacyTemplate
+      user={orginalUser}
+      onChange={onChange}
+      error={error}
+      onUpdate={onUpdate}
+      confirmModal={modal}
+      onConfirm={onConfirm}
+    />
   );
 };
 

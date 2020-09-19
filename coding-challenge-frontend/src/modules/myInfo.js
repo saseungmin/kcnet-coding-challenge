@@ -62,11 +62,11 @@ const myInfo = handleActions(
       ...state,
       originalUser: user,
     }),
-    [UPDATE_USER_SUCCESS]: (state, {payload: user }) => ({
+    [UPDATE_USER_SUCCESS]: (state, { payload: user }) => ({
       ...state,
-      originalUser:user,
+      originalUser: user,
     }),
-    [UPDATE_USER_FAILURE]: (state, {payload: userError}) => ({
+    [UPDATE_USER_FAILURE]: (state, { payload: userError }) => ({
       ...state,
       userError,
     }),

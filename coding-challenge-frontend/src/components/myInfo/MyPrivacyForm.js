@@ -137,7 +137,7 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
         </ButtonBlock>
         {/* </form> */}
       </MyPrivacyFormBlock>
-      <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel}/>
+      <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
     </>
   );
 };

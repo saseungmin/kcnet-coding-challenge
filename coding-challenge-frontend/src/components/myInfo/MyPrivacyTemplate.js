@@ -6,7 +6,7 @@ import MyPrivacyForm from './MyPrivacyForm';
 import MyPrivacyConfirmUpdateModal from './MyPrivacyConfirmUpdateModal';
 
 const MyPrivacyTemplateBlock = styled(Responsive)`
-    margin-top: 4rem;
+  margin-top: 4rem;
 `;
 
 const MyPrivacyHeadBlock = styled.div`
@@ -19,16 +19,18 @@ const MyPrivacyHeadBlock = styled.div`
   padding-left: 1rem;
 `;
 
-const MyPrivacyTemplate= ({user, onChange, onUpdate, error, confirmModal, onConfirm}) => {
-    return (
-        <>
-        <MyPrivacyTemplateBlock>
-            <MyPrivacyHeadBlock>내 정보</MyPrivacyHeadBlock>
-            {user && <MyPrivacyForm user={user} onChange={onChange} onUpdate={onUpdate} error={error}/>}
-        </MyPrivacyTemplateBlock>
-        <MyPrivacyConfirmUpdateModal visible={confirmModal} onConfirm={onConfirm}/>
-        </>
-    );
+const MyPrivacyTemplate = ({ user, onChange, onUpdate, error, confirmModal, onConfirm }) => {
+  return (
+    <>
+      <MyPrivacyTemplateBlock>
+        <MyPrivacyHeadBlock>내 정보</MyPrivacyHeadBlock>
+        {user && (
+          <MyPrivacyForm user={user} onChange={onChange} onUpdate={onUpdate} error={error} />
+        )}
+      </MyPrivacyTemplateBlock>
+      <MyPrivacyConfirmUpdateModal visible={confirmModal} onConfirm={onConfirm} />
+    </>
+  );
 };
 
 export default MyPrivacyTemplate;

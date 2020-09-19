@@ -10,7 +10,7 @@ const IntroducePage = () => {
       <HeaderContainer />
       <IntroduceViewerContainer />
       <RankFormContainer />
-      <FooterContainer/>
+      <FooterContainer />
     </>
   );
 };

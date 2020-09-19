@@ -19,7 +19,7 @@ const IntroduceViewerContainer = ({ history, match }) => {
   const [seconds, setSeconds] = useState(nowTime);
 
   const dispatch = useDispatch();
-  const { apply, error, loading, user, receiveError, receiveUser,receiveLoading } = useSelector(
+  const { apply, error, loading, user, receiveError, receiveUser, receiveLoading } = useSelector(
     ({ apply, loading, user, rank }) => ({
       apply: apply.apply,
       error: apply.error,
@@ -65,7 +65,7 @@ const IntroduceViewerContainer = ({ history, match }) => {
     } catch (error) {
       console.log(error);
     }
-  },[dispatch,receiveUser,id]);
+  }, [dispatch, receiveUser, id]);
 
   const onApplyReceive = useCallback(() => {
     dispatch(rankReceive({ applyId: id }));

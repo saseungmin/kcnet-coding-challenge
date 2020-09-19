@@ -99,11 +99,11 @@ const write = handleActions(
       langs: apply.langs,
       originalApplyId: apply._id,
     }),
-    [UPDATE_APPLY_SUCCESS]: (state, {payload: apply}) => ({
+    [UPDATE_APPLY_SUCCESS]: (state, { payload: apply }) => ({
       ...state,
       apply,
     }),
-    [UPDATE_APPLY_FAILURE]: (state, {payload: applyError}) => ({
+    [UPDATE_APPLY_FAILURE]: (state, { payload: applyError }) => ({
       ...state,
       applyError,
     }),

@@ -68,15 +68,17 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const PostRegisterForm = ({ onChangebody, error, onSubmit, write, uploadImageCallBack, inputCheckBox,editor,onChangeEditor }) => {
-  const {
-    applystartday,
-    applyendday,
-    teststartday,
-    testendday,
-    title,
-    originalApplyId,
-  } = write;
+const PostRegisterForm = ({
+  onChangebody,
+  error,
+  onSubmit,
+  write,
+  uploadImageCallBack,
+  inputCheckBox,
+  editor,
+  onChangeEditor,
+}) => {
+  const { applystartday, applyendday, teststartday, testendday, title, originalApplyId } = write;
 
   return (
     <WriteFormBlock>
@@ -111,7 +113,11 @@ const PostRegisterForm = ({ onChangebody, error, onSubmit, write, uploadImageCal
           onChange={onChangebody}
           value={title}
         ></StyledInput>
-        <PostEditorForm editor={editor} onChangeEditor={onChangeEditor} uploadImageCallBack={uploadImageCallBack} />
+        <PostEditorForm
+          editor={editor}
+          onChangeEditor={onChangeEditor}
+          uploadImageCallBack={uploadImageCallBack}
+        />
         <div>사용 가능 언어</div>
         <PostRegisterLangs onChangeLangs={onChangebody} inputCheckBox={inputCheckBox} />
         {error && <ErrorMessage>{error}</ErrorMessage>}

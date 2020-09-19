@@ -8,8 +8,8 @@ import DateChangeTemplate from './DateChangeTemplate';
 
 const ReceiveCompetitionFormBlock = styled.div`
   margin-bottom: 1.2rem;
-  &.empty{
-      margin-left: 1rem;
+  &.empty {
+    margin-left: 1rem;
   }
 `;
 
@@ -48,9 +48,12 @@ const DateInfoBlock = styled.div`
 `;
 
 const ReceiveCompetitionForm = ({ myInfoList, loading, seconds }) => {
-
   if (!(!!myInfoList && !!myInfoList.length) && !loading) {
-    return <ReceiveCompetitionFormBlock className="empty">접수한 대회가 없습니다.</ReceiveCompetitionFormBlock>;
+    return (
+      <ReceiveCompetitionFormBlock className="empty">
+        접수한 대회가 없습니다.
+      </ReceiveCompetitionFormBlock>
+    );
   }
   return (
     <ReceiveCompetitionFormBlock>
@@ -62,7 +65,9 @@ const ReceiveCompetitionForm = ({ myInfoList, loading, seconds }) => {
                 <Link to={`/introduce/${receive.applyId._id}`} className="title">
                   {receive.applyId.title}
                 </Link>
-                <DateChangeTemplate apply={receive.applyId} seconds={seconds}>5일 후 접수 마감</DateChangeTemplate>
+                <DateChangeTemplate apply={receive.applyId} seconds={seconds}>
+                  5일 후 접수 마감
+                </DateChangeTemplate>
               </ReceiveCompetitionHeaderBlock>
               <DateInfoBlock>
                 <span>

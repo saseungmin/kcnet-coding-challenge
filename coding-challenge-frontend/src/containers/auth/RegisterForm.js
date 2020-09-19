@@ -36,9 +36,7 @@ const RegisterForm = ({ history }) => {
     if (password !== passwordConfirm) {
       setError('비밀번호가 일치하지 않습니다.');
       dispatch(changeField({ form: 'register', key: 'password', value: '' }));
-      dispatch(
-        changeField({ form: 'register', key: 'passwordConfirm', value: '' }),
-      );
+      dispatch(changeField({ form: 'register', key: 'passwordConfirm', value: '' }));
       return;
     }
     dispatch(register({ userid, username, password, apikey }));
@@ -51,7 +49,7 @@ const RegisterForm = ({ history }) => {
 
   useEffect(() => {
     if (authError) {
-      if(authError.response.status === 409){
+      if (authError.response.status === 409) {
         setError('이미 존재하는 계정명입니다.');
         return;
       }
@@ -65,7 +63,6 @@ const RegisterForm = ({ history }) => {
     }
   }, [authError, auth, dispatch]);
 
-  
   useEffect(() => {
     if (user) {
       console.log('가입 완료');
@@ -79,13 +76,7 @@ const RegisterForm = ({ history }) => {
   }, [history, user]);
 
   return (
-    <AuthForm
-      type="register"
-      form={form}
-      onChange={onChange}
-      onSubmit={onSubmit}
-      error={error}
-    />
+    <AuthForm type="register" form={form} onChange={onChange} onSubmit={onSubmit} error={error} />
   );
 };
 

@@ -54,7 +54,7 @@ const RegisterApplyBox = styled.div`
   border-radius: 2px;
 `;
 
-const AuthTemplate = ({ children,toggle }) => {
+const AuthTemplate = ({ children, toggle }) => {
   return (
     <AuthTemplateBlock>
       {toggle ? (

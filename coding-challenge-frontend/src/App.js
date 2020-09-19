@@ -9,19 +9,19 @@ import { Helmet } from 'react-helmet-async';
 import MyInfoPage from './pages/MyInfoPage';
 
 const App = () => {
-  return(
+  return (
     <>
-    <Helmet>
-      <title>KCNET 코딩 챌린지</title>
-    </Helmet>
+      <Helmet>
+        <title>KCNET 코딩 챌린지</title>
+      </Helmet>
       <Route component={MainPage} path="/" exact />
-      <Route component={IntroducePage} path="/introduce/:id"/>
+      <Route component={IntroducePage} path="/introduce/:id" />
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />
       <Route component={PostRegisterPage} path="/write" />
       <Route component={MyInfoPage} path="/myinfo" />
     </>
-  )
-}
+  );
+};
 
 export default App;

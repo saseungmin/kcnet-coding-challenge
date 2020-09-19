@@ -56,7 +56,10 @@ const LoginForm = ({ history }) => {
     if (user) {
       history.push('/');
       try {
-        localStorage.setItem('user', JSON.stringify({userid: user.userid, username:user.username }));
+        localStorage.setItem(
+          'user',
+          JSON.stringify({ userid: user.userid, username: user.username }),
+        );
       } catch (e) {
         console.log('localStorage 오류');
       }
@@ -64,13 +67,7 @@ const LoginForm = ({ history }) => {
   }, [history, user]);
 
   return (
-    <AuthForm
-      type="login"
-      form={form}
-      onChange={onChange}
-      onSubmit={onSubmit}
-      error={error}
-    />
+    <AuthForm type="login" form={form} onChange={onChange} onSubmit={onSubmit} error={error} />
   );
 };
 

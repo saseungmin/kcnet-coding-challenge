@@ -19,11 +19,11 @@ const StyledInput = styled.input`
   padding-bottom: 0.5rem;
   outline: none;
   width: 100%;
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:focus {
     color: ${palette.gray[6]};
     border-bottom: 1px solid ${palette.Teal[7]};
-    box-shadow: 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.23);
   }
   & {
     margin-top: 1rem;
@@ -54,8 +54,8 @@ const textMap = {
 };
 
 const ErrorMessage = styled.div`
-  color:#ff6b6b;
-  text-align:center;
+  color: #ff6b6b;
+  text-align: center;
   font-size: 0.875rem;
   margin-top: 1rem;
 `;
@@ -92,21 +92,21 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
         />
         {type === 'register' && (
           <>
-          <StyledInput
-            autoComplete="new-password"
-            name="passwordConfirm"
-            placeholder="비밀번호 확인"
-            type="password"
-            onChange={onChange}
-            value={form.passwordConfirm}
-          />
-          <StyledInput
-          name="apikey"
-          placeholder="API Key 입력"
-          onChange={onChange}
-          value={form.apikey}
-        />
-        </>
+            <StyledInput
+              autoComplete="new-password"
+              name="passwordConfirm"
+              placeholder="비밀번호 확인"
+              type="password"
+              onChange={onChange}
+              value={form.passwordConfirm}
+            />
+            <StyledInput
+              name="apikey"
+              placeholder="API Key 입력"
+              onChange={onChange}
+              value={form.apikey}
+            />
+          </>
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>

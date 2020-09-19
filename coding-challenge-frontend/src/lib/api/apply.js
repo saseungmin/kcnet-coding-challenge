@@ -54,7 +54,7 @@ export const removeApply = (id) => client.delete(`/api/apply/${id}`);
 
 export const uploadImg = (file) => {
   const queryString = qs.stringify({
-    'img': file,
+    img: file,
   });
   return client.post('/api/apply/img', queryString);
-}
+};

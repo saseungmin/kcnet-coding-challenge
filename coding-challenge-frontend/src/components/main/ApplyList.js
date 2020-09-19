@@ -14,9 +14,9 @@ const ApplyButtonWrapper = styled.div`
   margin-bottom: 3rem;
 `;
 
-const ApplyList = ({applys, error, loading, user, seconds}) => {
-  if(error){
-    return <ApplyListBlock> 에러가 발생했습니다. </ApplyListBlock>
+const ApplyList = ({ applys, error, loading, user, seconds }) => {
+  if (error) {
+    return <ApplyListBlock> 에러가 발생했습니다. </ApplyListBlock>;
   }
 
   return (
@@ -24,15 +24,13 @@ const ApplyList = ({applys, error, loading, user, seconds}) => {
       <ApplyButtonWrapper>
         {user && user.userstatus === 'manager' ? (
           <Button to="/write">코딩 챌린지 등록</Button>
-        ): (null)        
-        }
+        ) : null}
       </ApplyButtonWrapper>
       {!loading && applys && (
         <>
-         {applys.map(apply => (
-           <ApplyItem apply={apply} key={apply._id} seconds={seconds}/>
-         ))
-         }
+          {applys.map((apply) => (
+            <ApplyItem apply={apply} key={apply._id} seconds={seconds} />
+          ))}
         </>
       )}
     </ApplyListBlock>

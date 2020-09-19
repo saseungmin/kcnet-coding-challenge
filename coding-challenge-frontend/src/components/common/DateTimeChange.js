@@ -94,7 +94,7 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
     testStart = new Date(teststartday),
     testEnd = new Date(testendday),
     now = new Date(seconds);
-    
+
   if (applyStart - now > 0) {
     return (
       <>

@@ -62,7 +62,9 @@ const ModalWindow = ({
         <h2>{title}</h2>
         <p>{description}</p>
         <div className="buttons">
-          {(cancelText && onCancel) ? (<StyledButton onClick={onCancel}>{cancelText}</StyledButton>):null}
+          {cancelText && onCancel ? (
+            <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
+          ) : null}
           {danger ? (
             <StyledButton orange onClick={onConfirm}>
               {confirmText}

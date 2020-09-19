@@ -19,12 +19,11 @@ const buildLink = ({ lang, page }) => {
 };
 
 const myInfoBuildLink = ({ page }) => {
-    const query = qs.stringify({ page });
-    return `/myinfo/?${query}`;
-  };
+  const query = qs.stringify({ page });
+  return `/myinfo/?${query}`;
+};
 
 const Pagination = ({ page, lastPage, lang, receiveLastPage }) => {
-  
   return (
     <>
       {lastPage ? (
