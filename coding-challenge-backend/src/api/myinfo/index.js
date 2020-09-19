@@ -1,6 +1,5 @@
 import Router from "koa-router";
 import checkLoggedIn from "../../lib/checkLoggedIn";
-import jwtMiddleware from "../../lib/jwtMiddleware";
 import * as myInfoCtrl from "./myInfo.ctrl";
 
 const myInfo = new Router();
