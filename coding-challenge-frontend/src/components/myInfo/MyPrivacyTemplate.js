@@ -4,6 +4,7 @@ import Responsive from '../common/Responsive';
 import palette from 'src/lib/styles/palette';
 import MyPrivacyForm from './MyPrivacyForm';
 import MyPrivacyConfirmUpdateModal from './MyPrivacyConfirmUpdateModal';
+import MyPrivacyUpdateFailModal from './MyPrivacyUpdateFailModal';
 
 const MyPrivacyTemplateBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -19,7 +20,16 @@ const MyPrivacyHeadBlock = styled.div`
   padding-left: 1rem;
 `;
 
-const MyPrivacyTemplate = ({ user, onChange, onUpdate, error, confirmModal, onConfirm }) => {
+const MyPrivacyTemplate = ({
+  user,
+  onChange,
+  onUpdate,
+  error,
+  confirmModal,
+  onConfirm,
+  userErrorModal,
+  onVisibleError,
+}) => {
   return (
     <>
       <MyPrivacyTemplateBlock>
@@ -29,6 +39,7 @@ const MyPrivacyTemplate = ({ user, onChange, onUpdate, error, confirmModal, onCo
         )}
       </MyPrivacyTemplateBlock>
       <MyPrivacyConfirmUpdateModal visible={confirmModal} onConfirm={onConfirm} />
+      <MyPrivacyUpdateFailModal visible={userErrorModal} onConfirm={onVisibleError} />
     </>
   );
 };

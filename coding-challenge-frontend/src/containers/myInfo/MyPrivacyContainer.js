@@ -7,13 +7,13 @@ import { tempSetUser } from 'src/modules/user';
 const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
   const [modal, setModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
 
-  const { user, orginalUser, checkLoading, userError, updateUserLoading } = useSelector(
+  const { user, orginalUser, checkLoading, userError } = useSelector(
     ({ user, myInfo, loading }) => ({
       user: user.user,
       orginalUser: myInfo.originalUser,
       checkLoading: loading['user/CHECK'],
-      updateUserLoading: loading['myInfo/UPDATE_USER'],
       userError: myInfo.userError,
     }),
   );
@@ -31,23 +31,11 @@ const MyPrivacyContainer = () => {
     setModal(false);
   };
 
-  const onChange = (e) => {
-    const { value, name } = e.target;
-    onChangeUser({ key: name, value: value });
+  const onVisibleError = () => {
+    setErrorModal(false);
   };
 
-  //TODO - error 별 변경사항 처리
-  const onUpdate = () => {
-    const { apikey, username } = orginalUser;
-    if (username.trim() === '') {
-      setError('이름을 입력해주세요.');
-      return;
-    } else if (apikey.trim() === '') {
-      setError('api키를 입력해주세요.');
-      return;
-    }
-    dispatch(updateUser(orginalUser));
-
+  const setLocalStrage = (orginalUser) => {
     try {
       localStorage.setItem(
         'user',
@@ -56,14 +44,41 @@ const MyPrivacyContainer = () => {
     } catch (e) {
       console.log('localStorage 오류', e);
     }
+  };
+
+  const validate = (orginalUser) => {
+    const { apikey, username } = orginalUser;
+
+    if (username.trim() === '') {
+      setError('name');
+      return false;
+    } else if (apikey.trim() === '') {
+      setError('apikey');
+      return false;
+    }
+  };
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    onChangeUser({ key: name, value: value });
+  };
+
+  const onUpdate = () => {
+    const validated = validate(orginalUser);
+    if (!validated) {
+      return;
+    }
+
+    dispatch(updateUser(orginalUser));
+    setLocalStrage(orginalUser);
 
     dispatch(tempSetUser(orginalUser));
-    setModal(true);
   };
 
   useEffect(() => {
     if (userError) {
-      setError('변경사항 저장 실패');
+      setModal(false);
+      setErrorModal(true);
       return;
     }
   }, [userError]);
@@ -76,6 +91,8 @@ const MyPrivacyContainer = () => {
       onUpdate={onUpdate}
       confirmModal={modal}
       onConfirm={onConfirm}
+      userErrorModal={errorModal}
+      onVisibleError={onVisibleError}
     />
   );
 };

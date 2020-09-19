@@ -45,6 +45,12 @@ const LabelWarningSmallBlock = styled.small`
   margin-top: 0.25rem;
 `;
 
+const ErrorSmallBlock = styled.small`
+  color: #fa5252;
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+`;
+
 const MyPrivacyInputBlock = styled.input`
   transition-duration: 0.08s;
   transition-property: all;
@@ -84,6 +90,11 @@ const ButtonBlock = styled.div`
   justify-content: space-between;
 `;
 
+const ERROR_MESSAGE = {
+  name: '변경할 이름을 입력하세요.',
+  apikey: '변경할 apikey를 입력하세요.',
+};
+
 const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
   const [modal, setModal] = useState(false);
   const onUpdateClick = () => {
@@ -101,7 +112,6 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
   return (
     <>
       <MyPrivacyFormBlock>
-        {/* <form onSubmit={onUpdate}> */}
         <MyPrivacyItemBlock>
           <MyPrivacyTitleBlock className="required" htmlFor="userid">
             아이디
@@ -114,6 +124,7 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
             이름
           </MyPrivacyTitleBlock>
           <MyPrivacyInputBlock value={username || ''} name="username" onChange={onChange} />
+          <ErrorSmallBlock>{error && error === 'name' && ERROR_MESSAGE.name}</ErrorSmallBlock>
         </MyPrivacyItemBlock>
         <MyPrivacyItemBlock>
           <MyPrivacyTitleBlock className="required" htmlFor="apikey">
@@ -125,6 +136,7 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
             className="apikey"
             onChange={onChange}
           />
+          <ErrorSmallBlock>{error && error === 'apikey' && ERROR_MESSAGE.apikey}</ErrorSmallBlock>
         </MyPrivacyItemBlock>
         <ButtonBlock>
           <Button teal style={{ marginLeft: '1rem' }} onClick={onUpdateClick}>
@@ -135,7 +147,6 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
             비밀 번호 변경
           </Button>
         </ButtonBlock>
-        {/* </form> */}
       </MyPrivacyFormBlock>
       <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
     </>
