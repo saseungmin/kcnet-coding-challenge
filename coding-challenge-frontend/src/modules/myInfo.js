@@ -28,8 +28,8 @@ export const unloadMyInfo = createAction(UNLOAD_MYINFO);
 
 const myInfoApplyListSaga = createRequestSaga(MYINFO_APPLY_LIST, myInfoAPI.myApplyList);
 
-//TODO: UPDATE_USER saga API 처리
 const updateUserSaga = createRequestSaga(UPDATE_USER, myInfoAPI.updateUser);
+
 export function* myInfoSaga() {
   yield takeLatest(MYINFO_APPLY_LIST, myInfoApplyListSaga);
   yield takeLatest(UPDATE_USER, updateUserSaga);

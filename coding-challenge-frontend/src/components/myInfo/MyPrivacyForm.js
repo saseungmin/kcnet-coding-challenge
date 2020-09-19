@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import palette from 'src/lib/styles/palette';
 import Button from '../common/Button';
 import MyPrivacyUpdateModal from './MyPrivacyUpdateModal';
+// import PasswordCheckModal from './PasswordCheckModal';
 
 const MyPrivacyFormBlock = styled.div`
   margin-bottom: 5rem;
@@ -97,6 +98,8 @@ const ERROR_MESSAGE = {
 
 const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
   const [modal, setModal] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
+
   const onUpdateClick = () => {
     setModal(true);
   };
@@ -106,6 +109,18 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
   const onConfirm = () => {
     setModal(false);
     onUpdate();
+  };
+
+  const onPasswordCheckClick = () => {
+    setPasswordModal(true);
+  };
+
+  const passwordCheckCancelClick = () => {
+    setModal(false);
+  };
+
+  const passwordCheckConfirmClick = () => {
+    setModal(false);
   };
 
   const { userid, username, apikey } = user;
@@ -149,6 +164,8 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
         </ButtonBlock>
       </MyPrivacyFormBlock>
       <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
+      {/*TODO - 비밀번호 입력 모달 창 띄우기 */}
+      {/* <PasswordCheckModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} /> */}
     </>
   );
 };
