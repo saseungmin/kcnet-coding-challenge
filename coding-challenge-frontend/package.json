@@ -2,6 +2,8 @@
   "name": "coding-challenge-frontend",
   "version": "0.1.0",
   "private": true,
+  "author": "saseungmin",
+  "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -66,7 +68,7 @@
   },
   "proxy": "http://localhost:4000/",
   "devDependencies": {
-    "eslint": "7.2.0",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "2.21.2",
