@@ -45,22 +45,27 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const InputValueBlock = styled.input``;
+
 const ModalWindow = ({
   visible,
   title,
-  description,
+  description = '',
   confirmText = '확인',
   cancelText,
   onConfirm,
   onCancel,
   danger,
+  inputValue = false,
 }) => {
+  console.log(inputValue);
   if (!visible) return null;
   return (
     <FullScreenBlock>
       <ModalWindowBlock>
         <h2>{title}</h2>
         <p>{description}</p>
+        {inputValue && <InputValueBlock type="text" placeholder="비밀번호를 입력하세요." />}
         <div className="buttons">
           {cancelText && onCancel ? (
             <StyledButton onClick={onCancel}>{cancelText}</StyledButton>

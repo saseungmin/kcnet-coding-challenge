@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import palette from 'src/lib/styles/palette';
 import Button from '../common/Button';
 import MyPrivacyUpdateModal from './MyPrivacyUpdateModal';
-// import PasswordCheckModal from './PasswordCheckModal';
+import PasswordCheckModal from './PasswordCheckModal';
 
 const MyPrivacyFormBlock = styled.div`
   margin-bottom: 5rem;
@@ -116,11 +116,11 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
   };
 
   const passwordCheckCancelClick = () => {
-    setModal(false);
+    setPasswordModal(false);
   };
 
   const passwordCheckConfirmClick = () => {
-    setModal(false);
+    setPasswordModal(false);
   };
 
   const { userid, username, apikey } = user;
@@ -158,14 +158,18 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
             변경 사항 저장
           </Button>
           {/*TODO - 비번 변경 로직 추가하기 */}
-          <Button orange style={{ marginRight: '1rem' }}>
+          <Button orange style={{ marginRight: '1rem' }} onClick={onPasswordCheckClick}>
             비밀 번호 변경
           </Button>
         </ButtonBlock>
       </MyPrivacyFormBlock>
       <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
       {/*TODO - 비밀번호 입력 모달 창 띄우기 */}
-      {/* <PasswordCheckModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} /> */}
+      <PasswordCheckModal
+        visible={passwordModal}
+        onConfirm={passwordCheckConfirmClick}
+        onCancel={passwordCheckCancelClick}
+      />
     </>
   );
 };
