@@ -74,12 +74,36 @@ export const updateUser = async (ctx) => {
     ctx.body = user.serialize();
 
     const token = user.generateToken();
-    
+
     ctx.cookies.set("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
     });
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
 
+export const passwordCheck = async (ctx) => {
+  const { userid, password } = ctx.request.body;
+
+  if (!userid || !password) {
+    ctx.status = 401; // Unauthorized
+    return;
+  }
+
+  try {
+    const user = await User.findByUserid(userid);
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+    const valid = await user.checkPassword(password);
+    if (!valid) {
+      ctx.status = 401;
+      return;
+    }
+    ctx.body = user.serialize();
   } catch (error) {
     ctx.throw(500, error);
   }
