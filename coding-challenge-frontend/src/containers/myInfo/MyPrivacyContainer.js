@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MyPrivacyTemplate from 'src/components/myInfo/MyPrivacyTemplate';
-import { changeUser, setOriginalUser, updateUser } from 'src/modules/myInfo';
+import { changePassword, changeUser, setOriginalUser, updateUser } from 'src/modules/myInfo';
 import { tempSetUser } from 'src/modules/user';
 
 const MyPrivacyContainer = () => {
@@ -83,6 +83,19 @@ const MyPrivacyContainer = () => {
     }
   }, [userError]);
 
+  const onChangePassword = useCallback(
+    (e) => {
+      const { value, name } = e.target;
+      dispatch(
+        changePassword({
+          userid: user.userid,
+          [name]: value,
+        }),
+      );
+    },
+    [dispatch, user],
+  );
+
   return (
     <MyPrivacyTemplate
       user={orginalUser}
@@ -93,6 +106,7 @@ const MyPrivacyContainer = () => {
       onConfirm={onConfirm}
       userErrorModal={errorModal}
       onVisibleError={onVisibleError}
+      onChangePassword={onChangePassword}
     />
   );
 };

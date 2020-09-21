@@ -10,3 +10,6 @@ export const myApplyList = ({ page }) => {
 
 export const updateUser = ({ _id, userid, username, apikey }) =>
   client.patch(`/api/myinfo/${_id}`, { userid, username, apikey });
+
+export const passwordCheck = ({ userid, password }) =>
+  client.post(`/api/myinfo`, { userid, password });

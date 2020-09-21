@@ -96,7 +96,7 @@ const ERROR_MESSAGE = {
   apikey: '변경할 apikey를 입력하세요.',
 };
 
-const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
+const MyPrivacyForm = ({ user, onChange, onUpdate, error, onChangePassword }) => {
   const [modal, setModal] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
 
@@ -164,8 +164,8 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
         </ButtonBlock>
       </MyPrivacyFormBlock>
       <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
-      {/*TODO - 비밀번호 입력 모달 창 띄우기 */}
       <PasswordCheckModal
+        onChange={onChangePassword}
         visible={passwordModal}
         onConfirm={passwordCheckConfirmClick}
         onCancel={passwordCheckCancelClick}

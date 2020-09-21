@@ -29,13 +29,20 @@ const MyPrivacyTemplate = ({
   onConfirm,
   userErrorModal,
   onVisibleError,
+  onChangePassword,
 }) => {
   return (
     <>
       <MyPrivacyTemplateBlock>
         <MyPrivacyHeadBlock>내 정보</MyPrivacyHeadBlock>
         {user && (
-          <MyPrivacyForm user={user} onChange={onChange} onUpdate={onUpdate} error={error} />
+          <MyPrivacyForm
+            user={user}
+            onChange={onChange}
+            onUpdate={onUpdate}
+            error={error}
+            onChangePassword={onChangePassword}
+          />
         )}
       </MyPrivacyTemplateBlock>
       <MyPrivacyConfirmUpdateModal visible={confirmModal} onConfirm={onConfirm} />

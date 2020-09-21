@@ -14,6 +14,37 @@ const FullScreenBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &.animation {
+    animation-name: fade-in;
+    animation-fill-mode: both;
+    animation-duration: 0.3s;
+  }
+
+  $animationDelay: 1;
+  @for $i from 1 through 15 {
+    &.animation:nth-of-type(#{$i}) {
+      animation-delay: #{0.3 + ($i)/30}s;
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 `;
 
 const ModalWindowBlock = styled.div`
@@ -74,14 +105,20 @@ const ModalWindow = ({
   onCancel,
   danger,
   inputValue = false,
+  onChange,
 }) => {
   if (!visible) return null;
   return (
-    <FullScreenBlock>
+    <FullScreenBlock className="animation">
       <ModalWindowBlock>
         <h2>{title}</h2>
         {inputValue ? (
-          <InputValueBlock type="password" placeholder="비밀번호를 입력하세요." />
+          <InputValueBlock
+            type="password"
+            placeholder="비밀번호를 입력하세요."
+            name="password"
+            onChange={onChange}
+          />
         ) : (
           <p>{description}</p>
         )}

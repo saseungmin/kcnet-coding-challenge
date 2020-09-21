@@ -1,7 +1,7 @@
 import React from 'react';
 import ModalWindow from '../common/ModalWindow';
 
-const PasswordCheckModal = ({ visible, onConfirm, onCancel }) => {
+const PasswordCheckModal = ({ visible, onConfirm, onCancel, onChange }) => {
   return (
     <ModalWindow
       visible={visible}
@@ -11,6 +11,7 @@ const PasswordCheckModal = ({ visible, onConfirm, onCancel }) => {
       onConfirm={onConfirm}
       onCancel={onCancel}
       inputValue={true}
+      onChange={onChange}
     />
   );
 };
