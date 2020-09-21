@@ -27,7 +27,7 @@ export const changeUser = createAction(CHANGE_USER, ({ key, value }) => ({
   value,
 }));
 
-export const changePassword = createAction(CHANGE_PASSWORD, (form) => form);
+export const changePassword = createAction(CHANGE_PASSWORD, (password) => password);
 export const setOriginalUser = createAction(SET_ORIGINAL_USER, (user) => user);
 export const myInfoApplyList = createAction(MYINFO_APPLY_LIST, ({ page }) => ({ page }));
 export const unloadMyInfo = createAction(UNLOAD_MYINFO);
@@ -53,7 +53,7 @@ const initialState = {
   originalUser: null,
   error: null,
   userError: null,
-  passwordForm: null,
+  password: null,
   auth: null,
   authError: null,
   receiveLastPage: 1,
@@ -78,9 +78,9 @@ const myInfo = handleActions(
       ...state,
       authError,
     }),
-    [CHANGE_PASSWORD]: (state, { payload: passwordForm }) => ({
+    [CHANGE_PASSWORD]: (state, { payload: password }) => ({
       ...state,
-      passwordForm,
+      password,
     }),
     [CHANGE_USER]: (state, { payload: { key, value } }) =>
       produce(state, (draft) => {

@@ -30,6 +30,7 @@ const MyPrivacyTemplate = ({
   userErrorModal,
   onVisibleError,
   onChangePassword,
+  onPasswordCheckConfirm,
 }) => {
   return (
     <>
@@ -42,6 +43,7 @@ const MyPrivacyTemplate = ({
             onUpdate={onUpdate}
             error={error}
             onChangePassword={onChangePassword}
+            onPasswordCheckConfirm={onPasswordCheckConfirm}
           />
         )}
       </MyPrivacyTemplateBlock>

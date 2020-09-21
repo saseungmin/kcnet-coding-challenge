@@ -1,7 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MyPrivacyTemplate from 'src/components/myInfo/MyPrivacyTemplate';
-import { changePassword, changeUser, setOriginalUser, updateUser } from 'src/modules/myInfo';
+import {
+  changePassword,
+  changeUser,
+  passwordCheck,
+  setOriginalUser,
+  updateUser,
+} from 'src/modules/myInfo';
 import { tempSetUser } from 'src/modules/user';
 
 const MyPrivacyContainer = () => {
@@ -9,12 +15,15 @@ const MyPrivacyContainer = () => {
   const [modal, setModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
 
-  const { user, orginalUser, checkLoading, userError } = useSelector(
+  const { user, orginalUser, checkLoading, userError, auth, authError, password } = useSelector(
     ({ user, myInfo, loading }) => ({
       user: user.user,
       orginalUser: myInfo.originalUser,
       checkLoading: loading['user/CHECK'],
       userError: myInfo.userError,
+      auth: myInfo.auth,
+      authError: myInfo.authError,
+      password: myInfo.password,
     }),
   );
   const dispatch = useDispatch();
@@ -63,7 +72,7 @@ const MyPrivacyContainer = () => {
     onChangeUser({ key: name, value: value });
   };
 
-  const onUpdate = () => {
+  const onUpdate = useCallback(() => {
     const validated = validate(orginalUser);
     if (!validated) {
       return;
@@ -73,7 +82,7 @@ const MyPrivacyContainer = () => {
     setLocalStrage(orginalUser);
 
     dispatch(tempSetUser(orginalUser));
-  };
+  }, [dispatch, orginalUser]);
 
   useEffect(() => {
     if (userError) {
@@ -85,16 +94,31 @@ const MyPrivacyContainer = () => {
 
   const onChangePassword = useCallback(
     (e) => {
-      const { value, name } = e.target;
-      dispatch(
-        changePassword({
-          userid: user.userid,
-          [name]: value,
-        }),
-      );
+      const { value } = e.target;
+      dispatch(changePassword(value));
     },
-    [dispatch, user],
+    [dispatch],
   );
+
+  const onPasswordCheckConfirm = useCallback(() => {
+    const { userid } = user;
+    if (password.trim() === '') {
+      console.log('비번을 입력');
+      return false;
+    }
+    dispatch(passwordCheck({ userid, password }));
+  }, [dispatch, password, user]);
+
+  useEffect(() => {
+    if (authError) {
+      console.log('error');
+      setError('비번 오류');
+      return;
+    }
+    if (auth) {
+      console.log('비번 체크 성공');
+    }
+  }, [authError, auth]);
 
   return (
     <MyPrivacyTemplate
@@ -107,6 +131,7 @@ const MyPrivacyContainer = () => {
       userErrorModal={errorModal}
       onVisibleError={onVisibleError}
       onChangePassword={onChangePassword}
+      onPasswordCheckConfirm={onPasswordCheckConfirm}
     />
   );
 };

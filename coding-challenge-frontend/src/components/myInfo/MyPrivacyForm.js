@@ -96,7 +96,14 @@ const ERROR_MESSAGE = {
   apikey: '변경할 apikey를 입력하세요.',
 };
 
-const MyPrivacyForm = ({ user, onChange, onUpdate, error, onChangePassword }) => {
+const MyPrivacyForm = ({
+  user,
+  onChange,
+  onUpdate,
+  error,
+  onChangePassword,
+  onPasswordCheckConfirm,
+}) => {
   const [modal, setModal] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
 
@@ -121,6 +128,7 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error, onChangePassword }) =>
 
   const passwordCheckConfirmClick = () => {
     setPasswordModal(false);
+    onPasswordCheckConfirm();
   };
 
   const { userid, username, apikey } = user;
