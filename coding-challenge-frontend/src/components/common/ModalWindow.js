@@ -1,4 +1,5 @@
 import React from 'react';
+import palette from 'src/lib/styles/palette';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -25,7 +26,7 @@ const ModalWindowBlock = styled.div`
   h2 {
     font-size: 2rem;
     margin-top: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-family: 'Cute Font', cursive;
   }
   p {
@@ -45,7 +46,23 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const InputValueBlock = styled.input``;
+const InputValueBlock = styled.input`
+  font-size: 1.2rem;
+  border: none;
+  border-bottom: 1px solid ${palette.Teal[6]};
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  outline: none;
+  width: 100%;
+  height: 2rem;
+  &:focus {
+    color: ${palette.gray[6]};
+    border-bottom: 1px solid ${palette.Teal[4]};
+  }
+  & {
+    margin-top: 1rem;
+  }
+`;
 
 const ModalWindow = ({
   visible,
@@ -58,14 +75,16 @@ const ModalWindow = ({
   danger,
   inputValue = false,
 }) => {
-  console.log(inputValue);
   if (!visible) return null;
   return (
     <FullScreenBlock>
       <ModalWindowBlock>
         <h2>{title}</h2>
-        <p>{description}</p>
-        {inputValue && <InputValueBlock type="text" placeholder="비밀번호를 입력하세요." />}
+        {inputValue ? (
+          <InputValueBlock type="password" placeholder="비밀번호를 입력하세요." />
+        ) : (
+          <p>{description}</p>
+        )}
         <div className="buttons">
           {cancelText && onCancel ? (
             <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
