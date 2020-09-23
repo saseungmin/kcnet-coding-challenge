@@ -95,7 +95,6 @@ const ButtonBlock = styled.div`
 const ERROR_MESSAGE = {
   name: '변경할 이름을 입력하세요.',
   apikey: '변경할 apikey를 입력하세요.',
-  password: '비밀번호를 확인하세요.',
 };
 
 const MyPrivacyForm = ({
@@ -133,12 +132,14 @@ const MyPrivacyForm = ({
     setPasswordModal(false);
   };
 
+  // FIXME: container 로 refactoring 하기 오류 남 error 값 변경해줘야함
   useEffect(() => {
+    console.log(error);
     if (error && error === 'password') {
       setPasswordModal(true);
       return;
     }
-  }, [error]);
+  }, [error, passwordModal]);
 
   const { userid, username, apikey } = user;
   // TODO: refactoring 해야할듯..

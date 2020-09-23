@@ -81,7 +81,6 @@ const InputValueBlock = styled.input`
   font-size: 1.2rem;
   border: none;
   border-bottom: 1px solid ${palette.Teal[6]};
-  margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   outline: none;
   width: 100%;
@@ -95,7 +94,10 @@ const InputValueBlock = styled.input`
   }
 `;
 
-const ErrorBlock = styled.div``;
+const ErrorBlock = styled.small`
+  color: #fa5252;
+  margin-top: 0.25rem;
+`;
 
 const ModalWindow = ({
   visible,
@@ -123,7 +125,7 @@ const ModalWindow = ({
               name="password"
               onChange={onChange}
             />
-            {error && <ErrorBlock>{error}</ErrorBlock>}
+            {error && <ErrorBlock>비밀번호를 확인해주세요.</ErrorBlock>}
           </>
         ) : (
           <p>{description}</p>

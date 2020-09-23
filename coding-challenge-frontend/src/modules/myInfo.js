@@ -72,6 +72,7 @@ const myInfo = handleActions(
     }),
     [PASSWORD_CHECK_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
+      authError: null,
       auth,
     }),
     [PASSWORD_CHECK_FAILURE]: (state, { payload: authError }) => ({
