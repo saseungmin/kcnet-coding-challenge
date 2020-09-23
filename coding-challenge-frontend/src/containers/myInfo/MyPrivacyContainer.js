@@ -112,7 +112,7 @@ const MyPrivacyContainer = () => {
   useEffect(() => {
     if (authError) {
       console.log('error');
-      setError('비번 오류');
+      setError('password');
       return;
     }
     if (auth) {

@@ -4,6 +4,7 @@ import palette from 'src/lib/styles/palette';
 import Button from '../common/Button';
 import MyPrivacyUpdateModal from './MyPrivacyUpdateModal';
 import PasswordCheckModal from './PasswordCheckModal';
+import { useEffect } from 'react';
 
 const MyPrivacyFormBlock = styled.div`
   margin-bottom: 5rem;
@@ -94,6 +95,7 @@ const ButtonBlock = styled.div`
 const ERROR_MESSAGE = {
   name: '변경할 이름을 입력하세요.',
   apikey: '변경할 apikey를 입력하세요.',
+  password: '비밀번호를 확인하세요.',
 };
 
 const MyPrivacyForm = ({
@@ -127,11 +129,19 @@ const MyPrivacyForm = ({
   };
 
   const passwordCheckConfirmClick = () => {
-    setPasswordModal(false);
     onPasswordCheckConfirm();
+    setPasswordModal(false);
   };
 
+  useEffect(() => {
+    if (error && error === 'password') {
+      setPasswordModal(true);
+      return;
+    }
+  }, [error]);
+
   const { userid, username, apikey } = user;
+  // TODO: refactoring 해야할듯..
   return (
     <>
       <MyPrivacyFormBlock>
@@ -173,6 +183,7 @@ const MyPrivacyForm = ({
       </MyPrivacyFormBlock>
       <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
       <PasswordCheckModal
+        error={error}
         onChange={onChangePassword}
         visible={passwordModal}
         onConfirm={passwordCheckConfirmClick}

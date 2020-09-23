@@ -95,6 +95,8 @@ const InputValueBlock = styled.input`
   }
 `;
 
+const ErrorBlock = styled.div``;
+
 const ModalWindow = ({
   visible,
   title,
@@ -106,6 +108,7 @@ const ModalWindow = ({
   danger,
   inputValue = false,
   onChange,
+  error,
 }) => {
   if (!visible) return null;
   return (
@@ -113,12 +116,15 @@ const ModalWindow = ({
       <ModalWindowBlock>
         <h2>{title}</h2>
         {inputValue ? (
-          <InputValueBlock
-            type="password"
-            placeholder="비밀번호를 입력하세요."
-            name="password"
-            onChange={onChange}
-          />
+          <>
+            <InputValueBlock
+              type="password"
+              placeholder="비밀번호를 입력하세요."
+              name="password"
+              onChange={onChange}
+            />
+            {error && <ErrorBlock>{error}</ErrorBlock>}
+          </>
         ) : (
           <p>{description}</p>
         )}
