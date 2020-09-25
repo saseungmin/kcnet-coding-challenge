@@ -77,6 +77,7 @@ const myInfo = handleActions(
     }),
     [PASSWORD_CHECK_FAILURE]: (state, { payload: authError }) => ({
       ...state,
+      auth: null,
       authError,
     }),
     [CHANGE_PASSWORD]: (state, { payload: password }) => ({

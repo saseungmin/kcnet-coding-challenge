@@ -113,6 +113,7 @@ const ModalWindow = ({
   error,
 }) => {
   if (!visible) return null;
+  //console.log(error);
   return (
     <FullScreenBlock className="animation">
       <ModalWindowBlock>
@@ -124,8 +125,9 @@ const ModalWindow = ({
               placeholder="비밀번호를 입력하세요."
               name="password"
               onChange={onChange}
+              autoComplete="new-password"
             />
-            {error && <ErrorBlock>비밀번호를 확인해주세요.</ErrorBlock>}
+            {error && error === 'password' && <ErrorBlock>비밀번호를 확인해주세요.</ErrorBlock>}
           </>
         ) : (
           <p>{description}</p>

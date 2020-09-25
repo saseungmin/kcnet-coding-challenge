@@ -25,13 +25,13 @@ const MyPrivacyTemplate = ({
   onChange,
   onUpdate,
   error,
-  confirmModal,
   onConfirm,
-  userErrorModal,
   onVisibleError,
   onChangePassword,
-  onPasswordCheckConfirm,
+  modals,
+  onPasswordCheckClick,
 }) => {
+  const { updateModal, errorModal } = modals;
   return (
     <>
       <MyPrivacyTemplateBlock>
@@ -42,13 +42,14 @@ const MyPrivacyTemplate = ({
             onChange={onChange}
             onUpdate={onUpdate}
             error={error}
+            modals={modals}
             onChangePassword={onChangePassword}
-            onPasswordCheckConfirm={onPasswordCheckConfirm}
+            onPasswordCheckClick={onPasswordCheckClick}
           />
         )}
       </MyPrivacyTemplateBlock>
-      <MyPrivacyConfirmUpdateModal visible={confirmModal} onConfirm={onConfirm} />
-      <MyPrivacyUpdateFailModal visible={userErrorModal} onConfirm={onVisibleError} />
+      <MyPrivacyConfirmUpdateModal visible={updateModal} onConfirm={onConfirm} />
+      <MyPrivacyUpdateFailModal visible={errorModal} onConfirm={onVisibleError} />
     </>
   );
 };

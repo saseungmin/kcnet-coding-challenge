@@ -12,8 +12,12 @@ import { tempSetUser } from 'src/modules/user';
 
 const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
-  const [modal, setModal] = useState(false);
-  const [errorModal, setErrorModal] = useState(false);
+  const [modals, setModals] = useState({
+    updateModal: false,
+    errorModal: false,
+    passwordModal: false,
+    confirmModal: false,
+  });
 
   const { user, orginalUser, checkLoading, userError, auth, authError, password } = useSelector(
     ({ user, myInfo, loading }) => ({
@@ -37,11 +41,17 @@ const MyPrivacyContainer = () => {
   const onChangeUser = useCallback((payload) => dispatch(changeUser(payload)), [dispatch]);
 
   const onConfirm = () => {
-    setModal(false);
+    setModals({
+      ...modals,
+      updateModal: false,
+    });
   };
 
   const onVisibleError = () => {
-    setErrorModal(false);
+    setModals({
+      ...modals,
+      errorModal: false,
+    });
   };
 
   const setLocalStrage = (orginalUser) => {
@@ -51,7 +61,7 @@ const MyPrivacyContainer = () => {
         JSON.stringify({ userid: orginalUser.userid, username: orginalUser.username }),
       );
     } catch (e) {
-      console.log('localStorage 오류', e);
+      console.log('localStorage 오류');
     }
   };
 
@@ -65,11 +75,7 @@ const MyPrivacyContainer = () => {
       setError('apikey');
       return false;
     }
-  };
-
-  const onChange = (e) => {
-    const { value, name } = e.target;
-    onChangeUser({ key: name, value: value });
+    return true;
   };
 
   const onUpdate = useCallback(() => {
@@ -77,7 +83,6 @@ const MyPrivacyContainer = () => {
     if (!validated) {
       return;
     }
-
     dispatch(updateUser(orginalUser));
     setLocalStrage(orginalUser);
 
@@ -86,32 +91,64 @@ const MyPrivacyContainer = () => {
 
   useEffect(() => {
     if (userError) {
-      setModal(false);
-      setErrorModal(true);
+      setModals({
+        ...modals,
+        updateModal: false,
+        errorModal: true,
+      });
       return;
     }
-  }, [userError]);
+  }, [userError, modals]);
 
-  const onChangePassword = useCallback(
-    (e) => {
-      const { value } = e.target;
-      dispatch(changePassword(value));
-    },
-    [dispatch],
-  );
+  useEffect(() => {
+    if (error && error === 'password') {
+      setModals({
+        ...modals,
+        passwordModal: true,
+      });
+      return;
+    }
+    // eslint-disable-next-line
+  }, [error, modals.passwordModal]);
+
+  const onChangePassword = useCallback((password) => dispatch(changePassword(password)), [
+    dispatch,
+  ]);
 
   const onPasswordCheckConfirm = useCallback(() => {
     const { userid } = user;
-    if (password.trim() === '') {
-      console.log('비번을 입력');
-      return false;
+    if (!password) {
+      setError('password');
+      return;
     }
     dispatch(passwordCheck({ userid, password }));
   }, [dispatch, password, user]);
 
+  const onPasswordCheckClick = (check) => (bool) => {
+    if (!bool) {
+      setError(null);
+    }
+    if (check) {
+      onPasswordCheckConfirm();
+    }
+    setModals({
+      ...modals,
+      passwordModal: bool,
+    });
+  };
+
+  const onUpdateMyPrivacy = (check) => (bool) => {
+    setModals({
+      ...modals,
+      confirmModal: bool,
+    });
+    if (check) {
+      onUpdate();
+    }
+  };
+
   useEffect(() => {
     if (authError) {
-      console.log('error');
       setError('password');
       return;
     }
@@ -123,15 +160,14 @@ const MyPrivacyContainer = () => {
   return (
     <MyPrivacyTemplate
       user={orginalUser}
-      onChange={onChange}
+      onChange={onChangeUser}
       error={error}
-      onUpdate={onUpdate}
-      confirmModal={modal}
+      onUpdate={onUpdateMyPrivacy}
+      modals={modals}
       onConfirm={onConfirm}
-      userErrorModal={errorModal}
       onVisibleError={onVisibleError}
       onChangePassword={onChangePassword}
-      onPasswordCheckConfirm={onPasswordCheckConfirm}
+      onPasswordCheckClick={onPasswordCheckClick}
     />
   );
 };
