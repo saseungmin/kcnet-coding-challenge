@@ -53,12 +53,7 @@ const ApplyTitleBlock = styled.div`
 `;
 
 const ApplyItem = ({ apply, seconds }) => {
-  const {
-    _id,
-    langs,
-    title,
-    content
-  } = apply;
+  const { _id, langs, title, content } = apply;
 
   return (
     <ApplyItemBlock>
@@ -66,9 +61,9 @@ const ApplyItem = ({ apply, seconds }) => {
         <Link to={`/introduce/${_id}`} className="title">
           {title}
         </Link>
-        <DateTimeChange seconds={seconds} apply={apply} toggle={false}/>
+        <DateTimeChange seconds={seconds} apply={apply} toggle={false} />
       </ApplyTitleBlock>
-      <DateInfo apply={apply}/>
+      <DateInfo apply={apply} />
       <Langs langs={langs} />
       <p>{content}</p>
       <ApplyButtonWrapper>

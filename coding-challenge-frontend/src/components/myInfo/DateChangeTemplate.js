@@ -36,13 +36,15 @@ const DateChangeTemplate = ({ apply, seconds }) => {
   return (
     <>
       {nowTime - testStart < 0 ? (
-        <DateChangeTemplateBlock className='starttest'>
+        <DateChangeTemplateBlock className="starttest">
           <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
         </DateChangeTemplateBlock>
       ) : nowTime - testStart >= 0 && nowTime - testEnd < 0 ? (
-        <DateChangeTemplateBlock className='blink testreceive'>대회 진행 중</DateChangeTemplateBlock>
+        <DateChangeTemplateBlock className="blink testreceive">
+          대회 진행 중
+        </DateChangeTemplateBlock>
       ) : (
-        <DateChangeTemplateBlock className='deadline'>대회 종료</DateChangeTemplateBlock>
+        <DateChangeTemplateBlock className="deadline">대회 종료</DateChangeTemplateBlock>
       )}
     </>
   );

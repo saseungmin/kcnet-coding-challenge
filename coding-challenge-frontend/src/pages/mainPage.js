@@ -6,16 +6,16 @@ import PaginationContainer from 'src/containers/common/PaginationContainer';
 import FooterContainer from 'src/containers/common/FooterContainer';
 
 const MainPage = () => {
-    return (
-        <>
-            <HeaderContainer />
-            <MainTemplate>
-                <ApplyListContainer />
-                <PaginationContainer />
-            </MainTemplate>
-            <FooterContainer/>
-        </>
-    );
+  return (
+    <>
+      <HeaderContainer />
+      <MainTemplate>
+        <ApplyListContainer />
+        <PaginationContainer />
+      </MainTemplate>
+      <FooterContainer />
+    </>
+  );
 };
 
 export default MainPage;

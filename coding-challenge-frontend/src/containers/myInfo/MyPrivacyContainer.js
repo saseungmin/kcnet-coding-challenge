@@ -1,24 +1,35 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MyPrivacyTemplate from 'src/components/myInfo/MyPrivacyTemplate';
-import { changeUser, setOriginalUser, updateUser } from 'src/modules/myInfo';
+import {
+  changePassword,
+  changeUser,
+  passwordCheck,
+  setOriginalUser,
+  updateUser,
+} from 'src/modules/myInfo';
 import { tempSetUser } from 'src/modules/user';
 
 const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
   const [modal, setModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
 
-  const { user, orginalUser, checkLoading, userError, updateUserLoading } = useSelector(({ user, myInfo, loading }) => ({
-    user: user.user,
-    orginalUser: myInfo.originalUser,
-    checkLoading: loading['user/CHECK'],
-    updateUserLoading: loading['myInfo/UPDATE_USER'],
-    userError: myInfo.userError,
-  }));
+  const { user, orginalUser, checkLoading, userError, auth, authError, password } = useSelector(
+    ({ user, myInfo, loading }) => ({
+      user: user.user,
+      orginalUser: myInfo.originalUser,
+      checkLoading: loading['user/CHECK'],
+      userError: myInfo.userError,
+      auth: myInfo.auth,
+      authError: myInfo.authError,
+      password: myInfo.password,
+    }),
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!checkLoading){
+    if (!checkLoading) {
       dispatch(setOriginalUser(user));
     }
   }, [dispatch, user, checkLoading]);
@@ -29,23 +40,11 @@ const MyPrivacyContainer = () => {
     setModal(false);
   };
 
-  const onChange = (e) => {
-    const { value, name } = e.target;
-    onChangeUser({ key: name, value: value });
+  const onVisibleError = () => {
+    setErrorModal(false);
   };
 
-  //TODO - error 별 변경사항 처리
-  const onUpdate = (() => {
-    const { apikey, username } = orginalUser;
-    if (username.trim() === '') {
-      setError('이름을 입력해주세요.');
-      return;
-    } else if (apikey.trim() === '') {
-      setError('api키를 입력해주세요.');
-      return;
-    }
-    dispatch(updateUser(orginalUser));
-
+  const setLocalStrage = (orginalUser) => {
     try {
       localStorage.setItem(
         'user',
@@ -54,23 +53,86 @@ const MyPrivacyContainer = () => {
     } catch (e) {
       console.log('localStorage 오류', e);
     }
-    
-    dispatch(tempSetUser(orginalUser))
-    setModal(true);
-    
-  });
+  };
 
+  const validate = (orginalUser) => {
+    const { apikey, username } = orginalUser;
 
-  useEffect(() => {
-    if(userError){
-      setError('변경사항 저장 실패');
+    if (username.trim() === '') {
+      setError('name');
+      return false;
+    } else if (apikey.trim() === '') {
+      setError('apikey');
+      return false;
+    }
+  };
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    onChangeUser({ key: name, value: value });
+  };
+
+  const onUpdate = useCallback(() => {
+    const validated = validate(orginalUser);
+    if (!validated) {
       return;
     }
-  },[userError]);
 
+    dispatch(updateUser(orginalUser));
+    setLocalStrage(orginalUser);
+
+    dispatch(tempSetUser(orginalUser));
+  }, [dispatch, orginalUser]);
+
+  useEffect(() => {
+    if (userError) {
+      setModal(false);
+      setErrorModal(true);
+      return;
+    }
+  }, [userError]);
+
+  const onChangePassword = useCallback(
+    (e) => {
+      const { value } = e.target;
+      dispatch(changePassword(value));
+    },
+    [dispatch],
+  );
+
+  const onPasswordCheckConfirm = useCallback(() => {
+    const { userid } = user;
+    if (password.trim() === '') {
+      console.log('비번을 입력');
+      return false;
+    }
+    dispatch(passwordCheck({ userid, password }));
+  }, [dispatch, password, user]);
+
+  useEffect(() => {
+    if (authError) {
+      console.log('error');
+      setError('password');
+      return;
+    }
+    if (auth) {
+      console.log('비번 체크 성공');
+    }
+  }, [authError, auth]);
 
   return (
-    <MyPrivacyTemplate user={orginalUser} onChange={onChange} error={error} onUpdate={onUpdate} confirmModal={modal} onConfirm={onConfirm}/>
+    <MyPrivacyTemplate
+      user={orginalUser}
+      onChange={onChange}
+      error={error}
+      onUpdate={onUpdate}
+      confirmModal={modal}
+      onConfirm={onConfirm}
+      userErrorModal={errorModal}
+      onVisibleError={onVisibleError}
+      onChangePassword={onChangePassword}
+      onPasswordCheckConfirm={onPasswordCheckConfirm}
+    />
   );
 };
 

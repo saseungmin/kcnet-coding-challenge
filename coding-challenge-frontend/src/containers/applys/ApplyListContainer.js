@@ -9,7 +9,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import 'moment/locale/ko';
 import useInterval from 'src/lib/useInterval';
-moment.tz.setDefault("Asia/Seoul");
+moment.tz.setDefault('Asia/Seoul');
 
 const ApplyListContainer = ({ location }) => {
   const dispatch = useDispatch();
@@ -35,7 +35,9 @@ const ApplyListContainer = ({ location }) => {
     dispatch(listApplys({ lang, page }));
   }, [dispatch, location.search]);
 
-  return <ApplyList loading={loading} applys={applys} error={error} user={user} seconds={seconds} />;
+  return (
+    <ApplyList loading={loading} applys={applys} error={error} user={user} seconds={seconds} />
+  );
 };
 
 export default withRouter(ApplyListContainer);

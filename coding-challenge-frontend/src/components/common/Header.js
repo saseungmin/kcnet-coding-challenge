@@ -49,13 +49,20 @@ const Header = ({ user, onLogout }) => {
           </Link>
           {user ? (
             <div className="right">
-              <UserInfo>{user.userid}{`(${user.username})`}</UserInfo>
-              <Button to="/myinfo" cyan style={{ marginRight: '0.5rem' }}>내 정보</Button>
+              <UserInfo>
+                {user.userid}
+                {`(${user.username})`}
+              </UserInfo>
+              <Button to="/myinfo" cyan style={{ marginRight: '0.5rem' }}>
+                내 정보
+              </Button>
               <Button onClick={onLogout}>로그아웃</Button>
             </div>
           ) : (
             <div className="right">
-              <Button to="/login" style={{ marginRight: '0.5rem' }}>로그인</Button>
+              <Button to="/login" style={{ marginRight: '0.5rem' }}>
+                로그인
+              </Button>
               <Button to="/register">회원가입</Button>
             </div>
           )}

@@ -28,49 +28,49 @@ const ButtonBlock = css`
     `}
 
     ${(props) =>
-    props.cyan &&
-    css`
-      background: ${palette.cyan[5]};
-      &:hover {
-        background: ${palette.cyan[4]};
-      }
-    `}
+      props.cyan &&
+      css`
+        background: ${palette.cyan[5]};
+        &:hover {
+          background: ${palette.cyan[4]};
+        }
+      `}
 
     ${(props) =>
-    props.teal &&
-    css`
-      background: ${palette.Teal[5]};
-      &:hover {
-        background: ${palette.Teal[4]};
-      }
-    `}
+      props.teal &&
+      css`
+        background: ${palette.Teal[5]};
+        &:hover {
+          background: ${palette.Teal[4]};
+        }
+      `}
 
     ${(props) =>
-    props.lang &&
-    css`
-      font-size: 12px;
-      line-height: 1.5;
-      display: inline-block;
-      margin: 0 0.25rem 0.25rem 0;
-      padding: 0.1875rem 0.5rem;
-      vertical-align: top;
-      border-radius: 0.25rem;
-      background: #e9ecf3;
-      color: #0ca678;
-      cursor: pointer;
-      &:hover{
-        background-color: ${palette.gray[3]}
-      }
-    `}
+      props.lang &&
+      css`
+        font-size: 12px;
+        line-height: 1.5;
+        display: inline-block;
+        margin: 0 0.25rem 0.25rem 0;
+        padding: 0.1875rem 0.5rem;
+        vertical-align: top;
+        border-radius: 0.25rem;
+        background: #e9ecf3;
+        color: #0ca678;
+        cursor: pointer;
+        &:hover {
+          background-color: ${palette.gray[3]};
+        }
+      `}
 
     ${(props) =>
-    props.orange &&
-    css`
-      background: ${palette.orange[5]};
-      &:hover {
-        background: ${palette.orange[4]};
-      }
-    `}
+      props.orange &&
+      css`
+        background: ${palette.orange[5]};
+        &:hover {
+          background: ${palette.orange[4]};
+        }
+      `}
 
     &:disabled{
       background: ${palette.gray[3]};
@@ -87,11 +87,16 @@ const StyledLink = styled(Link)`
 `;
 
 const Button = (props) => {
-
   return props.to ? (
-    <StyledLink {...props} cyan={props.cyan ? 1 : null} teal={props.teal ? 1 : null} orange={props.orange ? 1 : null} lang={props.lang ? 1 : null}/>
+    <StyledLink
+      {...props}
+      cyan={props.cyan ? 1 : null}
+      teal={props.teal ? 1 : null}
+      orange={props.orange ? 1 : null}
+      lang={props.lang ? 1 : null}
+    />
   ) : (
-    <StyledButton {...props} lang={props.lang ? 1 : null}/>
+    <StyledButton {...props} lang={props.lang ? 1 : null} />
   );
 };
 

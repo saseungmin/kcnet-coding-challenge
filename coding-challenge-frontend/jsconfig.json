@@ -1,14 +1,16 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "module": "es2015",
-        "baseUrl": ".",
-        "paths": {
-          "*": [
-            "*",
-            "src/*"
-          ]
-        }
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es2015",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "*",
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

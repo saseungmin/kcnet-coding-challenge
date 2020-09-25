@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import palette from 'src/lib/styles/palette';
 import Button from '../common/Button';
 import MyPrivacyUpdateModal from './MyPrivacyUpdateModal';
+import PasswordCheckModal from './PasswordCheckModal';
+import { useEffect } from 'react';
 
 const MyPrivacyFormBlock = styled.div`
   margin-bottom: 5rem;
@@ -41,6 +43,12 @@ const MyPrivacyItemBlock = styled.div`
 
 const LabelWarningSmallBlock = styled.small`
   color: #98a8b9;
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+`;
+
+const ErrorSmallBlock = styled.small`
+  color: #fa5252;
   margin-left: 1rem;
   margin-top: 0.25rem;
 `;
@@ -84,8 +92,22 @@ const ButtonBlock = styled.div`
   justify-content: space-between;
 `;
 
-const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
+const ERROR_MESSAGE = {
+  name: '변경할 이름을 입력하세요.',
+  apikey: '변경할 apikey를 입력하세요.',
+};
+
+const MyPrivacyForm = ({
+  user,
+  onChange,
+  onUpdate,
+  error,
+  onChangePassword,
+  onPasswordCheckConfirm,
+}) => {
   const [modal, setModal] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
+
   const onUpdateClick = () => {
     setModal(true);
   };
@@ -97,11 +119,33 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
     onUpdate();
   };
 
+  const onPasswordCheckClick = () => {
+    setPasswordModal(true);
+  };
+
+  const passwordCheckCancelClick = () => {
+    setPasswordModal(false);
+  };
+
+  const passwordCheckConfirmClick = () => {
+    onPasswordCheckConfirm();
+    setPasswordModal(false);
+  };
+
+  // FIXME: container 로 refactoring 하기 오류 남 error 값 변경해줘야함
+  useEffect(() => {
+    console.log(error);
+    if (error && error === 'password') {
+      setPasswordModal(true);
+      return;
+    }
+  }, [error, passwordModal]);
+
   const { userid, username, apikey } = user;
+  // TODO: refactoring 해야할듯..
   return (
     <>
       <MyPrivacyFormBlock>
-        {/* <form onSubmit={onUpdate}> */}
         <MyPrivacyItemBlock>
           <MyPrivacyTitleBlock className="required" htmlFor="userid">
             아이디
@@ -114,6 +158,7 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
             이름
           </MyPrivacyTitleBlock>
           <MyPrivacyInputBlock value={username || ''} name="username" onChange={onChange} />
+          <ErrorSmallBlock>{error && error === 'name' && ERROR_MESSAGE.name}</ErrorSmallBlock>
         </MyPrivacyItemBlock>
         <MyPrivacyItemBlock>
           <MyPrivacyTitleBlock className="required" htmlFor="apikey">
@@ -125,19 +170,26 @@ const MyPrivacyForm = ({ user, onChange, onUpdate, error }) => {
             className="apikey"
             onChange={onChange}
           />
+          <ErrorSmallBlock>{error && error === 'apikey' && ERROR_MESSAGE.apikey}</ErrorSmallBlock>
         </MyPrivacyItemBlock>
         <ButtonBlock>
           <Button teal style={{ marginLeft: '1rem' }} onClick={onUpdateClick}>
             변경 사항 저장
           </Button>
           {/*TODO - 비번 변경 로직 추가하기 */}
-          <Button orange style={{ marginRight: '1rem' }}>
+          <Button orange style={{ marginRight: '1rem' }} onClick={onPasswordCheckClick}>
             비밀 번호 변경
           </Button>
         </ButtonBlock>
-        {/* </form> */}
       </MyPrivacyFormBlock>
-      <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel}/>
+      <MyPrivacyUpdateModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
+      <PasswordCheckModal
+        error={error}
+        onChange={onChangePassword}
+        visible={passwordModal}
+        onConfirm={passwordCheckConfirmClick}
+        onCancel={passwordCheckCancelClick}
+      />
     </>
   );
 };

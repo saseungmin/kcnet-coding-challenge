@@ -12,7 +12,7 @@ import useInterval from 'src/lib/useInterval';
 
 const ReceiveCompetitionContainer = ({ history, location }) => {
   const dispatch = useDispatch();
-  
+
   const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
   const [seconds, setSeconds] = useState(nowTime);
 
@@ -25,14 +25,14 @@ const ReceiveCompetitionContainer = ({ history, location }) => {
 
   useEffect(() => {
     const { page } = qs.parse(location.search, {
-        ignoreQueryPrefix: true,
-      });
-    dispatch(myInfoApplyList({page}));
+      ignoreQueryPrefix: true,
+    });
+    dispatch(myInfoApplyList({ page }));
   }, [dispatch, location.search]);
-  
+
   useInterval(() => {
-      setSeconds(moment().format('YYYY-MM-DD HH:mm:ss'));
-    }, 1000);
+    setSeconds(moment().format('YYYY-MM-DD HH:mm:ss'));
+  }, 1000);
 
   useEffect(() => {
     return () => {
@@ -44,9 +44,11 @@ const ReceiveCompetitionContainer = ({ history, location }) => {
     if (!user) {
       history.push('/');
     }
-  },[user, history]);
+  }, [user, history]);
 
-  return <MyInfoTemplate myInfoList={myInfoList} loading={loading} error={error} seconds={seconds}/>;
+  return (
+    <MyInfoTemplate myInfoList={myInfoList} loading={loading} error={error} seconds={seconds} />
+  );
 };
 
 export default withRouter(ReceiveCompetitionContainer);

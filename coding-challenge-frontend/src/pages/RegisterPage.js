@@ -7,12 +7,12 @@ const RegisterPage = () => {
   const toggle = false;
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>회원가입-KCNET</title>
       </Helmet>
-    <AuthTemplate toggle={toggle}>
-      <RegisterForm />
-    </AuthTemplate>
+      <AuthTemplate toggle={toggle}>
+        <RegisterForm />
+      </AuthTemplate>
     </>
   );
 };
