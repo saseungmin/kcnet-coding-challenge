@@ -12,6 +12,7 @@ export default function useInterval(callback, delay) {
       savedCallback.current();
     }
 
+    // eslint-disable-next-line prefer-const
     let id = setInterval(tick, delay);
     return () => clearInterval(id);
   }, [delay]);

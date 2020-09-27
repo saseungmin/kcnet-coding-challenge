@@ -1,8 +1,8 @@
-import createRequestSaga, { createRequestActionTypes } from 'src/lib/createRequestSaga';
 import { createAction, handleActions } from 'redux-actions';
-import * as myInfoAPI from '../lib/api/myInfo';
 import { takeLatest } from 'redux-saga/effects';
 import produce from 'immer';
+import * as myInfoAPI from '../lib/api/myInfo';
+import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
 
 const [
   MYINFO_APPLY_LIST,
@@ -84,10 +84,10 @@ const myInfo = handleActions(
       ...state,
       password,
     }),
-    [CHANGE_USER]: (state, { payload: { key, value } }) =>
-      produce(state, (draft) => {
-        draft['originalUser'][key] = value;
-      }),
+    [CHANGE_USER]: (state, { payload: { key, value } }) => produce(state, (draft) => {
+      // eslint-disable-next-line no-param-reassign
+      draft.originalUser[key] = value;
+    }),
     [SET_ORIGINAL_USER]: (state, { payload: user }) => ({
       ...state,
       originalUser: user,

@@ -1,7 +1,8 @@
-import createRequestSaga, { createRequestActionTypes } from 'src/lib/createRequestSaga';
+/* eslint-disable no-shadow */
 import { createAction, handleActions } from 'redux-actions';
-import * as applyAPI from '../lib/api/apply';
 import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
+import * as applyAPI from '../lib/api/apply';
 
 const [READ_APPLY, READ_APPLY_SUCCESS, READ_APPLY_FAILURE] = createRequestActionTypes(
   'apply/READ_APPLY',

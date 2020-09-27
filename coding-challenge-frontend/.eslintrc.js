@@ -24,14 +24,13 @@ module.exports = {
   rules: {
     indent: ['error', 2],
     'no-trailing-spaces': 'error', // 뒷공백 허용 x
-    'prettier/prettier': ['error'],
     'react/jsx-filename-extension': 0,
     'space-infix-ops': 'error', // 연산자 사이의 공백
     'no-multi-spaces': 'error', // 다중 공백 금지
     curly: 'error', // 중괄호 규칙을 따라야 함
     'brace-style': 'error', // Brace Style
     'no-whitespace-before-property': 'error', // 속성 앞에 공백을 허용하지 않음 foo. bar
-    'eslint func-call-spacing': ['error', 'never'], // 함수 식별자와 해당 호출 사이의 간격을 허용 x
+    'func-call-spacing': ['error', 'never'], // 함수 식별자와 해당 호출 사이의 간격을 허용 x
     'keyword-spacing': ['error', { before: true, after: true }], // 키워드 앞뒤에 일관된 간격 적용
     'comma-spacing': ['error', { before: false, after: true }], // 쉼표 주위에 간격을 적용 var foo = 1, bar = 2
     'comma-style': ['error', 'last'], // 쉼표 스타일 var foo = 1, bar = 2;
@@ -45,6 +44,6 @@ module.exports = {
     'key-spacing': ['error', { mode: 'strict' }],
     'arrow-spacing': ['error', { before: true, after: true }], // 화살표 기능의 화살표 앞 / 뒤에 공백 필요
     'linebreak-style': 'off', // 일관된 줄 바꿈 스타일 적용 해제
-    'eslint no-underscore-dangle': ["error", { "allow": ["_id"] }]
+    'no-underscore-dangle': ["error", { "allow": ["_id"] }]
   },
 };

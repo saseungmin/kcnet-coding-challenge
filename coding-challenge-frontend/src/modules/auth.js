@@ -1,8 +1,9 @@
+/* eslint-disable no-shadow */
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
+import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
 import * as authAPI from '../lib/api/auth';
-import { takeLatest } from 'redux-saga/effects';
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
@@ -20,7 +21,9 @@ export const changeField = createAction(CHANGE_FIELD, ({ form, key, value }) => 
 
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
-export const register = createAction(REGISTER, ({ userid, username, password, apikey }) => ({
+export const register = createAction(REGISTER, ({
+  userid, username, password, apikey,
+}) => ({
   userid,
   username,
   password,
@@ -60,10 +63,10 @@ const initialState = {
 
 const auth = handleActions(
   {
-    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
-      produce(state, (draft) => {
-        draft[form][key] = value; // state.register.userid
-      }),
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) => produce(state, (draft) => {
+      // eslint-disable-next-line no-param-reassign
+      draft[form][key] = value; // state.register.userid
+    }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
       [form]: initialState[form],
