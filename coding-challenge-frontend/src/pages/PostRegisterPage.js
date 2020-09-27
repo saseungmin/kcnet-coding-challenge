@@ -1,7 +1,7 @@
 import React from 'react';
-import AuthTemplate from '../components/auth/AuthTemplate';
-import ApplyWriteFrom from 'src/containers/write/ApplyWriteFrom';
 import { Helmet } from 'react-helmet-async';
+import AuthTemplate from '../components/auth/AuthTemplate';
+import ApplyWriteFrom from '../containers/write/ApplyWriteFrom';
 
 const PostRegisterPage = () => {
   const toggle = true;
