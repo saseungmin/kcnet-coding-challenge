@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
-import createRequestSaga, { createRequestActionTypes } from 'src/lib/createRequestSaga';
-import * as applyAPI from '../lib/api/apply';
 import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
+import * as applyAPI from '../lib/api/apply';
 
 const CHANGE_FIELD = 'apply/CHANGE_FIELD';
 const INITIALIZE = 'apply/INITIALIZE';
@@ -23,7 +23,9 @@ export const initialize = createAction(INITIALIZE);
 
 export const writeApply = createAction(
   WRITE_APPLY,
-  ({ applystartday, applyendday, teststartday, testendday, title, content, langs }) => ({
+  ({
+    applystartday, applyendday, teststartday, testendday, title, content, langs,
+  }) => ({
     applystartday,
     applyendday,
     teststartday,
@@ -36,7 +38,9 @@ export const writeApply = createAction(
 
 export const updateApply = createAction(
   UPDATE_APPLY,
-  ({ id, applystartday, applyendday, teststartday, testendday, title, content, langs }) => ({
+  ({
+    id, applystartday, applyendday, teststartday, testendday, title, content, langs,
+  }) => ({
     id,
     applystartday,
     applyendday,
@@ -107,7 +111,7 @@ const write = handleActions(
       ...state,
       applyError,
     }),
-    [INITIALIZE]: (state) => initialState,
+    [INITIALIZE]: () => initialState,
   },
   initialState,
 );

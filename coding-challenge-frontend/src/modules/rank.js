@@ -1,7 +1,7 @@
-import createRequestSaga, { createRequestActionTypes } from 'src/lib/createRequestSaga';
 import { createAction, handleActions } from 'redux-actions';
-import * as rankAPI from '../lib/api/rank';
 import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
+import * as rankAPI from '../lib/api/rank';
 
 const [RANK_RECEIVE, RANK_RECEIVE_SUCCESS, RANK_RECEIVE_FAILURE] = createRequestActionTypes(
   'rank/RANK_RECEIVE',
