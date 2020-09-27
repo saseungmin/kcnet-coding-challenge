@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
 import Button from '../common/Button';
 
 const AuthFormBlock = styled.div`
@@ -60,7 +61,9 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const AuthForm = ({
+  type, form, onChange, onSubmit, error,
+}) => {
   const text = textMap[type];
   return (
     <AuthFormBlock>

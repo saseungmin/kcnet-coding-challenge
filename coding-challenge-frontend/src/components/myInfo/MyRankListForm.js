@@ -1,7 +1,8 @@
 import React from 'react';
+
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
-import palette from 'src/lib/styles/palette';
+import palette from '../../lib/styles/palette';
 import MyRankListItem from './MyRankListItem';
 
 const MyRankListFormBlock = styled(Responsive)`
@@ -19,13 +20,11 @@ const MyRankHeadBlock = styled.div`
 `;
 
 // TODO: 내 랭킹 점수 정보
-const MyRankListForm = () => {
-  return (
-    <MyRankListFormBlock>
-      <MyRankHeadBlock>내 랭킹 정보</MyRankHeadBlock>
-      <MyRankListItem />
-    </MyRankListFormBlock>
-  );
-};
+const MyRankListForm = () => (
+  <MyRankListFormBlock>
+    <MyRankHeadBlock>내 랭킹 정보</MyRankHeadBlock>
+    <MyRankListItem />
+  </MyRankListFormBlock>
+);
 
 export default MyRankListForm;

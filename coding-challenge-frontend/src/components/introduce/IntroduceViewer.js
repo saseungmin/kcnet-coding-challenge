@@ -1,11 +1,12 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import Responsive from '../common/Responsive';
-import palette from 'src/lib/styles/palette';
-import Langs from '../common/Langs';
 import Moment from 'react-moment';
-import 'moment/locale/ko';
 import { Helmet } from 'react-helmet-async';
+import Responsive from '../common/Responsive';
+import palette from '../../lib/styles/palette';
+import Langs from '../common/Langs';
+import 'moment/locale/ko';
 import DateTimeChange from '../common/DateTimeChange';
 import Button from '../common/Button';
 
@@ -101,18 +102,23 @@ const IntroduceViewer = ({
     return null;
   }
 
-  const { langs, title, content, applyendday, applystartday, teststartday, testendday } = apply;
+  const {
+    langs, title, content, applyendday, applystartday, teststartday, testendday,
+  } = apply;
 
-  const applyEnd = new Date(applyendday),
-    applyStart = new Date(applystartday),
-    testStart = new Date(teststartday),
-    testEnd = new Date(testendday),
-    nowTime = new Date(seconds);
+  const applyEnd = new Date(applyendday);
+  const applyStart = new Date(applystartday);
+  const testStart = new Date(teststartday);
+  const testEnd = new Date(testendday);
+  const nowTime = new Date(seconds);
 
   return (
     <IntroduceViewerBlock>
       <Helmet>
-        <title>{title}-KCNET</title>
+        <title>
+          {title}
+          -KCNET
+        </title>
       </Helmet>
       <IntroduceHead>
         <h1>{title}</h1>
@@ -131,25 +137,31 @@ const IntroduceViewer = ({
       {user && user.userstatus === 'manager' ? actionButtons : null}
       <IntroduceDateBlock>
         <IntroduceCountDate>
-          <DateTimeChange seconds={seconds} apply={apply} toggle={true} />
+          <DateTimeChange seconds={seconds} apply={apply} toggle />
         </IntroduceCountDate>
         <IntroduceSchedule>
           <div>
-            접수 :{' '}
+            접수 :
+            {' '}
             <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">
               {applyStart}
-            </Moment>{' '}
-            -{' '}
+            </Moment>
+            {' '}
+            -
+            {' '}
             <Moment interval={0} format="MM월 DD일 HH:mm">
               {applyEnd}
             </Moment>
           </div>
           <div>
-            대회 :{' '}
+            대회 :
+            {' '}
             <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">
               {testStart}
-            </Moment>{' '}
-            -{' '}
+            </Moment>
+            {' '}
+            -
+            {' '}
             <Moment interval={0} format="MM월 DD일 HH:mm">
               {testEnd}
             </Moment>

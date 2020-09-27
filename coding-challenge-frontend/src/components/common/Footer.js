@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 import Responsive from './Responsive';
-import palette from 'src/lib/styles/palette';
-import { Link } from 'react-router-dom';
-import openSourceLogo from 'src/static/images/open_source-removebg.png';
-import kcnetLogo from 'src/static/images/kcnet_logo.png';
+import palette from '../../lib/styles/palette';
+import openSourceLogo from '../../static/images/open_source-removebg.png';
+import kcnetLogo from '../../static/images/kcnet_logo.png';
 
 const FooterBlock = styled.div`
   width: 100%;
@@ -87,62 +88,60 @@ const OpenSourceBlock = styled.div`
   }
 `;
 
-const Footer = ({ user, onLogout }) => {
-  return (
-    <FooterBlock>
-      <Wrapper>
-        <Link to="/" className="logo">
-          KCNET 코딩 챌린지
-        </Link>
-        <ChallengeInfoBlock>
-          {user ? (
-            <>
-              <Link to="/myinfo" className="link">
-                내정보
-              </Link>
-              <div onClick={onLogout} className="link">
-                로그아웃
-              </div>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="link">
-                로그인
-              </Link>
-              <Link to="/register" className="link">
-                회원가입
-              </Link>
-            </>
-          )}
-        </ChallengeInfoBlock>
-        <CompanyInfoBlock>
-          <InfoCompanyDiv>
-            <InfoCompany>
-              <AHrefBlock href="http://www.kcnet.co.kr">
-                <img src={kcnetLogo} alt="kcnetLogo" width="60" height="20" />
-              </AHrefBlock>
-              (주) 케이씨넷
-            </InfoCompany>
-            <InfoCompany>
-              우)08503 서울특별시 금천구 가산디지털로1로 165 가산비즈니스센터 1001호(가산동)
-            </InfoCompany>
-            <InfoCompany>
-              <div>Copyright2020.©KCNET. All Right Reserved.</div>
-            </InfoCompany>
-          </InfoCompanyDiv>
-          <OpenSourceBlock>
-            <div>
-              Create By. &nbsp;
-              <AHrefBlock href="https://github.com/saseungmin">seungmin Sa</AHrefBlock>
+const Footer = ({ user, onLogout }) => (
+  <FooterBlock>
+    <Wrapper>
+      <Link to="/" className="logo">
+        KCNET 코딩 챌린지
+      </Link>
+      <ChallengeInfoBlock>
+        {user ? (
+          <>
+            <Link to="/myinfo" className="link">
+              내정보
+            </Link>
+            <div onClick={onLogout} className="link">
+              로그아웃
             </div>
-            <AHrefBlock href="https://github.com/saseungmin/kcnet-coding-challenge">
-              <img src={openSourceLogo} alt="openSourceLogo" width="100" height="45" />
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="link">
+              로그인
+            </Link>
+            <Link to="/register" className="link">
+              회원가입
+            </Link>
+          </>
+        )}
+      </ChallengeInfoBlock>
+      <CompanyInfoBlock>
+        <InfoCompanyDiv>
+          <InfoCompany>
+            <AHrefBlock href="http://www.kcnet.co.kr">
+              <img src={kcnetLogo} alt="kcnetLogo" width="60" height="20" />
             </AHrefBlock>
-          </OpenSourceBlock>
-        </CompanyInfoBlock>
-      </Wrapper>
-    </FooterBlock>
-  );
-};
+            (주) 케이씨넷
+          </InfoCompany>
+          <InfoCompany>
+            우)08503 서울특별시 금천구 가산디지털로1로 165 가산비즈니스센터 1001호(가산동)
+          </InfoCompany>
+          <InfoCompany>
+            <div>Copyright2020.©KCNET. All Right Reserved.</div>
+          </InfoCompany>
+        </InfoCompanyDiv>
+        <OpenSourceBlock>
+          <div>
+            Create By. &nbsp;
+            <AHrefBlock href="https://github.com/saseungmin">seungmin Sa</AHrefBlock>
+          </div>
+          <AHrefBlock href="https://github.com/saseungmin/kcnet-coding-challenge">
+            <img src={openSourceLogo} alt="openSourceLogo" width="100" height="45" />
+          </AHrefBlock>
+        </OpenSourceBlock>
+      </CompanyInfoBlock>
+    </Wrapper>
+  </FooterBlock>
+);
 
 export default Footer;

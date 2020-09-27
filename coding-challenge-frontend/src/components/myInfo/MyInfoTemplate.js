@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
-import palette from 'src/lib/styles/palette';
+import palette from '../../lib/styles/palette';
 import ReceiveCompetitionForm from './ReceiveCompetitionForm';
 
 const MyInfoTemplateBlock = styled(Responsive)`
@@ -18,7 +18,9 @@ const ReceiveCompetitionHeadBlock = styled.div`
   padding-left: 1rem;
 `;
 
-const MyInfoTemplate = ({ myInfoList, error, loading, seconds }) => {
+const MyInfoTemplate = ({
+  myInfoList, error, loading, seconds,
+}) => {
   if (error) {
     return <MyInfoTemplateBlock>내 정보 불러오기 실패..</MyInfoTemplateBlock>;
   }

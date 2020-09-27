@@ -1,7 +1,12 @@
 import React from 'react';
+
 import styled from 'styled-components';
+import moment from 'moment';
+import 'moment/locale/ko';
 import Moment from 'react-moment';
-import palette from 'src/lib/styles/palette';
+import palette from '../../lib/styles/palette';
+
+moment.locale('ko');
 
 const DateTimeChangeBlock = styled.div`
   margin-left: 30px;
@@ -87,13 +92,15 @@ const DateTimeUlBlock = styled.ul`
 `;
 
 const DateTimeChange = ({ seconds, apply, toggle }) => {
-  const { applyendday, applystartday, teststartday, testendday } = apply;
+  const {
+    applyendday, applystartday, teststartday, testendday,
+  } = apply;
 
-  const applyEnd = new Date(applyendday),
-    applyStart = new Date(applystartday),
-    testStart = new Date(teststartday),
-    testEnd = new Date(testendday),
-    now = new Date(seconds);
+  const applyEnd = new Date(applyendday);
+  const applyStart = new Date(applystartday);
+  const testStart = new Date(teststartday);
+  const testEnd = new Date(testendday);
+  const now = new Date(seconds);
 
   if (applyStart - now > 0) {
     return (
@@ -102,23 +109,26 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
           <DateTimeUlBlock>
             <li>
               <IntroduceDateTimeChangeBlock className="startapply">
-                <Moment fromNow>{applyStart}</Moment> &nbsp;접수 시작
+                <Moment fromNow>{applyStart}</Moment>
+                  &nbsp;접수 시작
               </IntroduceDateTimeChangeBlock>
             </li>
             <li>
               <IntroduceDateTimeChangeBlock className="starttest">
-                <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
+                <Moment fromNow>{testStart}</Moment>
+                  &nbsp;대회 시작
               </IntroduceDateTimeChangeBlock>
             </li>
           </DateTimeUlBlock>
         ) : (
           <DateTimeChangeBlock className="startapply">
-            <Moment fromNow>{applyStart}</Moment> &nbsp;접수 시작
+            <Moment fromNow>{applyStart}</Moment>
+              &nbsp;접수 시작
           </DateTimeChangeBlock>
         )}
       </>
     );
-  } else if (now - applyStart >= 0 && now - applyEnd < 0) {
+  } if (now - applyStart >= 0 && now - applyEnd < 0) {
     return (
       <>
         {toggle ? (
@@ -130,7 +140,8 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
             </li>
             <li>
               <IntroduceDateTimeChangeBlock className="starttest">
-                <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
+                <Moment fromNow>{testStart}</Moment>
+                  &nbsp;대회 시작
               </IntroduceDateTimeChangeBlock>
             </li>
           </DateTimeUlBlock>
@@ -139,7 +150,7 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
         )}
       </>
     );
-  } else if (now - applyEnd >= 0 && now - testStart < 0) {
+  } if (now - applyEnd >= 0 && now - testStart < 0) {
     return (
       <>
         {toggle ? (
@@ -151,7 +162,8 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
             </li>
             <li>
               <IntroduceDateTimeChangeBlock className="starttest">
-                <Moment fromNow>{testStart}</Moment> &nbsp;대회 시작
+                <Moment fromNow>{testStart}</Moment>
+                  &nbsp;대회 시작
               </IntroduceDateTimeChangeBlock>
             </li>
           </DateTimeUlBlock>
@@ -160,7 +172,7 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
         )}
       </>
     );
-  } else if (now - testStart >= 0 && now - testEnd < 0) {
+  } if (now - testStart >= 0 && now - testEnd < 0) {
     return (
       <>
         {toggle ? (
@@ -181,19 +193,18 @@ const DateTimeChange = ({ seconds, apply, toggle }) => {
         )}
       </>
     );
-  } else {
-    return (
-      <>
-        {toggle ? (
-          <IntroduceDateTimeChangeBlock className="deadline">
-            대회 종료
-          </IntroduceDateTimeChangeBlock>
-        ) : (
-          <DateTimeChangeBlock className="deadline">대회 종료</DateTimeChangeBlock>
-        )}
-      </>
-    );
   }
+  return (
+    <>
+      {toggle ? (
+        <IntroduceDateTimeChangeBlock className="deadline">
+          대회 종료
+        </IntroduceDateTimeChangeBlock>
+      ) : (
+        <DateTimeChangeBlock className="deadline">대회 종료</DateTimeChangeBlock>
+      )}
+    </>
+  );
 };
 
 export default DateTimeChange;

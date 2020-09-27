@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
-import rootReducer, { rootSaga } from './modules/index';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { tempSetUser, check } from './modules/user';
 import { HelmetProvider } from 'react-helmet-async';
+
+import './index.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { tempSetUser, check } from './modules/user';
+import rootReducer, { rootSaga } from './modules/index';
+import * as serviceWorker from './serviceWorker';
+import App from './App';
 
 const sagaMiddleware = createSagaMiddleware();
 

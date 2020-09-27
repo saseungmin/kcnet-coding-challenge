@@ -1,7 +1,8 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import palette from 'src/lib/styles/palette';
 import { Link } from 'react-router-dom';
+import palette from '../../lib/styles/palette';
 
 const LangsBlock = styled.div`
   margin-top: 1rem;
@@ -34,23 +35,19 @@ const LangsBlock = styled.div`
   }
 `;
 
-const Langs = ({ langs }) => {
-  return (
-    <LangsBlock>
-      <div className="langTitle">사용가능 언어</div>
-      {langs.map((lang) =>
-        lang === 'C#' ? (
-          <Link className="lang" to={'/?lang=C%23'} key={lang}>
-            {lang}
-          </Link>
-        ) : (
-          <Link className="lang" to={`/?lang=${lang}`} key={lang}>
-            {lang}
-          </Link>
-        ),
-      )}
-    </LangsBlock>
-  );
-};
+const Langs = ({ langs }) => (
+  <LangsBlock>
+    <div className="langTitle">사용가능 언어</div>
+    {langs.map((lang) => (lang === 'C#' ? (
+      <Link className="lang" to="/?lang=C%23" key={lang}>
+        {lang}
+      </Link>
+    ) : (
+      <Link className="lang" to={`/?lang=${lang}`} key={lang}>
+        {lang}
+      </Link>
+    )))}
+  </LangsBlock>
+);
 
 export default Langs;

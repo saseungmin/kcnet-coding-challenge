@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+
 import styled from 'styled-components';
-import palette from 'src/lib/styles/palette';
+import palette from '../../lib/styles/palette';
 import IntroduceRemoveModal from './IntroduceRemoveModal';
 
 const ApplyActionButtonsBlock = styled.div`

@@ -1,7 +1,9 @@
 import React from 'react';
+
 import ModalWindow from '../common/ModalWindow';
 
 const IntroduceRemoveModal = ({ visible, onConfirm, onCancel }) => {
+  const isDanger = true;
   return (
     <ModalWindow
       visible={visible}
@@ -11,7 +13,7 @@ const IntroduceRemoveModal = ({ visible, onConfirm, onCancel }) => {
       cancelText="취소"
       onConfirm={onConfirm}
       onCancel={onCancel}
-      danger={true}
+      danger={isDanger}
     />
   );
 };

@@ -1,7 +1,8 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import palette from 'src/lib/styles/palette';
 import Moment from 'react-moment';
+import palette from '../../lib/styles/palette';
 
 const DateInfoBlock = styled.div`
   color: ${palette.gray[6]};
@@ -15,11 +16,13 @@ const DateInfoBlock = styled.div`
 `;
 
 const DateInfo = ({ apply }) => {
-  const { applystartday, applyendday, teststartday, testendday } = apply;
-  const applyEnd = new Date(applyendday),
-    applyStart = new Date(applystartday),
-    testStart = new Date(teststartday),
-    testEnd = new Date(testendday);
+  const {
+    applystartday, applyendday, teststartday, testendday,
+  } = apply;
+  const applyEnd = new Date(applyendday);
+  const applyStart = new Date(applystartday);
+  const testStart = new Date(teststartday);
+  const testEnd = new Date(testendday);
 
   return (
     <>
@@ -30,8 +33,10 @@ const DateInfo = ({ apply }) => {
         <span>
           <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">
             {applyStart}
-          </Moment>{' '}
-          -{' '}
+          </Moment>
+          {' '}
+          -
+          {' '}
           <Moment interval={0} format="MM월 DD일 HH:mm">
             {applyEnd}
           </Moment>
@@ -44,8 +49,10 @@ const DateInfo = ({ apply }) => {
         <span>
           <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">
             {testStart}
-          </Moment>{' '}
-          -{' '}
+          </Moment>
+          {' '}
+          -
+          {' '}
           <Moment interval={0} format="MM월 DD일 HH:mm">
             {testEnd}
           </Moment>

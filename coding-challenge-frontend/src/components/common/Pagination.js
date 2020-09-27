@@ -23,44 +23,44 @@ const myInfoBuildLink = ({ page }) => {
   return `/myinfo/?${query}`;
 };
 
-const Pagination = ({ page, lastPage, lang, receiveLastPage }) => {
-  return (
-    <>
-      {lastPage ? (
-        <PaginationBlock>
-          <Button
-            disabled={page === 1}
-            to={page === 1 ? undefined : buildLink({ lang, page: page - 1 })}
-          >
-            이전
-          </Button>
-          <PageNumber>{page}</PageNumber>
-          <Button
-            disabled={page === lastPage}
-            to={page === lastPage ? undefined : buildLink({ lang, page: page + 1 })}
-          >
-            다음
-          </Button>
-        </PaginationBlock>
-      ) : (
-        <PaginationBlock>
-          <Button
-            disabled={page === 1}
-            to={page === 1 ? undefined : `${myInfoBuildLink({ page: page - 1 })}`}
-          >
-            이전
-          </Button>
-          <PageNumber>{page}</PageNumber>
-          <Button
-            disabled={page === receiveLastPage}
-            to={page === receiveLastPage ? undefined : `${myInfoBuildLink({ page: page + 1 })}`}
-          >
-            다음
-          </Button>
-        </PaginationBlock>
-      )}
-    </>
-  );
-};
+const Pagination = ({
+  page, lastPage, lang, receiveLastPage,
+}) => (
+  <>
+    {lastPage ? (
+      <PaginationBlock>
+        <Button
+          disabled={page === 1}
+          to={page === 1 ? undefined : buildLink({ lang, page: page - 1 })}
+        >
+          이전
+        </Button>
+        <PageNumber>{page}</PageNumber>
+        <Button
+          disabled={page === lastPage}
+          to={page === lastPage ? undefined : buildLink({ lang, page: page + 1 })}
+        >
+          다음
+        </Button>
+      </PaginationBlock>
+    ) : (
+      <PaginationBlock>
+        <Button
+          disabled={page === 1}
+          to={page === 1 ? undefined : `${myInfoBuildLink({ page: page - 1 })}`}
+        >
+          이전
+        </Button>
+        <PageNumber>{page}</PageNumber>
+        <Button
+          disabled={page === receiveLastPage}
+          to={page === receiveLastPage ? undefined : `${myInfoBuildLink({ page: page + 1 })}`}
+        >
+          다음
+        </Button>
+      </PaginationBlock>
+    )}
+  </>
+);
 
 export default Pagination;

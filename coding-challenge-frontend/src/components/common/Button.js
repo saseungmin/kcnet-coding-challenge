@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
 
 const ButtonBlock = css`
   border: none;
@@ -18,36 +18,32 @@ const ButtonBlock = css`
     background: ${palette.gray[6]};
   }
 
-  ${(props) =>
-    props.fullWidth &&
-    css`
+  ${(props) => props.fullWidth
+    && css`
       padding-top: 0.75rem;
       padding-bottom: 0.75rem;
       width: 93.5%;
       font-size: 1.125rem;
     `}
 
-    ${(props) =>
-      props.cyan &&
-      css`
+    ${(props) => props.cyan
+      && css`
         background: ${palette.cyan[5]};
         &:hover {
           background: ${palette.cyan[4]};
         }
       `}
 
-    ${(props) =>
-      props.teal &&
-      css`
+    ${(props) => props.teal
+      && css`
         background: ${palette.Teal[5]};
         &:hover {
           background: ${palette.Teal[4]};
         }
       `}
 
-    ${(props) =>
-      props.lang &&
-      css`
+    ${(props) => props.lang
+      && css`
         font-size: 12px;
         line-height: 1.5;
         display: inline-block;
@@ -63,9 +59,8 @@ const ButtonBlock = css`
         }
       `}
 
-    ${(props) =>
-      props.orange &&
-      css`
+    ${(props) => props.orange
+      && css`
         background: ${palette.orange[5]};
         &:hover {
           background: ${palette.orange[4]};
@@ -86,18 +81,16 @@ const StyledLink = styled(Link)`
   ${ButtonBlock}
 `;
 
-const Button = (props) => {
-  return props.to ? (
-    <StyledLink
-      {...props}
-      cyan={props.cyan ? 1 : null}
-      teal={props.teal ? 1 : null}
-      orange={props.orange ? 1 : null}
-      lang={props.lang ? 1 : null}
-    />
-  ) : (
-    <StyledButton {...props} lang={props.lang ? 1 : null} />
-  );
-};
+const Button = (props) => (props.to ? (
+  <StyledLink
+    {...props}
+    cyan={props.cyan ? 1 : null}
+    teal={props.teal ? 1 : null}
+    orange={props.orange ? 1 : null}
+    lang={props.lang ? 1 : null}
+  />
+) : (
+  <StyledButton {...props} lang={props.lang ? 1 : null} />
+));
 
 export default Button;

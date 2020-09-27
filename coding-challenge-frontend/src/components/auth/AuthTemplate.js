@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
 
 const AuthTemplateBlock = styled.div`
   position: absolute;
@@ -54,26 +55,24 @@ const RegisterApplyBox = styled.div`
   border-radius: 2px;
 `;
 
-const AuthTemplate = ({ children, toggle }) => {
-  return (
-    <AuthTemplateBlock>
-      {toggle ? (
-        <RegisterApplyBox>
-          <div className="logo-area">
-            <Link to="/">Coding Challenge</Link>
-          </div>
-          {children}
-        </RegisterApplyBox>
-      ) : (
-        <AuthBox>
-          <div className="logo-area">
-            <Link to="/">Coding Challenge</Link>
-          </div>
-          {children}
-        </AuthBox>
-      )}
-    </AuthTemplateBlock>
-  );
-};
+const AuthTemplate = ({ children, toggle }) => (
+  <AuthTemplateBlock>
+    {toggle ? (
+      <RegisterApplyBox>
+        <div className="logo-area">
+          <Link to="/">Coding Challenge</Link>
+        </div>
+        {children}
+      </RegisterApplyBox>
+    ) : (
+      <AuthBox>
+        <div className="logo-area">
+          <Link to="/">Coding Challenge</Link>
+        </div>
+        {children}
+      </AuthBox>
+    )}
+  </AuthTemplateBlock>
+);
 
 export default AuthTemplate;

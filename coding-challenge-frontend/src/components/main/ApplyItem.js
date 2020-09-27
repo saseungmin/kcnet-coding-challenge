@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 import Button from '../common/Button';
-import palette from 'src/lib/styles/palette';
-import { Link } from 'react-router-dom';
+import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
 import DateInfo from '../common/DateInfo';
 import Langs from '../common/Langs';
@@ -53,7 +54,9 @@ const ApplyTitleBlock = styled.div`
 `;
 
 const ApplyItem = ({ apply, seconds }) => {
-  const { _id, langs, title, content } = apply;
+  const {
+    _id, langs, title, content,
+  } = apply;
 
   return (
     <ApplyItemBlock>

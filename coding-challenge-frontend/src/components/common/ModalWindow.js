@@ -1,6 +1,6 @@
 import React from 'react';
-import palette from 'src/lib/styles/palette';
 import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
 import Button from './Button';
 
 const FullScreenBlock = styled.div`
@@ -113,7 +113,7 @@ const ModalWindow = ({
   error,
 }) => {
   if (!visible) return null;
-  //console.log(error);
+  // console.log(error);
   return (
     <FullScreenBlock className="animation">
       <ModalWindowBlock>

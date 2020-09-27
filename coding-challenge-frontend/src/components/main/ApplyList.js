@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
@@ -14,7 +15,9 @@ const ApplyButtonWrapper = styled.div`
   margin-bottom: 3rem;
 `;
 
-const ApplyList = ({ applys, error, loading, user, seconds }) => {
+const ApplyList = ({
+  applys, error, loading, user, seconds,
+}) => {
   if (error) {
     return <ApplyListBlock> 에러가 발생했습니다. </ApplyListBlock>;
   }

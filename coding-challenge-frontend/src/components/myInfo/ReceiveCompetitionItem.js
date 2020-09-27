@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 import styled from 'styled-components';
 import DateChangeTemplate from './DateChangeTemplate';
 import LangTemplate from './LangTemplate';
-import palette from 'src/lib/styles/palette';
+import palette from '../../lib/styles/palette';
 
 const ReceiveCompetitionItemBlock = styled.div`
   margin-bottom: 1rem;
@@ -42,7 +42,9 @@ const DateInfoBlock = styled.div`
 `;
 
 const ReceiveCompetitionItem = ({ receive, seconds }) => {
-  const { _id, title, teststartday, testendday, langs } = receive;
+  const {
+    _id, title, teststartday, testendday, langs,
+  } = receive;
   return (
     <ReceiveCompetitionItemBlock>
       <ReceiveCompetitionHeaderBlock>

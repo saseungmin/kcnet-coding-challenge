@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+
 import Button from '../common/Button';
 import ReceiveApplyModal from './ReceiveApplyModal';
 import ReceiveLoginCheckModal from './ReceiveLoginCheckModal';
 import CancelReceiveModal from './CancelReceiveModal';
 
-const ReceiveActionButton = ({ user, onApplyReceive, receiveUser, onClickCancelReceive }) => {
+const ReceiveActionButton = ({
+  user, onApplyReceive, receiveUser, onClickCancelReceive,
+}) => {
   const [modal, setModal] = useState(false);
   const onReceiveClick = () => {
     setModal(true);

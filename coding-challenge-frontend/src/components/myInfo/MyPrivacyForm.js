@@ -1,6 +1,7 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import palette from 'src/lib/styles/palette';
+import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import MyPrivacyUpdateModal from './MyPrivacyUpdateModal';
 import PasswordCheckModal from './PasswordCheckModal';
@@ -129,7 +130,7 @@ const MyPrivacyForm = ({
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-    onChange({ key: name, value: value });
+    onChange({ key: name, value });
   };
 
   const handleChangePassword = (e) => {
@@ -178,7 +179,7 @@ const MyPrivacyForm = ({
           <Button teal style={{ marginLeft: '1rem' }} onClick={onUpdateClick}>
             변경 사항 저장
           </Button>
-          {/*TODO - 비번 변경 로직 추가하기 */}
+          {/* TODO - 비번 변경 로직 추가하기 */}
           <Button orange style={{ marginRight: '1rem' }} onClick={handlePasswordCheckClick}>
             비밀 번호 변경
           </Button>

@@ -1,6 +1,7 @@
 import React from 'react';
-import palette from 'src/lib/styles/palette';
 import styled from 'styled-components';
+
+import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import PostRegisterLangs from './PostRegisterLangs';
 import PostEditorForm from './PostEditorForm';
@@ -78,7 +79,9 @@ const PostRegisterForm = ({
   editor,
   onChangeEditor,
 }) => {
-  const { applystartday, applyendday, teststartday, testendday, title, originalApplyId } = write;
+  const {
+    applystartday, applyendday, teststartday, testendday, title, originalApplyId,
+  } = write;
 
   return (
     <WriteFormBlock>
@@ -90,16 +93,21 @@ const PostRegisterForm = ({
           name="applystartday"
           onChange={onChangebody}
           value={applystartday}
-        />{' '}
-        ~ <StyledDate type="date" name="applyendday" onChange={onChangebody} value={applyendday} />
+        />
+        {' '}
+        ~
+        {' '}
+        <StyledDate type="date" name="applyendday" onChange={onChangebody} value={applyendday} />
         <div>대회 기간</div>
         <StyledDate
           type="datetime-local"
           name="teststartday"
           onChange={onChangebody}
           value={teststartday}
-        />{' '}
-        ~{' '}
+        />
+        {' '}
+        ~
+        {' '}
         <StyledDate
           type="datetime-local"
           name="testendday"
@@ -112,7 +120,7 @@ const PostRegisterForm = ({
           type="text"
           onChange={onChangebody}
           value={title}
-        ></StyledInput>
+        />
         <PostEditorForm
           editor={editor}
           onChangeEditor={onChangeEditor}
@@ -122,7 +130,7 @@ const PostRegisterForm = ({
         <PostRegisterLangs onChangeLangs={onChangebody} inputCheckBox={inputCheckBox} />
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Button cyan fullWidth style={{ marginTop: '1rem' }}>
-          {!!originalApplyId ? '수정하기' : '등록하기'}
+          {originalApplyId ? '수정하기' : '등록하기'}
         </Button>
       </form>
     </WriteFormBlock>
