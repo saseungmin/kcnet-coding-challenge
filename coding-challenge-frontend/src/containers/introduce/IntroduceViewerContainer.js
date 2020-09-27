@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { readApply, unloadApply } from 'src/modules/apply';
-import IntroduceViewer from 'src/components/introduce/IntroduceViewer';
-import ApplyActionButtons from 'src/components/introduce/ApplyActionButtons';
-import { setOriginalApply } from 'src/modules/write';
-import { removeApply } from 'src/lib/api/apply';
 import moment from 'moment';
+import { removeApply } from '../../lib/api/apply';
 import 'moment/locale/ko';
-import useInterval from 'src/lib/useInterval';
-import ReceiveActionButton from 'src/components/introduce/ReceiveActionButton';
-import { unloadRank, rankReceive, getRankList } from 'src/modules/rank';
-import { cancelReceive } from 'src/lib/api/rank';
+import ReceiveActionButton from '../../components/introduce/ReceiveActionButton';
+import { unloadRank, rankReceive, getRankList } from '../../modules/rank';
+import { cancelReceive } from '../../lib/api/rank';
+import useInterval from '../../lib/useInterval';
+import { setOriginalApply } from '../../modules/write';
+import ApplyActionButtons from '../../components/introduce/ApplyActionButtons';
+import IntroduceViewer from '../../components/introduce/IntroduceViewer';
+import { readApply, unloadApply } from '../../modules/apply';
 
 const IntroduceViewerContainer = ({ history, match }) => {
   const { id } = match.params;
@@ -19,8 +19,12 @@ const IntroduceViewerContainer = ({ history, match }) => {
   const [seconds, setSeconds] = useState(nowTime);
 
   const dispatch = useDispatch();
-  const { apply, error, loading, user, receiveError, receiveUser, receiveLoading } = useSelector(
-    ({ apply, loading, user, rank }) => ({
+  const {
+    apply, error, loading, user, receiveError, receiveUser, receiveLoading,
+  } = useSelector(
+    ({
+      apply, loading, user, rank,
+    }) => ({
       apply: apply.apply,
       error: apply.error,
       user: user.user,
@@ -76,7 +80,6 @@ const IntroduceViewerContainer = ({ history, match }) => {
     if (receiveError) {
       console.log('error');
       console.log(receiveError);
-      return;
     }
   }, [receiveError]);
 
@@ -90,14 +93,14 @@ const IntroduceViewerContainer = ({ history, match }) => {
       receiveError={receiveError}
       receiveLoading={receiveLoading}
       actionButtons={<ApplyActionButtons onEdit={onEdit} onRemove={onRemove} />}
-      recieveButton={
+      recieveButton={(
         <ReceiveActionButton
           user={user}
           onApplyReceive={onApplyReceive}
           onClickCancelReceive={onClickCancelReceive}
           receiveUser={receiveUser}
         />
-      }
+      )}
     />
   );
 };

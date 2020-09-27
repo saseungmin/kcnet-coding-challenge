@@ -44,6 +44,8 @@ module.exports = {
     'key-spacing': ['error', { mode: 'strict' }],
     'arrow-spacing': ['error', { before: true, after: true }], // 화살표 기능의 화살표 앞 / 뒤에 공백 필요
     'linebreak-style': 'off', // 일관된 줄 바꿈 스타일 적용 해제
-    'no-underscore-dangle': ["error", { "allow": ["_id"] }]
+    'no-underscore-dangle': ["error", { "allow": ["_id"] }],
+    'react/prop-types': 'off',
+    "no-shadow": "off",
   },
 };

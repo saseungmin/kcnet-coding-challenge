@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import AuthForm from '../../components/auth/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm, login } from '../../modules/auth';
 import { withRouter } from 'react-router-dom';
-import { check } from 'src/modules/user';
+import { check } from '../../modules/user';
+import { changeField, initializeForm, login } from '../../modules/auth';
+import AuthForm from '../../components/auth/AuthForm';
 
 const LoginForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
+  const {
+    form, auth, authError, user,
+  } = useSelector(({ auth, user }) => ({
     form: auth.login,
     auth: auth.auth,
     authError: auth.authError,

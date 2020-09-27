@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import AuthForm from '../../components/auth/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm, register } from '../../modules/auth';
 import { withRouter } from 'react-router-dom';
+import AuthForm from '../../components/auth/AuthForm';
+import { changeField, initializeForm, register } from '../../modules/auth';
 import { check } from '../../modules/user';
 
 const RegisterForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
+  const {
+    form, auth, authError, user,
+  } = useSelector(({ auth, user }) => ({
     form: auth.register,
     auth: auth.auth,
     authError: auth.authError,
@@ -28,7 +30,9 @@ const RegisterForm = ({ history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const { userid, username, password, passwordConfirm, apikey } = form;
+    const {
+      userid, username, password, passwordConfirm, apikey,
+    } = form;
     if ([userid, username, password, passwordConfirm, apikey].includes('')) {
       setError('빈 칸을 모두 입력하세요.');
       return;
@@ -39,7 +43,9 @@ const RegisterForm = ({ history }) => {
       dispatch(changeField({ form: 'register', key: 'passwordConfirm', value: '' }));
       return;
     }
-    dispatch(register({ userid, username, password, apikey }));
+    dispatch(register({
+      userid, username, password, apikey,
+    }));
   };
 
   // 맨 처음 랜러링

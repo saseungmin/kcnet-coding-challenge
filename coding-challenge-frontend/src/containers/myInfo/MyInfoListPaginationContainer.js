@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
-import Pagination from 'src/components/common/Pagination';
+import Pagination from '../../components/common/Pagination';
 
 const MyInfoListPaginationContainer = ({ location }) => {
   const { myInfoList, receiveLastPage, loading } = useSelector(({ myInfo, loading }) => ({

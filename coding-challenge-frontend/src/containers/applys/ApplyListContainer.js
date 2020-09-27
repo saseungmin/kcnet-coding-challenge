@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+
 import { withRouter } from 'react-router-dom';
 import qs from 'qs';
-import { listApplys } from 'src/modules/applys';
-import ApplyList from 'src/components/main/ApplyList';
 import moment from 'moment';
+import { listApplys } from '../../modules/applys';
+import ApplyList from '../../components/main/ApplyList';
 import 'moment-timezone';
 import 'moment/locale/ko';
-import useInterval from 'src/lib/useInterval';
+import useInterval from '../../lib/useInterval';
+
 moment.tz.setDefault('Asia/Seoul');
 
 const ApplyListContainer = ({ location }) => {
@@ -17,7 +18,9 @@ const ApplyListContainer = ({ location }) => {
   const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
   const [seconds, setSeconds] = useState(nowTime);
 
-  const { applys, error, loading, user } = useSelector(({ applys, loading, user }) => ({
+  const {
+    applys, error, loading, user,
+  } = useSelector(({ applys, loading, user }) => ({
     applys: applys.applys,
     error: applys.error,
     loading: loading['applys/LIST_APPLYS'],

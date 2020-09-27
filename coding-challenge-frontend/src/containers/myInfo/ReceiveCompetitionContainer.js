@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+
 import { withRouter } from 'react-router-dom';
-import { unloadMyInfo, myInfoApplyList } from 'src/modules/myInfo';
-import MyInfoTemplate from 'src/components/myInfo/MyInfoTemplate';
 import qs from 'qs';
 import moment from 'moment';
 import 'moment-timezone';
 import 'moment/locale/ko';
-import useInterval from 'src/lib/useInterval';
+import useInterval from '../../lib/useInterval';
+import { myInfoApplyList, unloadMyInfo } from '../../modules/myInfo';
+import MyInfoTemplate from '../../components/myInfo/MyInfoTemplate';
 
 const ReceiveCompetitionContainer = ({ history, location }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,9 @@ const ReceiveCompetitionContainer = ({ history, location }) => {
   const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
   const [seconds, setSeconds] = useState(nowTime);
 
-  const { myInfoList, loading, error, user } = useSelector(({ myInfo, loading, user }) => ({
+  const {
+    myInfoList, loading, error, user,
+  } = useSelector(({ myInfo, loading, user }) => ({
     myInfoList: myInfo.myInfoList,
     loading: loading['myInfo/MYINFO_APPLY_LIST'],
     error: myInfo.error,
@@ -34,10 +36,8 @@ const ReceiveCompetitionContainer = ({ history, location }) => {
     setSeconds(moment().format('YYYY-MM-DD HH:mm:ss'));
   }, 1000);
 
-  useEffect(() => {
-    return () => {
-      dispatch(unloadMyInfo());
-    };
+  useEffect(() => () => {
+    dispatch(unloadMyInfo());
   }, [dispatch]);
 
   useEffect(() => {

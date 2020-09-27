@@ -1,13 +1,17 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, {
+  useCallback, useEffect, useState, useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initialize, writeApply, updateApply } from 'src/modules/write';
-import PostRegisterForm from 'src/components/write/PostRegisterForm';
 import { withRouter } from 'react-router-dom';
+
 import { convertToRaw, ContentState, EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-
+import PostRegisterForm from '../../components/write/PostRegisterForm';
+import {
+  changeField, initialize, writeApply, updateApply,
+} from '../../modules/write';
 
 // FIXME: 리팩토링 하기
 const ApplyWriteFrom = ({ history }) => {
@@ -34,7 +38,7 @@ const ApplyWriteFrom = ({ history }) => {
     langs: write.langs,
     apply: write.apply,
     applyError: write.applyError,
-    write: write,
+    write,
     originalApplyId: write.originalApplyId,
   }));
 
@@ -48,7 +52,6 @@ const ApplyWriteFrom = ({ history }) => {
   ]);
   const [editor, setEditor] = useState(EditorState.createEmpty());
   const mounted = useRef(false);
-
 
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch]);
 
@@ -64,7 +67,7 @@ const ApplyWriteFrom = ({ history }) => {
       setSelectLangs(nextTags);
       onChangeField({ key: name, value: nextTags });
     } else {
-      onChangeField({ key: name, value: value });
+      onChangeField({ key: name, value });
     }
   };
 
@@ -79,10 +82,9 @@ const ApplyWriteFrom = ({ history }) => {
       setEditor(editorState);
     }
     if (langs) {
+      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < langs.length; i++) {
-        inputCheckBox.current.map((current) =>
-          current.current.value === langs[i] ? (current.current.checked = true) : '',
-        );
+        inputCheckBox.current.map((current) => (current.current.value === langs[i] ? (current.current.checked = true) : ''));
       }
     }
   }, [content, langs]);
@@ -106,10 +108,10 @@ const ApplyWriteFrom = ({ history }) => {
       setError('사용 가능 언어를 선택해주세요.');
       return;
     }
-    const applyStart = new Date(applystartday),
-      applyEnd = new Date(applyendday),
-      testStart = new Date(teststartday),
-      testEnd = new Date(testendday);
+    const applyStart = new Date(applystartday);
+    const applyEnd = new Date(applyendday);
+    const testStart = new Date(teststartday);
+    const testEnd = new Date(testendday);
 
     if (!originalApplyId) {
       if (Date.now() - applyStart >= 0) {
@@ -156,10 +158,8 @@ const ApplyWriteFrom = ({ history }) => {
     );
   };
 
-  useEffect(() => {
-    return () => {
-      dispatch(initialize());
-    };
+  useEffect(() => () => {
+    dispatch(initialize());
   }, [dispatch]);
 
   useEffect(() => {
@@ -170,29 +170,25 @@ const ApplyWriteFrom = ({ history }) => {
       originalApplyId
         ? setError('글 수정에 실패하였습니다.')
         : setError('글 등록에 실패하였습니다.');
-      return;
     }
   }, [history, apply, applyError, originalApplyId]);
 
-
   // TODO: 리덕스로 상태관리하여 axios로 넘기기로 변경하기
-  const uploadImageCallBack = (file) => {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/api/apply/img');
-      const data = new FormData();
-      data.append('img', file);
-      xhr.send(data);
-      xhr.addEventListener('load', () => {
-        const response = JSON.parse(xhr.responseText);
-        resolve(response);
-      });
-      xhr.addEventListener('error', () => {
-        const error = JSON.parse(xhr.responseText);
-        reject(error);
-      });
+  const uploadImageCallBack = (file) => new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/apply/img');
+    const data = new FormData();
+    data.append('img', file);
+    xhr.send(data);
+    xhr.addEventListener('load', () => {
+      const response = JSON.parse(xhr.responseText);
+      resolve(response);
     });
-  };
+    xhr.addEventListener('error', () => {
+      const myError = JSON.parse(xhr.responseText);
+      reject(myError);
+    });
+  });
 
   return (
     <PostRegisterForm

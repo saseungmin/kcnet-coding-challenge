@@ -1,5 +1,5 @@
-import client from './client';
 import qs from 'qs';
+import client from './client';
 
 export const writeApply = ({
   applystartday,
@@ -9,16 +9,15 @@ export const writeApply = ({
   title,
   content,
   langs,
-}) =>
-  client.post('/api/apply', {
-    applystartday,
-    applyendday,
-    teststartday,
-    testendday,
-    title,
-    content,
-    langs,
-  });
+}) => client.post('/api/apply', {
+  applystartday,
+  applyendday,
+  teststartday,
+  testendday,
+  title,
+  content,
+  langs,
+});
 
 export const readApply = (id) => client.get(`/api/apply/${id}`);
 
@@ -39,16 +38,15 @@ export const updateApply = ({
   title,
   content,
   langs,
-}) =>
-  client.patch(`/api/apply/${id}`, {
-    applystartday,
-    applyendday,
-    teststartday,
-    testendday,
-    title,
-    content,
-    langs,
-  });
+}) => client.patch(`/api/apply/${id}`, {
+  applystartday,
+  applyendday,
+  teststartday,
+  testendday,
+  title,
+  content,
+  langs,
+});
 
 export const removeApply = (id) => client.delete(`/api/apply/${id}`);
 

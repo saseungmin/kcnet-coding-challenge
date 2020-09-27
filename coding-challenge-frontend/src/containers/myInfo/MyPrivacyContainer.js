@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import MyPrivacyTemplate from 'src/components/myInfo/MyPrivacyTemplate';
+import MyPrivacyTemplate from '../../components/myInfo/MyPrivacyTemplate';
 import {
   changePassword,
   changeUser,
   passwordCheck,
   setOriginalUser,
   updateUser,
-} from 'src/modules/myInfo';
-import { tempSetUser } from 'src/modules/user';
+} from '../../modules/myInfo';
+import { tempSetUser } from '../../modules/user';
 
 const MyPrivacyContainer = () => {
   const [error, setError] = useState(null);
@@ -19,7 +19,9 @@ const MyPrivacyContainer = () => {
     confirmModal: false,
   });
 
-  const { user, orginalUser, checkLoading, userError, auth, authError, password } = useSelector(
+  const {
+    user, orginalUser, checkLoading, userError, auth, authError, password,
+  } = useSelector(
     ({ user, myInfo, loading }) => ({
       user: user.user,
       orginalUser: myInfo.originalUser,
@@ -71,7 +73,7 @@ const MyPrivacyContainer = () => {
     if (username.trim() === '') {
       setError('name');
       return false;
-    } else if (apikey.trim() === '') {
+    } if (apikey.trim() === '') {
       setError('apikey');
       return false;
     }
@@ -96,7 +98,6 @@ const MyPrivacyContainer = () => {
         updateModal: false,
         errorModal: true,
       });
-      return;
     }
   }, [userError, modals]);
 
@@ -106,7 +107,6 @@ const MyPrivacyContainer = () => {
         ...modals,
         passwordModal: true,
       });
-      return;
     }
     // eslint-disable-next-line
   }, [error, modals.passwordModal]);
