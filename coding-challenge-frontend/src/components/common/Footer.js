@@ -88,6 +88,17 @@ const OpenSourceBlock = styled.div`
   }
 `;
 
+const LogoutBlock = styled.div`
+  margin-left: 1rem;
+  color: ${palette.gray[5]};
+  font-family: 'Jua', sans-serif;
+  margin-bottom: 0.3rem;
+  :hover {
+    color: ${palette.gray[2]};
+  }
+  cursor: pointer;
+`;
+
 const Footer = ({ user, onLogout }) => (
   <FooterBlock>
     <Wrapper>
@@ -100,9 +111,9 @@ const Footer = ({ user, onLogout }) => (
             <Link to="/myinfo" className="link">
               내정보
             </Link>
-            <div onClick={onLogout} className="link">
+            <LogoutBlock onClick={onLogout}>
               로그아웃
-            </div>
+            </LogoutBlock>
           </>
         ) : (
           <>
