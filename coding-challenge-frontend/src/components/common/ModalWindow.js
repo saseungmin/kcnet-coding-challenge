@@ -125,7 +125,7 @@ const ModalWindow = ({
               placeholder="비밀번호를 입력하세요."
               name="password"
               onChange={onChange}
-              autoComplete="password"
+              autoComplete="off"
             />
             {error && error === 'password' && <ErrorBlock>비밀번호를 확인해주세요.</ErrorBlock>}
             <div className="buttons">

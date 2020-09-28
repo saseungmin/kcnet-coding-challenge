@@ -6,6 +6,7 @@ import Responsive from '../common/Responsive';
 import MyPrivacyForm from './MyPrivacyForm';
 import MyPrivacyConfirmUpdateModal from './MyPrivacyConfirmUpdateModal';
 import MyPrivacyUpdateFailModal from './MyPrivacyUpdateFailModal';
+import MyPrivacyPasswordChangeForm from './MyPrivacyPasswordChangeForm';
 
 const MyPrivacyTemplateBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -21,6 +22,11 @@ const MyPrivacyHeadBlock = styled.div`
   padding-left: 1rem;
 `;
 
+const PRIVACY_TITLE_TEXT = {
+  changePasswordTitle: '비밀 번호 변경',
+  myInfoTitle: '내 정보',
+};
+
 const MyPrivacyTemplate = ({
   user,
   onChange,
@@ -31,13 +37,16 @@ const MyPrivacyTemplate = ({
   onChangePassword,
   modals,
   onPasswordCheckClick,
+  auth,
 }) => {
   const { updateModal, errorModal } = modals;
+  const { changePasswordTitle, myInfoTitle } = PRIVACY_TITLE_TEXT;
+
   return (
     <>
       <MyPrivacyTemplateBlock>
-        <MyPrivacyHeadBlock>내 정보</MyPrivacyHeadBlock>
-        {user && (
+        <MyPrivacyHeadBlock>{auth ? changePasswordTitle : myInfoTitle}</MyPrivacyHeadBlock>
+        {!auth && user && (
           <MyPrivacyForm
             user={user}
             onChange={onChange}
@@ -48,6 +57,7 @@ const MyPrivacyTemplate = ({
             onPasswordCheckClick={onPasswordCheckClick}
           />
         )}
+        <MyPrivacyPasswordChangeForm />
       </MyPrivacyTemplateBlock>
       <MyPrivacyConfirmUpdateModal visible={updateModal} onConfirm={onConfirm} />
       <MyPrivacyUpdateFailModal visible={errorModal} onConfirm={onVisibleError} />

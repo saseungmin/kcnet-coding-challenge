@@ -159,6 +159,7 @@ const MyPrivacyContainer = () => {
 
   return (
     <MyPrivacyTemplate
+      auth={auth}
       user={orginalUser}
       onChange={onChangeUser}
       error={error}

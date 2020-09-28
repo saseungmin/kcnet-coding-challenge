@@ -68,6 +68,7 @@ const MyPrivacyInputBlock = styled.input`
   outline: 0;
   display: inline-block;
   width: 20%;
+
   &:disabled {
     background-color: #e9ecf3;
     box-shadow: none;
@@ -75,13 +76,12 @@ const MyPrivacyInputBlock = styled.input`
     color: #5f7f90;
     cursor: not-allowed;
     opacity: 1;
-    :hover {
-      border: 1px solid #d7e2eb;
-    }
   }
-  :hover {
+  
+  :focus {
     border: 2px solid ${palette.Teal[4]};
   }
+
   &.apikey {
     width: 40%;
   }
@@ -141,7 +141,7 @@ const MyPrivacyForm = ({
 
   const { passwordModal, confirmModal } = modals;
   const { userid, username, apikey } = user;
-  // TODO: refactoring 해야할듯..
+
   return (
     <>
       <MyPrivacyFormBlock>
@@ -149,7 +149,7 @@ const MyPrivacyForm = ({
           <MyPrivacyTitleBlock className="required" htmlFor="userid">
             아이디
           </MyPrivacyTitleBlock>
-          <MyPrivacyInputBlock value={userid || ''} name="userid" disabled />
+          <MyPrivacyInputBlock value={userid} name="userid" disabled />
           <LabelWarningSmallBlock>아이디는 수정할 수 없습니다.</LabelWarningSmallBlock>
         </MyPrivacyItemBlock>
         <MyPrivacyItemBlock>
@@ -157,7 +157,7 @@ const MyPrivacyForm = ({
             이름
           </MyPrivacyTitleBlock>
           <MyPrivacyInputBlock
-            value={username || ''}
+            value={username}
             name="username"
             onChange={handleChange}
             autoComplete="name"
@@ -169,7 +169,7 @@ const MyPrivacyForm = ({
             apikey
           </MyPrivacyTitleBlock>
           <MyPrivacyInputBlock
-            value={apikey || ''}
+            value={apikey}
             name="apikey"
             className="apikey"
             onChange={handleChange}
@@ -180,7 +180,6 @@ const MyPrivacyForm = ({
           <Button teal style={{ marginLeft: '1rem' }} onClick={onUpdateClick}>
             변경 사항 저장
           </Button>
-          {/* TODO - 비번 변경 로직 추가하기 */}
           <Button orange style={{ marginRight: '1rem' }} onClick={handlePasswordCheckClick}>
             비밀 번호 변경
           </Button>
