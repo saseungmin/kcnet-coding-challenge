@@ -2,6 +2,7 @@ import Rank from "../../models/rank";
 import mongoose from "mongoose";
 import Joi from "@hapi/joi";
 import User from "../../models/user";
+import bcrypt from "bcrypt";
 
 const { ObjectId } = mongoose.Types;
 
@@ -104,6 +105,27 @@ export const passwordCheck = async (ctx) => {
       return;
     }
     ctx.body = user.serialize();
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
+
+export const updatePassword = async (ctx) => {
+  const {userid, password} = ctx.request.body;
+
+  try {
+
+    const hash = await bcrypt.hash(password, 10);
+
+    const newUser = await User.findOneAndUpdate({userid}, {hashedPassword: hash}, {
+      new: true,
+    }).exec();
+
+    if (!newUser) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = newUser.serialize();
   } catch (error) {
     ctx.throw(500, error);
   }
