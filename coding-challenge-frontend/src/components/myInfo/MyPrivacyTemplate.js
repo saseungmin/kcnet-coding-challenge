@@ -38,6 +38,8 @@ const MyPrivacyTemplate = ({
   modals,
   onPasswordCheckClick,
   auth,
+  passwordForm,
+  onChangePasswordForm,
 }) => {
   const { updateModal, errorModal } = modals;
   const { changePasswordTitle, myInfoTitle } = PRIVACY_TITLE_TEXT;
@@ -57,7 +59,10 @@ const MyPrivacyTemplate = ({
             onPasswordCheckClick={onPasswordCheckClick}
           />
         )}
-        <MyPrivacyPasswordChangeForm />
+        <MyPrivacyPasswordChangeForm
+          passwordForm={passwordForm}
+          onChangePasswordForm={onChangePasswordForm}
+        />
       </MyPrivacyTemplateBlock>
       <MyPrivacyConfirmUpdateModal visible={updateModal} onConfirm={onConfirm} />
       <MyPrivacyUpdateFailModal visible={errorModal} onConfirm={onVisibleError} />

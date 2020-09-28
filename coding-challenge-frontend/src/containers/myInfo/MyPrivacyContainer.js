@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import MyPrivacyTemplate from '../../components/myInfo/MyPrivacyTemplate';
 import {
   changePassword,
+  changePasswordForm,
   changeUser,
   passwordCheck,
   setOriginalUser,
@@ -20,7 +21,7 @@ const MyPrivacyContainer = () => {
   });
 
   const {
-    user, orginalUser, checkLoading, userError, auth, authError, password,
+    user, orginalUser, checkLoading, userError, auth, authError, password, passwordForm,
   } = useSelector(
     ({ user, myInfo, loading }) => ({
       user: user.user,
@@ -30,6 +31,7 @@ const MyPrivacyContainer = () => {
       auth: myInfo.auth,
       authError: myInfo.authError,
       password: myInfo.password,
+      passwordForm: myInfo.passwordForm,
     }),
   );
   const dispatch = useDispatch();
@@ -41,6 +43,9 @@ const MyPrivacyContainer = () => {
   }, [dispatch, user, checkLoading]);
 
   const onChangeUser = useCallback((payload) => dispatch(changeUser(payload)), [dispatch]);
+  const onChangePasswordForm = useCallback((payload) => {
+    dispatch(changePasswordForm(payload));
+  }, [dispatch]);
 
   const onConfirm = () => {
     setModals({
@@ -161,6 +166,7 @@ const MyPrivacyContainer = () => {
     <MyPrivacyTemplate
       auth={auth}
       user={orginalUser}
+      passwordForm={passwordForm}
       onChange={onChangeUser}
       error={error}
       onUpdate={onUpdateMyPrivacy}
@@ -168,6 +174,7 @@ const MyPrivacyContainer = () => {
       onConfirm={onConfirm}
       onVisibleError={onVisibleError}
       onChangePassword={onChangePassword}
+      onChangePasswordForm={onChangePasswordForm}
       onPasswordCheckClick={onPasswordCheckClick}
     />
   );

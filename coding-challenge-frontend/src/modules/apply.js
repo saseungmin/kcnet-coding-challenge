@@ -1,6 +1,6 @@
-/* eslint-disable no-shadow */
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
+
 import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
 import * as applyAPI from '../lib/api/apply';
 

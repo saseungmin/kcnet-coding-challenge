@@ -72,15 +72,17 @@ const ButtonBlock = styled.div`
   justify-content: flex-start;
 `;
 
-const MyPrivacyPasswordChangeForm = () => {
+const MyPrivacyPasswordChangeForm = ({ passwordForm, onChangePasswordForm }) => {
   const handlechangePassword = (e) => {
     const { value, name } = e.target;
-    console.log(value, name);
+    onChangePasswordForm({ key: name, value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  const { password, passwordConfirm } = passwordForm;
   return (
     <form onSubmit={handleSubmit}>
       <MyPrivacyPasswordChangeFormBlock>
@@ -88,13 +90,25 @@ const MyPrivacyPasswordChangeForm = () => {
           <MyPasswordLabelBlock className="required" htmlFor="password">
             비밀번호
           </MyPasswordLabelBlock>
-          <MyPasswordInputBlock name="password" autoComplete="new-password" onChange={handlechangePassword} />
+          <MyPasswordInputBlock
+            name="password"
+            autoComplete="off"
+            type="password"
+            value={password}
+            onChange={handlechangePassword}
+          />
         </MyPasswordChangeItemBlock>
         <MyPasswordChangeItemBlock>
           <MyPasswordLabelBlock className="required" htmlFor="passwordConfirm">
             비밀번호 확인
           </MyPasswordLabelBlock>
-          <MyPasswordInputBlock name="passwordConfirm" autoComplete="new-password" onChange={handlechangePassword} />
+          <MyPasswordInputBlock
+            name="passwordConfirm"
+            autoComplete="off"
+            type="password"
+            value={passwordConfirm}
+            onChange={handlechangePassword}
+          />
         </MyPasswordChangeItemBlock>
         <ButtonBlock>
           <Button teal style={{ marginLeft: '1rem' }} type="submit">
