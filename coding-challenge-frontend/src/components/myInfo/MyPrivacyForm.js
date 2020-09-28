@@ -124,7 +124,8 @@ const MyPrivacyForm = ({
     onPasswordCheckClick()(false);
   };
 
-  const passwordCheckConfirmClick = () => {
+  const passwordCheckConfirmClick = (e) => {
+    e.preventDefault();
     onPasswordCheckClick(true)(false);
   };
 

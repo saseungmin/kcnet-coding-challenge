@@ -113,39 +113,55 @@ const ModalWindow = ({
   error,
 }) => {
   if (!visible) return null;
-  // console.log(error);
+
   return (
     <FullScreenBlock className="animation">
       <ModalWindowBlock>
         <h2>{title}</h2>
         {inputValue ? (
-          <>
+          <form onSubmit={onConfirm}>
             <InputValueBlock
               type="password"
               placeholder="비밀번호를 입력하세요."
               name="password"
               onChange={onChange}
-              autoComplete="new-password"
+              autoComplete="password"
             />
             {error && error === 'password' && <ErrorBlock>비밀번호를 확인해주세요.</ErrorBlock>}
-          </>
+            <div className="buttons">
+              {cancelText && onCancel ? (
+                <StyledButton type="button" onClick={onCancel}>{cancelText}</StyledButton>
+              ) : null}
+              {danger ? (
+                <StyledButton orange onClick={onConfirm}>
+                  {confirmText}
+                </StyledButton>
+              ) : (
+                <StyledButton teal type="submit">
+                  {confirmText}
+                </StyledButton>
+              )}
+            </div>
+          </form>
         ) : (
-          <p>{description}</p>
+          <>
+            <p>{description}</p>
+            <div className="buttons">
+              {cancelText && onCancel ? (
+                <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
+              ) : null}
+              {danger ? (
+                <StyledButton orange onClick={onConfirm}>
+                  {confirmText}
+                </StyledButton>
+              ) : (
+                <StyledButton teal onClick={onConfirm}>
+                  {confirmText}
+                </StyledButton>
+              )}
+            </div>
+          </>
         )}
-        <div className="buttons">
-          {cancelText && onCancel ? (
-            <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
-          ) : null}
-          {danger ? (
-            <StyledButton orange onClick={onConfirm}>
-              {confirmText}
-            </StyledButton>
-          ) : (
-            <StyledButton teal onClick={onConfirm}>
-              {confirmText}
-            </StyledButton>
-          )}
-        </div>
       </ModalWindowBlock>
     </FullScreenBlock>
   );
