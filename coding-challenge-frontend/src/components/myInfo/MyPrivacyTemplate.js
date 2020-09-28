@@ -40,8 +40,9 @@ const MyPrivacyTemplate = ({
   auth,
   passwordForm,
   onChangePasswordForm,
+  onPasswordChangeSubmit,
 }) => {
-  const { updateModal, errorModal } = modals;
+  const { updateModal, errorModal, changePasswordModal } = modals;
   const { changePasswordTitle, myInfoTitle } = PRIVACY_TITLE_TEXT;
 
   return (
@@ -62,6 +63,8 @@ const MyPrivacyTemplate = ({
         <MyPrivacyPasswordChangeForm
           passwordForm={passwordForm}
           onChangePasswordForm={onChangePasswordForm}
+          onSubmit={onPasswordChangeSubmit}
+          modal={changePasswordModal}
         />
       </MyPrivacyTemplateBlock>
       <MyPrivacyConfirmUpdateModal visible={updateModal} onConfirm={onConfirm} />

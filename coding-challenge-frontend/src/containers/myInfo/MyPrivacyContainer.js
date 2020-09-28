@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import MyPrivacyTemplate from '../../components/myInfo/MyPrivacyTemplate';
 import {
   changePassword,
@@ -12,14 +13,6 @@ import {
 import { tempSetUser } from '../../modules/user';
 
 const MyPrivacyContainer = () => {
-  const [error, setError] = useState(null);
-  const [modals, setModals] = useState({
-    updateModal: false,
-    errorModal: false,
-    passwordModal: false,
-    confirmModal: false,
-  });
-
   const {
     user, orginalUser, checkLoading, userError, auth, authError, password, passwordForm,
   } = useSelector(
@@ -35,6 +28,15 @@ const MyPrivacyContainer = () => {
     }),
   );
   const dispatch = useDispatch();
+
+  const [error, setError] = useState(null);
+  const [modals, setModals] = useState({
+    updateModal: false,
+    errorModal: false,
+    passwordModal: false,
+    confirmModal: false,
+    changePasswordModal: false,
+  });
 
   useEffect(() => {
     if (!checkLoading) {
@@ -152,6 +154,31 @@ const MyPrivacyContainer = () => {
     }
   };
 
+  const passwordFormSubmit = () => {
+    const { password, passwordConfirm } = passwordForm;
+    if (password.trim() === '') {
+      setError('newPassword');
+      return;
+    }
+    if (passwordConfirm.trim() === '') {
+      setError('newPasswordConfirm');
+      return;
+    }
+    if (password !== passwordConfirm) {
+      setError('unCorrectPassword');
+    }
+  };
+
+  const onPasswordChangeSubmit = (check) => (bool) => {
+    setModals({
+      ...modals,
+      changePasswordModal: bool,
+    });
+    if (check) {
+      passwordFormSubmit();
+    }
+  };
+
   useEffect(() => {
     if (authError) {
       setError('password');
@@ -176,6 +203,7 @@ const MyPrivacyContainer = () => {
       onChangePassword={onChangePassword}
       onChangePasswordForm={onChangePasswordForm}
       onPasswordCheckClick={onPasswordCheckClick}
+      onPasswordChangeSubmit={onPasswordChangeSubmit}
     />
   );
 };

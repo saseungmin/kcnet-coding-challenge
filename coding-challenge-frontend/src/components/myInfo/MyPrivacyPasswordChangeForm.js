@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
+import PasswordChangeConfirmModal from './PasswordChangeConfirmModal';
 
 const MyPrivacyPasswordChangeFormBlock = styled.div`
   margin-bottom: 5rem;
@@ -72,7 +73,9 @@ const ButtonBlock = styled.div`
   justify-content: flex-start;
 `;
 
-const MyPrivacyPasswordChangeForm = ({ passwordForm, onChangePasswordForm }) => {
+const MyPrivacyPasswordChangeForm = ({
+  passwordForm, onChangePasswordForm, modal, onSubmit,
+}) => {
   const handlechangePassword = (e) => {
     const { value, name } = e.target;
     onChangePasswordForm({ key: name, value });
@@ -80,43 +83,58 @@ const MyPrivacyPasswordChangeForm = ({ passwordForm, onChangePasswordForm }) => 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    onSubmit()(true);
+  };
+  const handelCancel = () => {
+    onSubmit()(false);
+  };
+  const handleConfirm = () => {
+    onSubmit(true)(false);
   };
 
   const { password, passwordConfirm } = passwordForm;
   return (
-    <form onSubmit={handleSubmit}>
-      <MyPrivacyPasswordChangeFormBlock>
-        <MyPasswordChangeItemBlock>
-          <MyPasswordLabelBlock className="required" htmlFor="password">
-            비밀번호
-          </MyPasswordLabelBlock>
-          <MyPasswordInputBlock
-            name="password"
-            autoComplete="off"
-            type="password"
-            value={password}
-            onChange={handlechangePassword}
-          />
-        </MyPasswordChangeItemBlock>
-        <MyPasswordChangeItemBlock>
-          <MyPasswordLabelBlock className="required" htmlFor="passwordConfirm">
-            비밀번호 확인
-          </MyPasswordLabelBlock>
-          <MyPasswordInputBlock
-            name="passwordConfirm"
-            autoComplete="off"
-            type="password"
-            value={passwordConfirm}
-            onChange={handlechangePassword}
-          />
-        </MyPasswordChangeItemBlock>
-        <ButtonBlock>
-          <Button teal style={{ marginLeft: '1rem' }} type="submit">
-            변경 사항 저장
-          </Button>
-        </ButtonBlock>
-      </MyPrivacyPasswordChangeFormBlock>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <MyPrivacyPasswordChangeFormBlock>
+          <MyPasswordChangeItemBlock>
+            <MyPasswordLabelBlock className="required" htmlFor="password">
+              비밀번호
+            </MyPasswordLabelBlock>
+            <MyPasswordInputBlock
+              name="password"
+              autoComplete="off"
+              type="password"
+              value={password}
+              onChange={handlechangePassword}
+            />
+          </MyPasswordChangeItemBlock>
+          <MyPasswordChangeItemBlock>
+            <MyPasswordLabelBlock className="required" htmlFor="passwordConfirm">
+              비밀번호 확인
+            </MyPasswordLabelBlock>
+            <MyPasswordInputBlock
+              name="passwordConfirm"
+              autoComplete="off"
+              type="password"
+              value={passwordConfirm}
+              onChange={handlechangePassword}
+            />
+          </MyPasswordChangeItemBlock>
+          <ButtonBlock>
+            <Button teal style={{ marginLeft: '1rem' }} type="submit">
+              변경 사항 저장
+            </Button>
+          </ButtonBlock>
+        </MyPrivacyPasswordChangeFormBlock>
+      </form>
+      <PasswordChangeConfirmModal
+        visible={modal}
+        onConfirm={handleConfirm}
+        onCancel={handelCancel}
+      />
+    </>
+
   );
 };
 
