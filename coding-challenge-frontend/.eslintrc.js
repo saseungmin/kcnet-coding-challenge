@@ -48,5 +48,6 @@ module.exports = {
     'react/prop-types': 'off',
     "no-shadow": "off",
     "react/jsx-props-no-spreading": "off",
+    "no-unused-expressions": ["error", { "allowTernary": true }]
   },
 };

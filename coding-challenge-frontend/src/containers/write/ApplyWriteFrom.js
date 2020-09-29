@@ -72,6 +72,10 @@ const ApplyWriteFrom = ({ history }) => {
     }
   };
 
+  const findCheckBox = (checkBox) => (lang) => (
+    checkBox.current.findIndex((current) => current.current.value === lang)
+  );
+
   useEffect(() => {
     if (mounted.current) return;
     mounted.current = true;
@@ -83,10 +87,11 @@ const ApplyWriteFrom = ({ history }) => {
       setEditor(editorState);
     }
     if (langs) {
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < langs.length; i++) {
-        inputCheckBox.current.map((current) => (current.current.value === langs[i] ? (current.current.checked = true) : ''));
-      }
+      langs.map((lang) => {
+        const index = findCheckBox(inputCheckBox)(lang);
+        inputCheckBox.current[index].current.checked = true;
+        return null;
+      });
     }
   }, [content, langs]);
 

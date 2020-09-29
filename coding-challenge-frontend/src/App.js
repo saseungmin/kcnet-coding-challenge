@@ -2,12 +2,12 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
-import IntroducePage from './pages/IntroducePage';
 import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PostRegisterPage from './pages/PostRegisterPage';
 import MyInfoPage from './pages/MyInfoPage';
+import IntroducePage from './pages/IntroducePage';
 
 const App = () => (
   <>
