@@ -8,6 +8,7 @@ import {
   changeUser,
   passwordCheck,
   setOriginalUser,
+  updatePassword,
   updateUser,
 } from '../../modules/myInfo';
 import { tempSetUser } from '../../modules/user';
@@ -154,8 +155,9 @@ const MyPrivacyContainer = () => {
     }
   };
 
-  const passwordFormSubmit = () => {
+  const passwordFormSubmit = useCallback(() => {
     const { password, passwordConfirm } = passwordForm;
+    const { userid } = user;
     if (password.trim() === '') {
       setError('newPassword');
       return;
@@ -166,8 +168,11 @@ const MyPrivacyContainer = () => {
     }
     if (password !== passwordConfirm) {
       setError('unCorrectPassword');
+      return;
     }
-  };
+
+    dispatch(updatePassword({ userid, password }));
+  }, [dispatch, passwordForm, user]);
 
   const onPasswordChangeSubmit = (check) => (bool) => {
     setModals({
@@ -182,12 +187,8 @@ const MyPrivacyContainer = () => {
   useEffect(() => {
     if (authError) {
       setError('password');
-      return;
     }
-    if (auth) {
-      console.log('비번 체크 성공');
-    }
-  }, [authError, auth]);
+  }, [authError]);
 
   return (
     <MyPrivacyTemplate

@@ -62,19 +62,24 @@ const MyPasswordInputBlock = styled.input`
   }
 `;
 
-// const ErrorSmallBlock = styled.small`
-//   color: #fa5252;
-//   margin-left: 1rem;
-//   margin-top: 0.25rem;
-// `;
+const ErrorSmallBlock = styled.small`
+  color: #fa5252;
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+`;
 
 const ButtonBlock = styled.div`
   display: flex;
   justify-content: flex-start;
 `;
 
+const ERROR_MESSAGE = {
+  password: '비밀번호를 입력하세요.',
+  passwordConfirm: '비밀번호 확인을 입력하세요.',
+};
+
 const MyPrivacyPasswordChangeForm = ({
-  passwordForm, onChangePasswordForm, modal, onSubmit,
+  passwordForm, onChangePasswordForm, modal, onSubmit, error,
 }) => {
   const handlechangePassword = (e) => {
     const { value, name } = e.target;
@@ -108,6 +113,7 @@ const MyPrivacyPasswordChangeForm = ({
               value={password}
               onChange={handlechangePassword}
             />
+            <ErrorSmallBlock>{error && error === 'newPassword' && ERROR_MESSAGE.password}</ErrorSmallBlock>
           </MyPasswordChangeItemBlock>
           <MyPasswordChangeItemBlock>
             <MyPasswordLabelBlock className="required" htmlFor="passwordConfirm">
@@ -120,6 +126,7 @@ const MyPrivacyPasswordChangeForm = ({
               value={passwordConfirm}
               onChange={handlechangePassword}
             />
+            <ErrorSmallBlock>{error && error === 'newPasswordConfirm' && ERROR_MESSAGE.passwordConfirm}</ErrorSmallBlock>
           </MyPasswordChangeItemBlock>
           <ButtonBlock>
             <Button teal style={{ marginLeft: '1rem' }} type="submit">

@@ -60,12 +60,15 @@ const MyPrivacyTemplate = ({
             onPasswordCheckClick={onPasswordCheckClick}
           />
         )}
-        <MyPrivacyPasswordChangeForm
-          passwordForm={passwordForm}
-          onChangePasswordForm={onChangePasswordForm}
-          onSubmit={onPasswordChangeSubmit}
-          modal={changePasswordModal}
-        />
+        {auth && (
+          <MyPrivacyPasswordChangeForm
+            error={error}
+            passwordForm={passwordForm}
+            onChangePasswordForm={onChangePasswordForm}
+            onSubmit={onPasswordChangeSubmit}
+            modal={changePasswordModal}
+          />
+        )}
       </MyPrivacyTemplateBlock>
       <MyPrivacyConfirmUpdateModal visible={updateModal} onConfirm={onConfirm} />
       <MyPrivacyUpdateFailModal visible={errorModal} onConfirm={onVisibleError} />

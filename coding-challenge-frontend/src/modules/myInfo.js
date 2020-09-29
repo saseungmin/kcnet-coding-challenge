@@ -22,6 +22,11 @@ const [
   MYINFO_APPLY_LIST_SUCCESS,
   MYINFO_APPLY_LIST_FAILURE,
 ] = createRequestActionTypes('myInfo/MYINFO_APPLY_LIST');
+const [
+  UPDATE_PASSWORD,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAILURE,
+] = createRequestActionTypes('myInfo/UPDATE_PASSWORD');
 
 export const updateUser = createAction(UPDATE_USER, (user) => user);
 export const changeUser = createAction(CHANGE_USER, ({ key, value }) => ({
@@ -37,15 +42,21 @@ export const passwordCheck = createAction(PASSWORD_CHECK, ({ userid, password })
   userid,
   password,
 }));
+export const updatePassword = createAction(UPDATE_PASSWORD, ({ userid, password }) => ({
+  userid,
+  password,
+}));
 
 const myInfoApplyListSaga = createRequestSaga(MYINFO_APPLY_LIST, myInfoAPI.myApplyList);
 const updateUserSaga = createRequestSaga(UPDATE_USER, myInfoAPI.updateUser);
 const passwordCheckSaga = createRequestSaga(PASSWORD_CHECK, myInfoAPI.passwordCheck);
+const updatePasswordSaga = createRequestSaga(UPDATE_PASSWORD, myInfoAPI.updatePassword);
 
 export function* myInfoSaga() {
   yield takeLatest(MYINFO_APPLY_LIST, myInfoApplyListSaga);
   yield takeLatest(UPDATE_USER, updateUserSaga);
   yield takeLatest(PASSWORD_CHECK, passwordCheckSaga);
+  yield takeLatest(UPDATE_PASSWORD, updatePasswordSaga);
 }
 
 const initialState = {
@@ -53,18 +64,40 @@ const initialState = {
   originalUser: null,
   error: null,
   userError: null,
-  password: null,
   auth: null,
   authError: null,
+  password: null,
   passwordForm: {
     password: '',
     passwordConfirm: '',
   },
+  passwordAuth: null,
+  passwordAuthError: null,
   receiveLastPage: 1,
 };
 
 const myInfo = handleActions(
   {
+    [UPDATE_PASSWORD_SUCCESS]: (state, { payload: passwordAuth }) => ({
+      ...state,
+      auth: null,
+      passwordForm: {
+        password: '',
+        passwordConfirm: '',
+      },
+      passwordAuthError: null,
+      passwordAuth,
+    }),
+    [UPDATE_PASSWORD_FAILURE]: (state, { payload: passwordAuthError }) => ({
+      ...state,
+      auth: null,
+      passwordForm: {
+        password: '',
+        passwordConfirm: '',
+      },
+      passwordAuth: null,
+      passwordAuthError,
+    }),
     [MYINFO_APPLY_LIST_SUCCESS]: (state, { payload: myInfoList, meta: response }) => ({
       ...state,
       myInfoList,

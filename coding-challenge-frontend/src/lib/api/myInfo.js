@@ -13,3 +13,5 @@ export const updateUser = ({
 }) => client.patch(`/api/myinfo/${_id}`, { userid, username, apikey });
 
 export const passwordCheck = ({ userid, password }) => client.post('/api/myinfo', { userid, password });
+
+export const updatePassword = ({ userid, password }) => client.patch('/api/myinfo', { userid, password });
