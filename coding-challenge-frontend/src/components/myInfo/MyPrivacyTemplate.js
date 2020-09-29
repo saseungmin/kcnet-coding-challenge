@@ -3,9 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
+import MyPrivacyConfirmUpdateModal from './modals/MyPrivacyConfirmUpdateModal';
+import MyPrivacyUpdateFailModal from './modals/MyPrivacyUpdateFailModal';
 import MyPrivacyForm from './MyPrivacyForm';
-import MyPrivacyConfirmUpdateModal from './MyPrivacyConfirmUpdateModal';
-import MyPrivacyUpdateFailModal from './MyPrivacyUpdateFailModal';
 import MyPrivacyPasswordChangeForm from './MyPrivacyPasswordChangeForm';
 
 const MyPrivacyTemplateBlock = styled(Responsive)`

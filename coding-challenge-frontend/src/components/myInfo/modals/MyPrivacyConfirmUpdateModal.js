@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ModalWindow from '../common/ModalWindow';
+import ModalWindow from '../../common/ModalWindow';
 
 const MyPrivacyConfirmUpdateModal = ({ visible, onConfirm }) => (
   <ModalWindow

@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
-import PasswordChangeConfirmModal from './PasswordChangeConfirmModal';
+import PasswordChangeConfirmModal from './modals/PasswordChangeConfirmModal';
 
 const MyPrivacyPasswordChangeFormBlock = styled.div`
   margin-bottom: 5rem;

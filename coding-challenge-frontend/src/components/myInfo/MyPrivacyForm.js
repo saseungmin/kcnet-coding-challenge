@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
-import MyPrivacyUpdateModal from './MyPrivacyUpdateModal';
-import PasswordCheckModal from './PasswordCheckModal';
+import MyPrivacyUpdateModal from './modals/MyPrivacyUpdateModal';
+import PasswordCheckModal from './modals/PasswordCheckModal';
 
 const MyPrivacyFormBlock = styled.div`
   margin-bottom: 5rem;

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import ModalWindow from '../common/ModalWindow';
+import ModalWindow from '../../common/ModalWindow';
 
-const MyPrivacyUpdateModal = ({ visible, onConfirm, onCancel }) => (
+const PasswordChangeConfirmModal = ({ visible, onConfirm, onCancel }) => (
   <ModalWindow
     visible={visible}
-    title="내 정보 수정"
+    title="비밀 번호 변경"
     description="변경 사항을 저장하시겠습니까?"
     confirmText="저장"
     cancelText="취소"
@@ -14,4 +14,4 @@ const MyPrivacyUpdateModal = ({ visible, onConfirm, onCancel }) => (
   />
 );
 
-export default MyPrivacyUpdateModal;
+export default PasswordChangeConfirmModal;
