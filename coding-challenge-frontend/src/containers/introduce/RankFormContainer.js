@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getReceiveUser, unloadRank, getRankList } from '../../modules/rank';
 import RankForm from '../../components/introduce/RankForm';
 

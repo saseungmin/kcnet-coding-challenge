@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import 'moment/locale/ko';
 import Moment from 'react-moment';
+
 import palette from '../../lib/styles/palette';
 
 moment.locale('ko');

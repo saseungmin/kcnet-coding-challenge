@@ -3,10 +3,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import { Helmet } from 'react-helmet-async';
+import 'moment/locale/ko';
+
 import Responsive from '../common/Responsive';
 import palette from '../../lib/styles/palette';
 import Langs from '../common/Langs';
-import 'moment/locale/ko';
 import DateTimeChange from '../common/DateTimeChange';
 import Button from '../common/Button';
 
@@ -142,26 +143,20 @@ const IntroduceViewer = ({
         <IntroduceSchedule>
           <div>
             접수 :
-            {' '}
             <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">
               {applyStart}
             </Moment>
-            {' '}
             -
-            {' '}
             <Moment interval={0} format="MM월 DD일 HH:mm">
               {applyEnd}
             </Moment>
           </div>
           <div>
             대회 :
-            {' '}
             <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">
               {testStart}
             </Moment>
-            {' '}
             -
-            {' '}
             <Moment interval={0} format="MM월 DD일 HH:mm">
               {testEnd}
             </Moment>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
@@ -35,27 +35,31 @@ const RankItemHeaderBlock = styled.div`
   }
 `;
 
-const RankItem = ({ ranklist, loading }) => (
-  <>
-    <RankTableTitleBlock>
-      <RankItemHeaderBlock className="text-center">순위</RankItemHeaderBlock>
-      <RankItemHeaderBlock>이름</RankItemHeaderBlock>
-      <RankItemHeaderBlock>LEVEL</RankItemHeaderBlock>
-      <RankItemHeaderBlock>언어</RankItemHeaderBlock>
-      <RankItemHeaderBlock>점수</RankItemHeaderBlock>
-    </RankTableTitleBlock>
-    {ranklist
+const RankItem = ({ ranklist, loading }) => {
+  const nextId = useRef(0);
+
+  return (
+    <>
+      <RankTableTitleBlock>
+        <RankItemHeaderBlock className="text-center">순위</RankItemHeaderBlock>
+        <RankItemHeaderBlock>이름</RankItemHeaderBlock>
+        <RankItemHeaderBlock>LEVEL</RankItemHeaderBlock>
+        <RankItemHeaderBlock>언어</RankItemHeaderBlock>
+        <RankItemHeaderBlock>점수</RankItemHeaderBlock>
+      </RankTableTitleBlock>
+      {ranklist
         && !loading
-        && ranklist.map((rank, index) => (
-          <RankTableItemBoxBlock key={index}>
-            <RankItemBlock className="text-center">{index + 1}</RankItemBlock>
+        && ranklist.map((rank) => (
+          <RankTableItemBoxBlock key={nextId.current + 1}>
+            <RankItemBlock className="text-center">{nextId.current + 1}</RankItemBlock>
             <RankItemBlock>{`${rank.user.userid}(${rank.user.username})`}</RankItemBlock>
             <RankItemBlock>2</RankItemBlock>
             <RankItemBlock>{rank.lang}</RankItemBlock>
             <RankItemBlock>{rank.score}</RankItemBlock>
           </RankTableItemBoxBlock>
         ))}
-  </>
-);
+    </>
+  );
+};
 
 export default RankItem;

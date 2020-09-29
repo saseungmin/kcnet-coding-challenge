@@ -6,6 +6,7 @@ import qs from 'qs';
 import moment from 'moment';
 import 'moment-timezone';
 import 'moment/locale/ko';
+
 import useInterval from '../../lib/useInterval';
 import { myInfoApplyList, unloadMyInfo } from '../../modules/myInfo';
 import MyInfoTemplate from '../../components/myInfo/MyInfoTemplate';

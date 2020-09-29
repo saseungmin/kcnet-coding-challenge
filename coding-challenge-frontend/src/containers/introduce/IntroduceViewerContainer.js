@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import moment from 'moment';
-import { removeApply } from '../../lib/api/apply';
 import 'moment/locale/ko';
+
+import { removeApply } from '../../lib/api/apply';
 import ReceiveActionButton from '../../components/introduce/ReceiveActionButton';
 import { unloadRank, rankReceive, getRankList } from '../../modules/rank';
 import { cancelReceive } from '../../lib/api/rank';

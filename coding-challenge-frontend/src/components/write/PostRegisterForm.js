@@ -94,9 +94,7 @@ const PostRegisterForm = ({
           onChange={onChangebody}
           value={applystartday}
         />
-        {' '}
         ~
-        {' '}
         <StyledDate type="date" name="applyendday" onChange={onChangebody} value={applyendday} />
         <div>대회 기간</div>
         <StyledDate
@@ -105,9 +103,7 @@ const PostRegisterForm = ({
           onChange={onChangebody}
           value={teststartday}
         />
-        {' '}
         ~
-        {' '}
         <StyledDate
           type="datetime-local"
           name="testendday"

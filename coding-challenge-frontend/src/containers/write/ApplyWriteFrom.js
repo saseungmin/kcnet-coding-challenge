@@ -8,6 +8,7 @@ import { convertToRaw, ContentState, EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+
 import PostRegisterForm from '../../components/write/PostRegisterForm';
 import {
   changeField, initialize, writeApply, updateApply,

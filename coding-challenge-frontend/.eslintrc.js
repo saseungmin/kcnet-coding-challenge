@@ -47,5 +47,6 @@ module.exports = {
     'no-underscore-dangle': ["error", { "allow": ["_id"] }],
     'react/prop-types': 'off',
     "no-shadow": "off",
+    "react/jsx-props-no-spreading": "off",
   },
 };

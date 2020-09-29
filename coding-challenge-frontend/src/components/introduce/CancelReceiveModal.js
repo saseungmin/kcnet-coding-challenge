@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ModalWindow from '../common/ModalWindow';
 
 const CancelReceiveModal = ({ visible, onConfirm, onCancel }) => {
