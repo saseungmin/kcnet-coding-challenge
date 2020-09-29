@@ -9,7 +9,7 @@ const MyPrivacyUpdateFailModal = ({ visible, onConfirm }) => {
     <ModalWindow
       visible={visible}
       title="수정 실패"
-      description="내 정보 수정에 실패하였습니다."
+      description="수정에 실패하였습니다!"
       onConfirm={onConfirm}
       danger={isDanger}
     />

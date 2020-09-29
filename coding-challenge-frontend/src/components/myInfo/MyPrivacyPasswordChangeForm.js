@@ -76,6 +76,7 @@ const ButtonBlock = styled.div`
 const ERROR_MESSAGE = {
   password: '비밀번호를 입력하세요.',
   passwordConfirm: '비밀번호 확인을 입력하세요.',
+  differentPassword: '비밀번호가 일치하지 않습니다.',
 };
 
 const MyPrivacyPasswordChangeForm = ({
@@ -127,6 +128,7 @@ const MyPrivacyPasswordChangeForm = ({
               onChange={handlechangePassword}
             />
             <ErrorSmallBlock>{error && error === 'newPasswordConfirm' && ERROR_MESSAGE.passwordConfirm}</ErrorSmallBlock>
+            <ErrorSmallBlock>{error && error === 'unCorrectPassword' && ERROR_MESSAGE.differentPassword}</ErrorSmallBlock>
           </MyPasswordChangeItemBlock>
           <ButtonBlock>
             <Button teal style={{ marginLeft: '1rem' }} type="submit">

@@ -15,19 +15,20 @@ import { tempSetUser } from '../../modules/user';
 
 const MyPrivacyContainer = () => {
   const {
-    user, orginalUser, checkLoading, userError, auth, authError, password, passwordForm,
+    user, checkLoading, myInfo,
   } = useSelector(
     ({ user, myInfo, loading }) => ({
       user: user.user,
-      orginalUser: myInfo.originalUser,
+      myInfo,
       checkLoading: loading['user/CHECK'],
-      userError: myInfo.userError,
-      auth: myInfo.auth,
-      authError: myInfo.authError,
-      password: myInfo.password,
-      passwordForm: myInfo.passwordForm,
     }),
   );
+
+  const {
+    originalUser, userAuth, userError, auth, authError, password, passwordForm, passwordAuth,
+    passwordAuthError,
+  } = myInfo;
+
   const dispatch = useDispatch();
 
   const [error, setError] = useState(null);
@@ -37,6 +38,7 @@ const MyPrivacyContainer = () => {
     passwordModal: false,
     confirmModal: false,
     changePasswordModal: false,
+    successModal: false,
   });
 
   useEffect(() => {
@@ -64,19 +66,19 @@ const MyPrivacyContainer = () => {
     });
   };
 
-  const setLocalStrage = (orginalUser) => {
+  const setLocalStrage = (originalUser) => {
     try {
       localStorage.setItem(
         'user',
-        JSON.stringify({ userid: orginalUser.userid, username: orginalUser.username }),
+        JSON.stringify({ userid: originalUser.userid, username: originalUser.username }),
       );
     } catch (e) {
       console.log('localStorage 오류');
     }
   };
 
-  const validate = (orginalUser) => {
-    const { apikey, username } = orginalUser;
+  const validate = (originalUser) => {
+    const { apikey, username } = originalUser;
 
     if (username.trim() === '') {
       setError('name');
@@ -89,15 +91,15 @@ const MyPrivacyContainer = () => {
   };
 
   const onUpdate = useCallback(() => {
-    const validated = validate(orginalUser);
+    const validated = validate(originalUser);
     if (!validated) {
       return;
     }
-    dispatch(updateUser(orginalUser));
-    setLocalStrage(orginalUser);
+    dispatch(updateUser(originalUser));
+    setLocalStrage(originalUser);
 
-    dispatch(tempSetUser(orginalUser));
-  }, [dispatch, orginalUser]);
+    dispatch(tempSetUser(originalUser));
+  }, [dispatch, originalUser]);
 
   useEffect(() => {
     if (userError) {
@@ -107,7 +109,8 @@ const MyPrivacyContainer = () => {
         errorModal: true,
       });
     }
-  }, [userError, modals]);
+    // eslint-disable-next-line
+  }, [userError]);
 
   useEffect(() => {
     if (error && error === 'password') {
@@ -190,10 +193,41 @@ const MyPrivacyContainer = () => {
     }
   }, [authError]);
 
+  useEffect(() => {
+    if (userAuth) {
+      setModals({
+        ...modals,
+        updateModal: true,
+      });
+    }
+    // eslint-disable-next-line
+  }, [userAuth]);
+
+  useEffect(() => {
+    if (passwordAuth) {
+      setModals({
+        ...modals,
+        updateModal: true,
+      });
+    }
+    // eslint-disable-next-line
+  }, [passwordAuth]);
+
+  useEffect(() => {
+    if (passwordAuthError) {
+      setModals({
+        ...modals,
+        updateModal: false,
+        errorModal: true,
+      });
+    }
+    // eslint-disable-next-line
+  }, [passwordAuthError]);
+
   return (
     <MyPrivacyTemplate
       auth={auth}
-      user={orginalUser}
+      user={originalUser}
       passwordForm={passwordForm}
       onChange={onChangeUser}
       error={error}
