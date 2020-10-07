@@ -1,8 +1,9 @@
 import { createAction, handleActions } from 'redux-actions';
+
 import { takeLatest } from 'redux-saga/effects';
 
-import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
 import * as applyAPI from '../lib/api/apply';
+import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
 
 const [READ_APPLY, READ_APPLY_SUCCESS, READ_APPLY_FAILURE] = createRequestActionTypes(
   'apply/READ_APPLY',

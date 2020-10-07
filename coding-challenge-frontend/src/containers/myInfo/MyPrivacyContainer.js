@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
+
 import { useSelector, useDispatch } from 'react-redux';
 
-import MyPrivacyTemplate from '../../components/myInfo/MyPrivacyTemplate';
 import {
   changePassword,
   changePasswordForm,
@@ -12,6 +12,8 @@ import {
   updateUser,
 } from '../../modules/myInfo';
 import { tempSetUser } from '../../modules/user';
+
+import MyPrivacyTemplate from '../../components/myInfo/MyPrivacyTemplate';
 
 const MyPrivacyContainer = () => {
   const {

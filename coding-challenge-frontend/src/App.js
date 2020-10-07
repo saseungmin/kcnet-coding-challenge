@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Route } from 'react-router-dom';
+
 import { Helmet } from 'react-helmet-async';
 
 import MainPage from './pages/MainPage';

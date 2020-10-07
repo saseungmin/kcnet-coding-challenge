@@ -1,19 +1,22 @@
 import React, {
   useCallback, useEffect, useState, useRef,
 } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import { withRouter } from 'react-router-dom';
 
-import { convertToRaw, ContentState, EditorState } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import { convertToRaw, ContentState, EditorState } from 'draft-js';
 
-import PostRegisterForm from '../../components/write/PostRegisterForm';
 import {
   changeField, initialize, writeApply, updateApply,
 } from '../../modules/write';
 
+import PostRegisterForm from '../../components/write/PostRegisterForm';
+
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 // FIXME: 리팩토링 하기
 const ApplyWriteFrom = ({ history }) => {
   const dispatch = useDispatch();

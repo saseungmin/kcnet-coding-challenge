@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Helmet } from 'react-helmet-async';
 
 import AuthTemplate from '../components/auth/AuthTemplate';
@@ -6,6 +7,7 @@ import LoginForm from '../containers/auth/LoginForm';
 
 const LoginPage = () => {
   const toggle = false;
+
   return (
     <>
       <Helmet>
