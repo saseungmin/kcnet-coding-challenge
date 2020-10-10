@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
-import User from "../models/user";
+import jwt from 'jsonwebtoken';
+import User from '../models/user';
 
 // 토큰 인증
 const jwtMiddleware = async (ctx, next) => {
-  const token = ctx.cookies.get("access_token");
+  const token = ctx.cookies.get('access_token');
   if (!token) return next();
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -26,7 +26,7 @@ const jwtMiddleware = async (ctx, next) => {
       // NOTE: 2일 미만 재발급
       const user = await User.findById(decoded._id);
       const token = user.generateToken();
-      ctx.cookies.set("access_token", token, {
+      ctx.cookies.set('access_token', token, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
       });

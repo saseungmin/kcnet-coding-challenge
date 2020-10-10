@@ -1,14 +1,15 @@
-import Joi from "@hapi/joi";
-import User from "../../models/user";
+import Joi from '@hapi/joi';
+import User from '../../models/user';
 
 export const register = async (ctx) => {
-  //validate
+  // validate
   const schema = Joi.object().keys({
-    userid: Joi.string().alphanum().min(3).max(20).required(),
+    userid: Joi.string().alphanum().min(3).max(20)
+      .required(),
     username: Joi.string().required(),
     password: Joi.string().required(),
     apikey: Joi.string().required().messages({
-      "string.empty": "apikey를 입력해주세요.",
+      'string.empty': 'apikey를 입력해주세요.',
     }),
   });
 
@@ -19,11 +20,13 @@ export const register = async (ctx) => {
     return;
   }
 
-  const { userid, username, password, apikey, userstatus } = ctx.request.body;
+  const {
+    userid, username, password, apikey, userstatus,
+  } = ctx.request.body;
   try {
     const exists = await User.findByUserid(userid);
     if (exists) {
-      ctx.status = 409; //Conflict
+      ctx.status = 409; // Conflict
       return;
     }
     const user = new User({
@@ -40,7 +43,7 @@ export const register = async (ctx) => {
     ctx.body = user.serialize();
 
     const token = user.generateToken();
-    ctx.cookies.set("access_token", token, {
+    ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
     });
@@ -71,7 +74,7 @@ export const login = async (ctx) => {
     ctx.body = user.serialize();
 
     const token = user.generateToken();
-    ctx.cookies.set("access_token", token, {
+    ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
     });
@@ -83,7 +86,7 @@ export const login = async (ctx) => {
 // 로그인 중 체크
 export const check = async (ctx) => {
   const { user } = ctx.state;
-  
+
   if (!user) {
     ctx.status = 401;
     return;
@@ -92,6 +95,6 @@ export const check = async (ctx) => {
 };
 
 export const logout = async (ctx) => {
-  ctx.cookies.set("access_token");
+  ctx.cookies.set('access_token');
   ctx.status = 204; // no content
 };

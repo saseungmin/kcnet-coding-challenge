@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const UserSchema = new Schema({
   userid: {
@@ -22,7 +22,7 @@ const UserSchema = new Schema({
   },
   userstatus: {
     type: String,
-    default: "member",
+    default: 'member',
   },
   createdAt: {
     type: Date,
@@ -67,11 +67,11 @@ UserSchema.methods.generateToken = function () {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: "7d",
-    }
+      expiresIn: '7d',
+    },
   );
   return token;
 };
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 export default User;

@@ -1,14 +1,14 @@
-import Rank from "../../models/rank";
-import mongoose from "mongoose";
-import Joi from "@hapi/joi";
-import User from "../../models/user";
-import bcrypt from "bcrypt";
+import mongoose from 'mongoose';
+import Joi from '@hapi/joi';
+import bcrypt from 'bcrypt';
+import User from '../../models/user';
+import Rank from '../../models/rank';
 
 const { ObjectId } = mongoose.Types;
 
 // NOTE : myinfo페이지 내가 접수한 챌린지
 export const myApplyList = async (ctx) => {
-  const page = parseInt(ctx.query.page || "1", 10);
+  const page = parseInt(ctx.query.page || '1', 10);
 
   if (page < 1) {
     ctx.status = 400;
@@ -16,24 +16,24 @@ export const myApplyList = async (ctx) => {
   }
 
   try {
-    const exists = await Rank.find({ "user._id": ObjectId(ctx.state.user._id) })
+    const exists = await Rank.find({ 'user._id': ObjectId(ctx.state.user._id) })
       .sort({ _id: -1 })
       .limit(3)
       .skip((page - 1) * 3)
       .lean()
       .populate(
-        "applyId",
-        "langs _id applystartday applyendday teststartday testendday title"
+        'applyId',
+        'langs _id applystartday applyendday teststartday testendday title',
       )
       .exec();
 
     const receiveCount = await Rank.countDocuments({
-      "user._id": ObjectId(ctx.state.user._id),
+      'user._id': ObjectId(ctx.state.user._id),
     }).exec();
 
     ctx.set(
-      "My-Info-Receive-Last-Page",
-      Math.ceil(receiveCount === 0 ? 1 : receiveCount / 3)
+      'My-Info-Receive-Last-Page',
+      Math.ceil(receiveCount === 0 ? 1 : receiveCount / 3),
     );
 
     ctx.body = exists;
@@ -76,7 +76,7 @@ export const updateUser = async (ctx) => {
 
     const token = user.generateToken();
 
-    ctx.cookies.set("access_token", token, {
+    ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
     });
@@ -111,13 +111,12 @@ export const passwordCheck = async (ctx) => {
 };
 
 export const updatePassword = async (ctx) => {
-  const {userid, password} = ctx.request.body;
+  const { userid, password } = ctx.request.body;
 
   try {
-
     const hash = await bcrypt.hash(password, 10);
 
-    const newUser = await User.findOneAndUpdate({userid}, {hashedPassword: hash}, {
+    const newUser = await User.findOneAndUpdate({ userid }, { hashedPassword: hash }, {
       new: true,
     }).exec();
 
