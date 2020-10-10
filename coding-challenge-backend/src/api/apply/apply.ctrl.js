@@ -53,7 +53,7 @@ export const getApplyId = async (ctx, next) => {
       return;
     }
     ctx.state.apply = apply;
-    next();
+    return next();
   } catch (error) {
     ctx.throw(500, error);
   }

@@ -43,5 +43,6 @@ module.exports = {
     'no-shadow': 'off',
     'import/no-absolute-path': 'error', // import 절대경로 error
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'consistent-return': 'off', // return 항상 값을 지정하거나 지정하지 않는 require 문 off
   },
 };
