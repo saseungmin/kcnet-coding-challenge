@@ -1,14 +1,14 @@
-import Router from "koa-router";
-import * as rankCtrl from "./rank.ctrl";
-import checkLoggedIn from "../../lib/checkLoggedIn";
+import Router from 'koa-router';
+import * as rankCtrl from './rank.ctrl';
+import checkLoggedIn from '../../lib/checkLoggedIn';
 
 const rank = new Router();
-rank.post("/", checkLoggedIn, rankCtrl.receive);
-rank.get("/list/:id", rankCtrl.rankList);
+rank.post('/', checkLoggedIn, rankCtrl.receive);
+rank.get('/list/:id', rankCtrl.rankList);
 
 const receive = new Router();
-receive.get("/", rankCtrl.getReceiveUser);
-receive.delete("/", rankCtrl.cancelReceive);
-rank.use("/:id", checkLoggedIn, receive.routes());
+receive.get('/', rankCtrl.getReceiveUser);
+receive.delete('/', rankCtrl.cancelReceive);
+rank.use('/:id', checkLoggedIn, receive.routes());
 
 export default rank;

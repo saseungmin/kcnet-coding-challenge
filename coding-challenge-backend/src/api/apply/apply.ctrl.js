@@ -1,46 +1,44 @@
-import Apply from "../../models/apply";
-import Joi from "@hapi/joi";
-import sanitizeHtml from "sanitize-html";
-import mongoose from "mongoose";
-import Rank from "../../models/rank";
+import Joi from '@hapi/joi';
+import sanitizeHtml from 'sanitize-html';
+import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
-import multer from "@koa/multer";
+import multer from '@koa/multer';
+import Rank from '../../models/rank';
+import Apply from '../../models/apply';
 
 const { ObjectId } = mongoose.Types;
 
 fs.readdir('uploads', (error) => {
-  if(error){
+  if (error) {
     console.log('uploads 폴더가 존재하지 않아 생성합니다.');
     fs.mkdirSync('uploads');
   }
-})
+});
 
 export const upload = multer({
   storage: multer.diskStorage({
-    destination(req, file, cb){
+    destination(req, file, cb) {
       cb(null, 'uploads/');
     },
-    filename(req, file, cb){
+    filename(req, file, cb) {
       const ext = path.extname(file.originalname);
       cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
     },
   }),
   // NOTE : 10MB 제한
-  limits: {fileSize: 5*1024*1024},
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
-
 
 export const uploadImg = async (ctx) => {
   try {
     ctx.status = 200;
-    ctx.body = {data:{link: `/img/${ctx.request.file.filename}`}};
+    ctx.body = { data: { link: `/img/${ctx.request.file.filename}` } };
   } catch (error) {
     ctx.status = 400;
     ctx.body = error.message;
   }
-}
-
+};
 
 export const getApplyId = async (ctx, next) => {
   const { id } = ctx.params;
@@ -50,7 +48,7 @@ export const getApplyId = async (ctx, next) => {
   }
   try {
     const apply = await Apply.findById(id);
-    if(!apply){
+    if (!apply) {
       ctx.status = 404;
       return;
     }
@@ -63,62 +61,62 @@ export const getApplyId = async (ctx, next) => {
 
 const sanitizeOption = {
   allowedTags: [
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "blockquote",
-    "p",
-    "a",
-    "ul",
-    "ol",
-    "nl",
-    "li",
-    "b",
-    "i",
-    "strong",
-    "em",
-    "strike",
-    "abbr",
-    "code",
-    "hr",
-    "br",
-    "div",
-    "table",
-    "thead",
-    "caption",
-    "tbody",
-    "tr",
-    "th",
-    "td",
-    "pre",
-    "iframe",
-    "img",
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'blockquote',
+    'p',
+    'a',
+    'ul',
+    'ol',
+    'nl',
+    'li',
+    'b',
+    'i',
+    'strong',
+    'em',
+    'strike',
+    'abbr',
+    'code',
+    'hr',
+    'br',
+    'div',
+    'table',
+    'thead',
+    'caption',
+    'tbody',
+    'tr',
+    'th',
+    'td',
+    'pre',
+    'iframe',
+    'img',
   ],
-  disallowedTagsMode: "discard",
+  disallowedTagsMode: 'discard',
   allowedAttributes: {
-    a: ["href", "name", "target"],
+    a: ['href', 'name', 'target'],
     // We don't currently allow img itself by default, but this
     // would make sense if we did. You could add srcset here,
     // and if you do the URL is checked for safety
-    img: ["src"],
+    img: ['src'],
   },
   // Lots of these won't come up by default because we don't allow them
   selfClosing: [
-    "img",
-    "br",
-    "hr",
-    "area",
-    "base",
-    "basefont",
-    "input",
-    "link",
-    "meta",
+    'img',
+    'br',
+    'hr',
+    'area',
+    'base',
+    'basefont',
+    'input',
+    'link',
+    'meta',
   ],
   // URL schemes we permit
-  allowedSchemes: ["http", "https", "ftp", "mailto"],
+  allowedSchemes: ['http', 'https', 'ftp', 'mailto'],
   allowedSchemesByTag: {},
-  allowedSchemesAppliedToAttributes: ["href", "src", "cite"],
+  allowedSchemesAppliedToAttributes: ['href', 'src', 'cite'],
   allowProtocolRelative: true,
   enforceHtmlBoundary: false,
 };
@@ -177,9 +175,8 @@ export const write = async (ctx) => {
 };
 
 export const list = async (ctx) => {
+  const page = parseInt(ctx.query.page || '1', 10);
 
-  const page = parseInt(ctx.query.page || "1", 10);
-  
   if (page < 1) {
     ctx.status = 400;
     return;
@@ -202,7 +199,7 @@ export const list = async (ctx) => {
     // 전체 페이지
     const applyCount = await Apply.countDocuments(query).exec();
     // 마지막 페이지
-    ctx.set("Last-Page", Math.ceil(applyCount / 5));
+    ctx.set('Last-Page', Math.ceil(applyCount / 5));
     ctx.body = applys.map((apply) => ({
       ...apply,
       content: removeHtmlAndShorten(apply.content),
@@ -213,7 +210,7 @@ export const list = async (ctx) => {
 };
 
 export const read = (ctx) => {
-    ctx.body = ctx.state.apply;
+  ctx.body = ctx.state.apply;
 };
 
 export const update = async (ctx) => {
@@ -253,7 +250,7 @@ export const remove = async (ctx) => {
   const { id } = ctx.params;
   try {
     await Apply.findByIdAndRemove(id).exec();
-    await Rank.deleteMany({"applyId":{$in: ObjectId(id)}})
+    await Rank.deleteMany({ applyId: { $in: ObjectId(id) } });
     ctx.status = 204;
   } catch (error) {
     ctx.throw(500, error);

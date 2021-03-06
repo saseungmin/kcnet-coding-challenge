@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -16,5 +16,5 @@ const ApplySchema = new Schema({
   },
 });
 
-const Apply = mongoose.model("Apply", ApplySchema);
+const Apply = mongoose.model('Apply', ApplySchema);
 export default Apply;

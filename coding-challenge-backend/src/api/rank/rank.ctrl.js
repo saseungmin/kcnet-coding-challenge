@@ -1,12 +1,12 @@
-//import Joi from "@hapi/joi";
-import Rank from "../../models/rank";
-import Apply from "../../models/apply";
-import mongoose from "mongoose";
+// import Joi from "@hapi/joi";
+import mongoose from 'mongoose';
+import Rank from '../../models/rank';
+import Apply from '../../models/apply';
 
 const { ObjectId } = mongoose.Types;
 
 export const receive = async (ctx) => {
-  //validate
+  // validate
   //   const schema = Joi.object().keys({
   //     score: Joi.number().required(),
   //     lang: Joi.string().required(),
@@ -47,7 +47,7 @@ export const getReceiveUser = async (ctx) => {
     const exists = await Rank.findOne({
       $and: [
         { applyId: ObjectId(id) },
-        { "user._id": ObjectId(ctx.state.user._id) },
+        { 'user._id': ObjectId(ctx.state.user._id) },
       ],
     }).exec();
 

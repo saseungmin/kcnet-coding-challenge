@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 const RankSchema = new Schema({
   score: {
@@ -7,16 +7,16 @@ const RankSchema = new Schema({
   },
   lang: {
     type: String,
-    default: 'JavaScript'
+    default: 'JavaScript',
   },
   applyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Apply' },
   user: {
     _id: mongoose.Types.ObjectId,
     userid: String,
-    username: String,    
+    username: String,
     userstatus: String,
   },
 });
 
-const Rank = mongoose.model("Rank", RankSchema);
+const Rank = mongoose.model('Rank', RankSchema);
 export default Rank;

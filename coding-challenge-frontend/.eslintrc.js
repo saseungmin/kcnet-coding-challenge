@@ -4,7 +4,6 @@ module.exports = {
     es6: true,
   },
   extends: ['plugin:react/recommended', 'airbnb'],
-  plugins: ['react'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -19,7 +18,7 @@ module.exports = {
     Feature: 'readonly',
     Scenario: 'readonly',
   },
-  plugins: ['react'],
+  plugins: ['react', 'import'],
   ignorePatterns: ['node_modules/'],
   rules: {
     indent: ['error', 2],
